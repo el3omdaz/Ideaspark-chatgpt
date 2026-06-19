@@ -1,0 +1,18 @@
+{
+  "appId": "com.ideaspark.app",
+  "appName": "IdeaSpark",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "automatic",
+    "backgroundColor": "#08080f"
+  },
+  "android": {
+    "backgroundColor": "#08080f"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0,
+      "backgroundColor": "#08080f"
+    }
+  }
+}

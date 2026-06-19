@@ -1,0 +1,3429 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="IdeaSpark">
+<meta name="theme-color" content="#08080f">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>IdeaSpark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+
+/* ═══ THEMES ═══ */
+:root{
+  --bg:#08080f;--s1:#0f0f1a;--s2:#161624;--s3:#1e1e30;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --accent:#7b6cf0;--accent2:#0fd9a0;--accent3:#f07b6c;
+  --text:#f4f4fb;--text2:#b8b8d0;--text3:#8585a0;
+  --r:16px;--shadow:0 4px 20px rgba(0,0,0,.4);
+  --on-accent:#fff;
+}
+/* White */
+[data-theme="white"]{
+  --bg:#f8f8fa;--s1:#ffffff;--s2:#f0f0f5;--s3:#e8e8f0;
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.15);
+  --accent:#7b6cf0;--accent2:#0aa876;--accent3:#e05a4a;
+  --text:#111122;--text2:#414151;--text3:#666878;
+  --shadow:0 4px 20px rgba(0,0,0,.08);
+}
+/* Beige Premium — theme 1.jpeg */
+[data-theme="beige"]{
+  --bg:#f2e9dc;--s1:#fef9f0;--s2:#e8ddd0;--s3:#ddd0c0;
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.14);
+  --accent:#8b5e3c;--accent2:#5a8a5e;--accent3:#c0522a;
+  --text:#2a1f12;--text2:#5f4a36;--text3:#7c6958;
+  --shadow:0 4px 20px rgba(0,0,0,.07);
+}
+/* Forest Teal — 45Vhrh-BiPQ.jpg */
+[data-theme="forest"]{
+  --bg:#243d3c;--s1:#2e4e4d;--s2:#365c5a;--s3:#3e6a68;
+  --border:rgba(255,255,255,.09);--border2:rgba(255,255,255,.16);
+  --accent:#7dc4b8;--accent2:#a3c49a;--accent3:#e8856a;
+  --text:#f2fbfa;--text2:#c4dcda;--text3:#92b6b2;
+  --shadow:0 4px 20px rgba(0,0,0,.4);
+  --on-accent:#0c2a26;
+}
+/* Rose Blush — 4JoJPOrFcDc.jpg */
+[data-theme="rose"]{
+  --bg:#f5e9e9;--s1:#fffafa;--s2:#eedcdc;--s3:#e4cccc;
+  --border:rgba(0,0,0,.07);--border2:rgba(0,0,0,.13);
+  --accent:#b05070;--accent2:#7a9e6a;--accent3:#c05030;
+  --text:#2a1818;--text2:#664747;--text3:#856767;
+  --shadow:0 4px 20px rgba(0,0,0,.07);
+}
+/* Ocean Blue — 6mbKDe3zoec.jpg */
+[data-theme="ocean"]{
+  --bg:#0d3d6e;--s1:#145da1;--s2:#1a6fba;--s3:#2080cc;
+  --border:rgba(255,255,255,.1);--border2:rgba(255,255,255,.2);
+  --accent:#7dd4f8;--accent2:#5de8c0;--accent3:#f87878;
+  --text:#f5fbff;--text2:#c4e2f6;--text3:#8ec1e4;
+  --shadow:0 4px 20px rgba(0,0,0,.5);
+  --on-accent:#06283c;
+}
+/* Warm Noir — 6zdU_9Y7I1o.jpg */
+[data-theme="noir"]{
+  --bg:#1a1710;--s1:#24201a;--s2:#2e2922;--s3:#38332a;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --accent:#d4a84b;--accent2:#6dba8a;--accent3:#e06050;
+  --text:#f5efe6;--text2:#c7bca9;--text3:#948979;
+  --shadow:0 4px 20px rgba(0,0,0,.6);
+  --on-accent:#221806;
+}
+/* Velvet Purple — hXx-AATLxh8.jpg */
+[data-theme="velvet"]{
+  --bg:#1a0820;--s1:#290f32;--s2:#36184a;--s3:#44205e;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.16);
+  --accent:#c48be0;--accent2:#7ad4c8;--accent3:#f07878;
+  --text:#f8f0ff;--text2:#d5b5e6;--text3:#a97dc2;
+  --shadow:0 4px 20px rgba(0,0,0,.6);
+  --on-accent:#2a0e36;
+}
+/* Sky Blue — 640w-0yKSTws6XKo.jpg */
+[data-theme="sky"]{
+  --bg:#0e2d4a;--s1:#173d62;--s2:#1f4f7a;--s3:#286092;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.16);
+  --accent:#58aadc;--accent2:#4dd4a8;--accent3:#f0805a;
+  --text:#f2f9ff;--text2:#b9dbef;--text3:#85b6d2;
+  --shadow:0 4px 20px rgba(0,0,0,.5);
+  --on-accent:#071e30;
+}
+/* Deep Navy — images(1).jfif */
+[data-theme="navy"]{
+  --bg:#07013f;--s1:#100858;--s2:#1a1070;--s3:#241888;
+  --border:rgba(255,255,255,.09);--border2:rgba(255,255,255,.17);
+  --accent:#8888ff;--accent2:#50d8c0;--accent3:#f07880;
+  --text:#f0f0ff;--text2:#c6c6ea;--text3:#9292ce;
+  --shadow:0 4px 20px rgba(0,0,0,.6);
+  --on-accent:#0a0a30;
+}
+/* Neon ⚡ */
+[data-theme="neon"]{
+  --bg:#040408;--s1:#0a0a14;--s2:#0f0f1e;--s3:#141428;
+  --border:rgba(0,255,180,.12);--border2:rgba(0,255,180,.25);
+  --accent:#00ffb4;--accent2:#ff00e5;--accent3:#ff3c3c;
+  --text:#ecfff2;--text2:#9cf0c1;--text3:#69c993;
+  --shadow:0 4px 30px rgba(0,255,180,.2);
+  --on-accent:#04130d;
+}
+/* Sakura 🌸 — بناتي وردي فاتح */
+[data-theme="sakura"]{
+  --bg:#fdf0f5;--s1:#fff5f9;--s2:#f5e0ec;--s3:#ead0e0;
+  --border:rgba(180,80,120,.1);--border2:rgba(180,80,120,.18);
+  --accent:#d4629a;--accent2:#a06cc8;--accent3:#e05555;
+  --text:#3a1828;--text2:#7d4665;--text3:#9a6c84;
+  --shadow:0 4px 20px rgba(180,80,120,.12);
+}
+/* Lavender 💜 — بناتي بنفسجي */
+[data-theme="lavender"]{
+  --bg:#f4f0fc;--s1:#faf8ff;--s2:#ebe4f8;--s3:#ddd4f0;
+  --border:rgba(130,80,200,.1);--border2:rgba(130,80,200,.18);
+  --accent:#9b6de0;--accent2:#d470a8;--accent3:#e06060;
+  --text:#28183a;--text2:#67517e;--text3:#80669b;
+  --shadow:0 4px 20px rgba(130,80,200,.1);
+}
+/* Sienna 🍊 — برتقالي على بني بيج فاتح */
+[data-theme="sienna"]{
+  --bg:#f8f0e8;--s1:#fffaf4;--s2:#ede0d0;--s3:#e0cfba;
+  --border:rgba(160,80,20,.09);--border2:rgba(160,80,20,.16);
+  --accent:#c8622a;--accent2:#8a7a3a;--accent3:#b04040;
+  --text:#2e1a08;--text2:#704829;--text3:#8d6848;
+  --shadow:0 4px 20px rgba(160,80,20,.1);
+}
+/* Sunset 🌅 — برتقالي/وردي متدرج دافئ */
+[data-theme="sunset"]{
+  --bg:#2a1530;--s1:#3a1f3e;--s2:#4a2a4c;--s3:#5c3658;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.16);
+  --accent:#ff8a5b;--accent2:#ff5e8e;--accent3:#ffd166;
+  --text:#fff0e8;--text2:#d9a8b8;--text3:#8a5e6e;
+  --shadow:0 4px 24px rgba(255,94,142,.18);
+}
+/* True Black ⚫ — AMOLED */
+[data-theme="trueblack"]{
+  --bg:#000000;--s1:#0a0a0a;--s2:#141414;--s3:#1e1e1e;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.15);
+  --accent:#7b6cf0;--accent2:#0fd9a0;--accent3:#f07b6c;
+  --text:#ffffff;--text2:#9a9a9a;--text3:#555555;
+  --shadow:0 4px 20px rgba(0,0,0,.6);
+}
+/* Sage 🌿 — أخضر فاتح هادئ */
+[data-theme="sage"]{
+  --bg:#eef3ec;--s1:#f8fbf7;--s2:#e2ebe0;--s3:#d4e2d1;
+  --border:rgba(60,100,60,.09);--border2:rgba(60,100,60,.16);
+  --accent:#6b9b6f;--accent2:#5a8ca8;--accent3:#c9764f;
+  --text:#22301f;--text2:#5c7257;--text3:#8aa085;
+  --shadow:0 4px 20px rgba(60,100,60,.08);
+}
+/* Espresso ☕ — بني قهوة دافئ */
+[data-theme="espresso"]{
+  --bg:#1c130c;--s1:#291c12;--s2:#36261a;--s3:#443322;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
+  --accent:#d9a366;--accent2:#a8c08a;--accent3:#e0735a;
+  --text:#f4e9dd;--text2:#b89a82;--text3:#705c4a;
+  --shadow:0 4px 24px rgba(0,0,0,.5);
+}
+
+html,body{height:100%;background:var(--bg);color:var(--text);overflow:hidden;transition:background .3s,color .3s}
+body{font-family:'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif;font-size:17px;-webkit-font-smoothing:antialiased}
+.font-heading,.logo-name,.splash-name,.form-title,.settings-title,.detail-title,.card-title,.wz-summary-title,.empty-title{font-family:'Noto Kufi Arabic','IBM Plex Sans Arabic',sans-serif}
+.app{max-width:430px;height:100vh;height:100dvh;margin:0 auto;background:var(--bg);display:flex;flex-direction:column;overflow:hidden;position:relative;transition:background .3s}
+
+/* Header */
+.hdr{padding-top:max(env(safe-area-inset-top,44px),44px);padding-left:20px;padding-right:20px;background:linear-gradient(to bottom,var(--bg) 70%,transparent);position:relative;z-index:100;flex-shrink:0}
+.hdr-inner{display:flex;align-items:center;justify-content:space-between;padding-bottom:14px;gap:8px}
+.logo{display:flex;align-items:center;gap:10px;flex:1}
+.logo-icon{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.logo-name{font-size:19px;font-weight:800;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.3px}
+.hdr-btns{display:flex;gap:6px;align-items:center}
+.icon-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border2);background:var(--s2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .18s;flex-shrink:0}
+.icon-btn.active,.icon-btn:active{border-color:var(--accent);color:var(--accent)}
+
+/* Content */
+.content{flex:1;padding:16px 20px;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(88px + env(safe-area-inset-bottom,16px))}
+
+/* Bottom nav */
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,var(--bg) 65%,transparent);padding:10px 20px;padding-bottom:max(env(safe-area-inset-bottom,16px),16px);display:flex;align-items:center;justify-content:space-around;z-index:100}
+.nav-btn{background:none;border:none;color:var(--text3);font-family:inherit;font-size:11px;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 16px;border-radius:12px;transition:color .18s}
+.nav-btn.active{color:var(--accent)}
+.nav-icon{font-size:20px}
+
+/* FAB */
+.fab-wrap{position:relative}
+.fab{width:56px;height:56px;border-radius:18px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 72%,var(--bg)));color:var(--on-accent);font-size:28px;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px color-mix(in srgb,var(--accent) 55%,transparent);transition:all .18s;transform:translateY(-4px);user-select:none}
+.fab:active{transform:translateY(-2px) scale(.96)}
+.fab-menu{position:absolute;bottom:64px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;align-items:center;z-index:200}
+.fab-menu.hidden{display:none}
+.fab-item{background:var(--s1);border:1px solid var(--border2);border-radius:14px;padding:10px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;white-space:nowrap;box-shadow:var(--shadow);transition:all .18s;font-size:15px;font-weight:600;color:var(--text)}
+.fab-item:active{transform:scale(.97)}
+.fab-item-icon{font-size:20px}
+
+/* Screens */
+.screen{display:none}
+.screen.active{display:block}
+
+/* Search + chips */
+.search-box{width:100%;background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:10px 14px;color:var(--text);font-family:inherit;font-size:15px;outline:none;margin-bottom:10px;transition:border .18s}
+.search-box:focus{border-color:var(--accent)}
+.search-box::placeholder{color:var(--text3)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;margin-bottom:14px}
+.chips::-webkit-scrollbar{display:none}
+.chip{padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--s1);color:var(--text2);cursor:pointer;font-size:13px;font-weight:600;white-space:nowrap;font-family:inherit;transition:all .18s}
+.chip.active{background:color-mix(in srgb,var(--accent) 22%,transparent);border-color:var(--accent);color:var(--accent)}
+
+/* Stats bar */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.stat-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:10px 8px;text-align:center;cursor:pointer;transition:all .18s}
+.stat-card:active,.stat-card.active{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.stat-num{font-size:20px;font-weight:800;color:var(--text);line-height:1}
+.stat-icon{font-size:15px;margin-bottom:2px}
+.stat-label{font-size:10px;color:var(--text2);font-weight:600;margin-top:3px}
+
+/* Grid/List toggle */
+.view-toggle{display:flex;gap:4px;background:var(--s2);border-radius:8px;padding:3px}
+.vt-btn{background:none;border:none;cursor:pointer;padding:5px 8px;border-radius:6px;color:var(--text3);font-size:14px;transition:all .15s}
+.vt-btn.active{background:var(--accent);color:var(--on-accent)}
+
+/* Cards - LIST view */
+.ideas-grid{display:flex;flex-direction:column;gap:10px}
+.ideas-grid.grid-view{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+.idea-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;cursor:pointer;transition:all .18s;position:relative;touch-action:pan-y;user-select:none}
+.idea-card:active{border-color:var(--border2);transform:scale(.99)}
+.idea-card.selecting{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)}
+.idea-card.swipe-left{transform:translateX(-80px)}
+
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
+.card-title{font-size:17px;font-weight:700;line-height:1.45}
+.card-desc{font-size:14.5px;color:var(--text2);margin-bottom:10px;line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-footer{display:flex;align-items:center;justify-content:space-between}
+.card-date{font-size:11px;color:var(--text3)}
+.card-dots{display:flex;align-items:center;gap:8px}
+.ai-dot{width:7px;height:7px;border-radius:50%;background:var(--accent2)}
+
+/* Grid card tweaks */
+.grid-view .idea-card{padding:12px}
+.grid-view .card-title{font-size:13px}
+.grid-view .card-desc{-webkit-line-clamp:2;font-size:11px}
+/* TABLE VIEW */
+.ideas-grid.table-view{display:block;background:var(--s2);border-radius:14px;overflow:hidden;border:1px solid var(--border)}
+.table-view .table-header,.table-view .table-row{display:grid;grid-template-columns:1fr 80px 72px;align-items:center;padding:10px 14px;gap:8px}
+.table-view .table-header{background:var(--s3);border-bottom:1px solid var(--border2);font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.04em}
+.table-view .table-row{border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.table-view .table-row:last-child{border-bottom:none}
+.table-view .table-row:active{background:var(--s3)}
+.table-view .t-title{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.table-view .t-date{font-size:11px;color:var(--text3);text-align:center}
+.table-view .t-type{display:flex;justify-content:center}
+.table-view .idea-card{display:none}
+/* STAR */
+.star-btn{background:none;border:none;cursor:pointer;font-size:15px;opacity:.35;padding:4px;border-radius:6px;transition:opacity .15s,transform .15s;flex-shrink:0}
+.star-btn.starred{opacity:1;transform:scale(1.15)}
+/* SEARCH WRAP */
+.search-wrap{position:relative;display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.search-wrap .search-box{margin-bottom:0;flex:1}
+/* TABLE SORT */
+.table-view .table-header span{cursor:pointer;user-select:none;display:flex;align-items:center;gap:3px}
+.sort-asc::after{content:'↑';font-size:10px}
+.sort-desc::after{content:'↓';font-size:10px}
+.trash-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.trash-item:last-child{border-bottom:none}
+.trash-item-info{flex:1;min-width:0}
+.trash-item-title{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trash-item-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.trash-item-actions{display:flex;gap:6px;flex-shrink:0}
+.trash-dot{width:8px;height:8px;border-radius:50%;background:var(--accent3);flex-shrink:0}
+.status-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700}
+.status-new{background:#6366f122;color:#818cf8;border:1px solid #6366f144}
+.status-studying{background:#f59e0b22;color:#fbbf24;border:1px solid #f59e0b44}
+.status-rejected{background:#ef444422;color:#f87171;border:1px solid #ef444444}
+.status-done{background:#10b98122;color:#34d399;border:1px solid #10b98144}
+.reminder-dot{width:7px;height:7px;border-radius:50%;background:#f59e0b;flex-shrink:0}
+.reminder-due{background:#ef4444}
+.export-btn{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:8px 14px;font-family:inherit;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;transition:background .15s}
+.export-btn:active{background:var(--s3)}
+.related-chip{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:5px 10px;font-size:12px;color:var(--text2);cursor:pointer;margin:0 4px 4px 0;transition:background .15s}
+.status-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.status-opt{padding:10px;border-radius:10px;border:1.5px solid var(--border2);background:var(--s2);cursor:pointer;text-align:center;font-size:13px;font-weight:700;transition:all .15s}
+.status-opt.active{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent)}
+
+/* Selection mode */
+.sel-checkbox{width:20px;height:20px;border-radius:50%;border:2px solid var(--border2);background:var(--s2);display:none;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s;font-size:11px}
+.selection-mode .sel-checkbox{display:flex}
+.idea-card.selecting .sel-checkbox{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.sel-bar{display:none;align-items:center;justify-content:space-between;padding:10px 20px;padding-top:max(env(safe-area-inset-top,44px),44px);background:var(--s2);border-bottom:1px solid var(--border);flex-shrink:0}
+.sel-bar.active{display:flex}
+.sel-count{font-size:14px;font-weight:700;color:var(--accent)}
+.sel-actions{display:flex;gap:8px}
+.sel-btn{background:none;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;padding:6px 12px;border-radius:8px}
+.sel-del-btn{color:var(--accent3);background:color-mix(in srgb,var(--accent3) 12%,transparent)}
+.sel-all-btn{color:var(--accent)}
+.sel-cancel-btn{color:var(--text2)}
+
+/* Swipe delete */
+.swipe-del-bg{position:absolute;inset:0;background:color-mix(in srgb,var(--accent3) 20%,transparent);border-radius:var(--r);display:flex;align-items:center;justify-content:flex-start;padding-right:20px;padding-left:20px;pointer-events:none;opacity:0;transition:opacity .15s}
+.swipe-del-bg.show{opacity:1}
+
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
+.del-btn{background:none;border:none;cursor:pointer;font-size:16px;opacity:.45;padding:4px;border-radius:6px}
+.del-btn:active{opacity:1}
+
+/* Empty */
+.empty{text-align:center;padding:60px 20px;color:var(--text2)}
+.empty-icon{font-size:40px;margin-bottom:12px}
+.empty-title{font-size:17px;font-weight:600;color:var(--text);margin-bottom:6px}
+
+/* Form */
+.form-view{display:flex;flex-direction:column;gap:18px;padding-bottom:20px}
+.form-title{font-size:22px;font-weight:800;letter-spacing:-.3px}
+/* sticky save buttons */
+.form-actions{
+  position:sticky;bottom:0;
+  background:linear-gradient(to top,var(--bg) 80%,transparent);
+  padding-top:16px;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 8px);
+  display:flex;flex-direction:column;gap:10px;margin-top:4px;
+  z-index:10;
+}
+.form-sub{font-size:15px;color:var(--text2);margin-top:4px;margin-bottom:4px;line-height:1.7}
+.field{display:flex;flex-direction:column;gap:7px}
+.field-label{font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px}
+.input,.textarea{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:14px 15px;color:var(--text);font-family:inherit;font-size:17px;outline:none;transition:border .18s;width:100%}
+.input:focus,.textarea:focus{border-color:var(--accent)}
+.input::placeholder,.textarea::placeholder{color:var(--text3)}
+.textarea{resize:none;min-height:88px;line-height:1.6}
+.field-error{font-size:13px;color:var(--accent3)}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cat-btn{padding:14px 8px;border-radius:12px;border:1.5px solid var(--border);background:var(--s1);cursor:pointer;text-align:center;font-family:inherit;font-size:13px;font-weight:700;color:var(--text2);transition:all .18s}
+.cat-btn.sel{background:color-mix(in srgb,var(--accent) 18%,transparent);border-color:var(--accent);color:var(--accent)}
+.cat-icon{font-size:24px;display:block;margin-bottom:5px}
+
+/* AI Quick idea */
+.ai-quick-area{background:color-mix(in srgb,var(--accent) 10%,transparent);border:1.5px solid color-mix(in srgb,var(--accent) 40%,transparent);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.ai-quick-label{font-size:13px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.5px}
+.ai-quick-desc{font-size:13px;color:var(--text2)}
+
+/* Buttons */
+.btn{width:100%;padding:15px;border-radius:13px;border:none;font-family:inherit;font-size:17px;font-weight:700;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-primary{background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 72%,var(--bg)));color:var(--on-accent);box-shadow:0 6px 24px color-mix(in srgb,var(--accent) 44%,transparent)}
+.btn-ghost{background:var(--s2);color:var(--text2);border:1px solid var(--border)}
+.btn-outline{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn-teal{background:color-mix(in srgb,var(--accent2) 18%,transparent);color:var(--accent2);border:1px solid color-mix(in srgb,var(--accent2) 40%,transparent)}
+.btn-danger{background:color-mix(in srgb,var(--accent3) 18%,transparent);color:var(--accent3);border:1px solid color-mix(in srgb,var(--accent3) 33%,transparent)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-sm{padding:10px 16px;font-size:14px;width:auto;border-radius:10px}
+.btn-row{display:flex;gap:10px;margin-top:16px}
+.btn-row .btn{flex:1}
+
+/* Detail */
+.back-btn{position:sticky;top:0;z-index:60;display:inline-flex;align-items:center;gap:9px;background:color-mix(in srgb,var(--s1) 72%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);color:var(--text);font-family:inherit;font-size:15px;font-weight:700;padding:8px 18px 8px 14px;border-radius:30px;cursor:pointer;margin-bottom:16px;box-shadow:0 4px 18px color-mix(in srgb,var(--accent) 16%,transparent);transition:transform .15s,border-color .15s}
+.back-btn:active{transform:scale(.95);border-color:var(--accent)}
+.back-arrow-circle{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 70%,var(--accent2)));color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex-shrink:0}
+.back-float{position:absolute;bottom:calc(22px + env(safe-area-inset-bottom,16px));right:20px;z-index:130;height:46px;padding:0 18px 0 20px;border-radius:26px;border:1.5px solid color-mix(in srgb,var(--accent) 45%,transparent);background:color-mix(in srgb,var(--s1) 84%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--accent);font-family:inherit;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;cursor:pointer;box-shadow:0 10px 28px rgba(0,0,0,.4),0 0 0 1px color-mix(in srgb,var(--accent) 10%,transparent);opacity:0;pointer-events:none;transform:translateY(14px);transition:opacity .25s,transform .25s}
+.back-float svg{transform:scaleX(-1);flex-shrink:0}
+.back-float.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+.back-float:active{transform:scale(.92)}
+.detail-title{font-size:25px;font-weight:800;line-height:1.4;margin-bottom:8px;letter-spacing:0;outline:none;border-radius:8px;padding:2px 4px;margin-inline-start:-4px;transition:background .15s}
+.detail-title:focus,.detail-summary-text:focus{background:color-mix(in srgb,var(--accent) 8%,transparent);box-shadow:0 0 0 1.5px color-mix(in srgb,var(--accent) 35%,transparent)}
+.detail-summary-text:empty:before{content:attr(data-ar-placeholder);color:var(--text3);font-style:italic}
+html[lang="en"] .detail-summary-text:empty:before{content:attr(data-en-placeholder)}
+.detail-desc{color:var(--text2);font-size:17px;line-height:1.85;margin-bottom:12px}
+.detail-meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:4px}
+.ai-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-top:14px}
+.ai-card-title{font-size:15px;font-weight:700;color:var(--accent);margin-bottom:12px;text-transform:uppercase;letter-spacing:.3px}
+.ai-text{font-size:15.5px;line-height:2;color:var(--text)}
+.ai-text h4{color:var(--text);font-size:17px;font-weight:800;margin:12px 0 8px}
+.ai-text li{margin-bottom:7px;padding-inline-start:16px;color:var(--text)}
+.ai-text p{margin-bottom:7px}
+.no-key-banner{background:color-mix(in srgb,var(--accent3) 14%,transparent);border:1px solid color-mix(in srgb,var(--accent3) 33%,transparent);border-radius:12px;padding:12px 14px;font-size:14px;color:var(--accent3);margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.analysis-off{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;font-size:14px;color:var(--text2);margin-top:14px}
+
+/* Chat */
+.chat-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);margin-top:14px;overflow:hidden}
+.chat-hdr{padding:13px 16px;border-bottom:1px solid var(--border);font-size:15px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.3px}
+.chat-summary-card{border:1px solid color-mix(in srgb,var(--accent2) 32%,transparent);background:linear-gradient(160deg,color-mix(in srgb,var(--accent2) 10%,var(--s1)),var(--s1) 75%)}
+.chat-summary-meta{font-size:11px;color:var(--text3);margin-top:10px;font-weight:600;display:flex;align-items:center;gap:6px}
+.chat-toggle{width:100%;padding:13px;border-radius:14px;border:1.5px dashed color-mix(in srgb,var(--accent2) 45%,transparent);background:color-mix(in srgb,var(--accent2) 7%,transparent);color:var(--accent2);font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:14px;transition:all .15s}
+.chat-toggle:active{transform:scale(.98);background:color-mix(in srgb,var(--accent2) 14%,transparent)}
+.chat-msgs{padding:12px 14px;display:flex;flex-direction:column;gap:10px;max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.bubble{max-width:88%;padding:11px 14px;border-radius:14px;font-size:16px;line-height:1.9}
+.bubble.user{background:color-mix(in srgb,var(--accent) 16%,var(--s2));border:1px solid color-mix(in srgb,var(--accent) 38%,transparent);color:var(--text);align-self:flex-end;border-bottom-right-radius:4px}
+.bubble.ai-bubble{background:var(--s2);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px;border:1px solid var(--border)}
+.bubble-label{font-size:10px;font-weight:700;opacity:.6;margin-bottom:3px;letter-spacing:.4px}
+.chat-thinking{align-self:flex-start;color:var(--text3);font-size:15px;font-style:italic;padding:6px 0}
+.chat-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--border)}
+.chat-input{flex:1;background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:11px 13px;color:var(--text);font-family:inherit;font-size:17px;outline:none;resize:none;line-height:1.6;max-height:110px}
+.chat-input:focus{border-color:var(--accent2)}
+.chat-input::placeholder{color:var(--text3)}
+.chat-send{background:var(--accent2);color:#08080f;border:none;border-radius:10px;padding:10px 13px;cursor:pointer;font-size:17px;align-self:flex-end;font-weight:700}
+.chat-send:disabled{opacity:.35;cursor:not-allowed}
+
+/* Settings */
+.settings-title{font-size:22px;font-weight:800;letter-spacing:-.3px;margin-bottom:22px}
+.section{background:var(--s1);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;margin-bottom:8px}
+.section-label{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;padding:16px 16px 6px;margin-top:16px}
+.srow{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border);gap:12px}
+.srow:last-child{border-bottom:none}
+.srow-block{padding:14px 16px;border-bottom:1px solid var(--border)}
+.srow-block:last-child{border-bottom:none}
+.slabel{font-size:16px;font-weight:700}
+.sdesc{font-size:14px;color:var(--text2);margin-top:4px;line-height:1.6}
+.toggle-btn{width:48px;height:28px;border-radius:14px;border:none;cursor:pointer;background:var(--s3);position:relative;transition:background .2s;flex-shrink:0}
+.toggle-btn.on{background:var(--accent)}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 4px #0005}
+.toggle-btn.on .toggle-thumb{transform:translateX(20px)}
+.lang-toggle{display:flex;gap:6px}
+.lang-opt{padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--text2);font-family:inherit;font-size:14px;cursor:pointer;font-weight:600;transition:all .18s}
+.lang-opt.active{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.api-key-status{font-size:13px;color:var(--accent2);margin-top:6px}
+.api-help-steps{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.api-step{font-size:14px;color:var(--text2)}
+.api-link{color:var(--accent);text-decoration:none;font-weight:600}
+.mode-option{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border);gap:12px;cursor:pointer}
+.mode-option:last-child{border-bottom:none}
+.mode-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s}
+.mode-dot.sel{border-color:var(--accent);background:var(--accent)}
+.mode-dot.sel::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff}
+
+/* Theme picker */
+.theme-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:14px 16px}
+.theme-swatch{width:100%;aspect-ratio:1;border-radius:12px;border:2px solid transparent;cursor:pointer;transition:all .18s;position:relative;overflow:hidden}
+.theme-swatch.active{border-color:var(--accent);transform:scale(1.08)}
+.theme-swatch::after{content:attr(data-label);position:absolute;bottom:0;left:0;right:0;font-size:9px;font-weight:700;text-align:center;padding:3px 2px;background:rgba(0,0,0,.5);color:#fff}
+
+/* Backup section */
+.backup-btn{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+
+/* ── Paywall ── */
+.pw-modal{max-width:360px;text-align:center}
+.pw-icon{width:56px;height:56px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 14px}
+.pw-title{font-size:20px;font-weight:800;margin-bottom:6px}
+.pw-sub{font-size:13px;color:var(--text2);margin-bottom:18px;line-height:1.6}
+.pw-features{text-align:right;display:flex;flex-direction:column;gap:8px;margin-bottom:20px;background:var(--s2);border-radius:14px;padding:14px}
+[dir="ltr"] .pw-features{text-align:left}
+.pw-feature{font-size:13px;display:flex;align-items:center;gap:8px}
+.pw-plans{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.pw-plan{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1.5px solid var(--border2);border-radius:14px;padding:13px 16px;cursor:pointer;transition:all .15s;background:var(--s1)}
+.pw-plan-info{flex:1;min-width:0}
+.pw-plan-title-row{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
+.pw-plan-price{flex-shrink:0;white-space:nowrap}
+.pw-plan-sub{font-size:11px;color:var(--text2);margin-top:4px;line-height:1.4}
+.pw-plan:active{transform:scale(.98)}
+.pw-plan.recommended{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)}
+.pw-plan-name{font-size:14px;font-weight:700;white-space:nowrap}
+.pw-plan-badge{font-size:10px;background:var(--accent);color:#fff;border-radius:6px;padding:2px 7px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.pw-plan-price{font-size:14px;font-weight:800;color:var(--accent)}
+.pw-plan-price small{font-size:11px;font-weight:600;color:var(--text2)}
+.pw-restore{font-size:12px;color:var(--text2);background:none;border:none;cursor:pointer;margin-top:8px;text-decoration:underline;font-family:inherit}
+.pw-close{font-size:12px;color:var(--text3);background:none;border:none;cursor:pointer;margin-top:14px;font-family:inherit}
+.pro-badge{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:8px}
+.backup-btn:last-child{border-bottom:none}
+.backup-btn:active{background:var(--s2)}
+.backup-btn-icon{font-size:20px;width:36px;height:36px;border-radius:10px;background:var(--s2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.backup-btn-info{flex:1;padding:0 12px}
+.backup-btn-label{font-size:15px;font-weight:600}
+.backup-btn-desc{font-size:13px;color:var(--text2);margin-top:2px}
+.backup-btn-arrow{color:var(--text3);font-size:16px}
+
+/* Modal */
+.overlay{position:fixed;inset:0;background:#00000088;z-index:500;display:flex;align-items:center;justify-content:center;padding:24px}
+.modal{background:var(--s2);border-radius:20px;border:1px solid var(--border2);padding:24px;width:100%;max-width:320px;animation:su .18s}
+@keyframes su{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+.modal h3{font-size:17px;font-weight:700;margin-bottom:10px}
+.modal p{color:var(--text2);font-size:14px;margin-bottom:22px;line-height:1.5}
+.modal-actions{display:flex;gap:10px}
+.modal-actions .btn{flex:1}
+
+.hidden{display:none!important}
+
+/* ── Splash Screen ── */
+.splash{
+  position:fixed;inset:0;z-index:1000;
+  height:100vh;height:100dvh;
+  background:radial-gradient(ellipse at 50% 35%,#1a0f3a 0%,#06060e 65%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:0 24px;
+  padding-top:max(env(safe-area-inset-top,30px),30px);
+  padding-bottom:max(env(safe-area-inset-bottom,16px),16px);
+  transition:opacity .5s ease,transform .5s ease;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  gap:0;
+}
+.splash.hide{opacity:0;transform:scale(1.05);pointer-events:none}
+.splash-top{display:flex;flex-direction:column;align-items:center;width:100%;flex-shrink:0}
+.splash-icon-wrap{position:relative;margin-bottom:16px;animation:splash-pop .6s cubic-bezier(.34,1.56,.64,1) both;flex-shrink:0}
+.splash-glow{position:absolute;inset:-18px;border-radius:42px;background:radial-gradient(circle,rgba(123,108,240,.35) 0%,transparent 70%);animation:glow-pulse 2.2s ease-in-out infinite}
+.splash-icon{width:76px;height:76px;border-radius:24px;background:linear-gradient(145deg,#18182e,#0e0e1c);border:1.5px solid rgba(123,108,240,.35);display:flex;align-items:center;justify-content:center;font-size:38px;position:relative;box-shadow:0 0 0 1px rgba(123,108,240,.12),0 14px 38px rgba(123,108,240,.28),inset 0 1px 0 rgba(255,255,255,.05)}
+@keyframes splash-pop{from{transform:scale(.4) rotate(-10deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+@keyframes glow-pulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
+.splash-name{font-size:32px;font-weight:800;letter-spacing:-.7px;background:linear-gradient(90deg,#7b6cf0,#0fd9a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;animation:sfade .5s .25s both;flex-shrink:0}
+.splash-tagline{font-size:16.5px;color:#fff;text-shadow:0 0 14px rgba(255,255,255,.55),0 0 2px rgba(255,255,255,.8);text-align:center;line-height:1.6;animation:sfade .5s .4s both;flex-shrink:0}
+.splash-tagline b{color:#0fd9a0;font-weight:700}
+.splash-creator{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:#fff;text-shadow:0 0 10px rgba(255,255,255,.5);margin-top:18px;animation:sfade .5s .55s both;flex-shrink:0}
+.splash-creator b{color:rgba(123,108,240,.9);font-weight:700;letter-spacing:1px}
+.splash-lang-box{margin-top:22px;width:min(320px,92%);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+.splash-lang-title{font-size:11px;color:rgba(255,255,255,.72);font-weight:800;text-align:center}
+.splash-lang-select{width:100%;background:rgba(0,0,0,.28);color:white;border:1px solid rgba(255,255,255,.22);border-radius:11px;padding:9px 12px;font-family:inherit;font-size:13px;font-weight:800;outline:none}
+.splash-lang-select option{background:#15151f;color:white}
+.splash-start{width:100%;padding:15px;border-radius:16px;border:none;cursor:pointer;background:linear-gradient(135deg,#7b6cf0,#9d5fe8);color:#fff;font-family:inherit;font-size:16px;font-weight:700;box-shadow:0 8px 30px rgba(123,108,240,.45);transition:all .2s;margin-top:24px;animation:sfade .5s .75s both;display:flex;align-items:center;justify-content:center;gap:10px;flex-shrink:0;width:100%;max-width:340px}
+.splash-start:active{transform:scale(.97);box-shadow:0 4px 14px rgba(123,108,240,.35)}
+.splash-ver{font-size:11px;color:rgba(255,255,255,.6);text-shadow:0 0 8px rgba(255,255,255,.35);margin-top:10px;animation:sfade .5s .85s both;flex-shrink:0}
+@keyframes sfade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ── Bottom Sheet (Theme Picker) ── */
+.sheet-backdrop{position:fixed;inset:0;background:#00000070;z-index:400;opacity:0;transition:opacity .25s;pointer-events:none}
+/* Fix: generic bottom sheets used by trash and other panels */
+.sheet{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);
+  width:100%;max-width:430px;max-height:82vh;overflow-y:auto;
+  background:var(--s1);border-radius:24px 24px 0 0;
+  border-top:1px solid var(--border2);box-shadow:0 -12px 40px rgba(0,0,0,.18);
+  z-index:901;transition:transform .3s cubic-bezier(.32,.72,0,1);
+  padding-bottom:max(env(safe-area-inset-bottom,16px),16px);
+  color:var(--text);
+}
+#trash-sheet-bd.sheet-backdrop{z-index:900}
+#generic-sheet-bd.sheet-backdrop{z-index:900}
+
+.sheet-backdrop.show{opacity:1;pointer-events:all}
+.theme-sheet{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);
+  width:100%;max-width:430px;
+  background:var(--s1);border-radius:24px 24px 0 0;
+  border-top:1px solid var(--border2);
+  z-index:401;transition:transform .3s cubic-bezier(.32,.72,0,1);
+  padding-bottom:max(env(safe-area-inset-bottom,16px),16px);
+}
+.theme-sheet.open{transform:translateX(-50%) translateY(0)}
+.sheet-handle{width:36px;height:4px;border-radius:2px;background:var(--border2);margin:12px auto 16px}
+.sheet-title{font-size:14px;font-weight:700;color:var(--text2);text-align:center;margin-bottom:18px;text-transform:uppercase;letter-spacing:.6px}
+.sheet-swatches{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;padding:0 16px 8px}
+.swatch{aspect-ratio:1;border-radius:12px;border:2.5px solid transparent;cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;position:relative}
+.swatch.active{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 40%,transparent)}
+.swatch-check{font-size:11px;color:#fff;text-shadow:0 1px 3px #0009;display:none}
+.swatch.active .swatch-check{display:block}
+.swatch.locked{opacity:.55}
+.swatch-lock{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;background:rgba(0,0,0,.28);border-radius:10px}
+.sheet-labels{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;padding:0 16px 4px}
+.swatch-label{font-size:8.5px;font-weight:600;text-align:center;color:var(--text3);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+
+/* ═══ WIZARD (guided flow) ═══ */
+.wz-stepper{display:flex;gap:6px;margin-bottom:14px}
+.wz-step{flex:1;height:4px;border-radius:2px;background:var(--s3);transition:background .35s}
+.wz-step.done{background:var(--accent)}
+.wz-stage-label{font-size:13px;font-weight:700;color:var(--text3);margin-bottom:14px;letter-spacing:.4px}
+.wz-chat{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;min-height:120px}
+.wz-quick{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.wz-input-row{display:flex;gap:8px;margin-bottom:8px}
+.wz-input-row .input{flex:1}
+.wz-send{width:48px;border-radius:12px;border:none;background:var(--accent);color:var(--on-accent);font-size:17px;cursor:pointer;flex-shrink:0}
+.wz-send:disabled{opacity:.4}
+.wz-analyze-btn{width:100%;padding:16px;border-radius:14px;border:none;cursor:pointer;font-family:inherit;font-size:17px;font-weight:800;color:var(--on-accent);background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 72%,var(--bg)));box-shadow:0 8px 24px color-mix(in srgb,var(--accent) 45%,transparent);transition:transform .15s;margin-top:6px}
+.wz-analyze-btn:active{transform:scale(.98)}
+.wz-form-field{margin-bottom:18px}
+.wz-select{width:100%;background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:13px 14px;color:var(--text);font-family:inherit;font-size:16px;outline:none;cursor:pointer}
+.wz-select:focus{border-color:var(--accent)}
+.wz-slider-wrap{display:flex;align-items:center;gap:12px}
+.wz-slider{flex:1;accent-color:var(--accent);height:6px}
+.wz-slider-val{font-size:14px;font-weight:700;color:var(--accent);min-width:78px;text-align:center;background:color-mix(in srgb,var(--accent) 14%,transparent);border-radius:10px;padding:6px 8px}
+.ms-chips{display:flex;flex-wrap:wrap;gap:8px}
+.ms-chip{padding:9px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--s1);font-family:inherit;font-size:14px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .15s}
+.ms-chip.sel{background:color-mix(in srgb,var(--accent) 18%,transparent);border-color:var(--accent);color:var(--accent)}
+/* Score bars */
+.score-block{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.score-block-title{font-size:14px;font-weight:800;color:var(--text2);margin-bottom:14px}
+.score-row{margin-bottom:13px}
+.score-row:last-child{margin-bottom:0}
+.score-head{display:flex;justify-content:space-between;font-size:14px;font-weight:700;margin-bottom:6px}
+.score-num{color:var(--text2);font-size:12px}
+.score-track{height:8px;border-radius:4px;background:var(--s3);overflow:hidden}
+.score-fill{height:100%;border-radius:4px;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.wz-summary-card{position:relative;background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 12%,var(--s1)),var(--s1) 75%);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;overflow:hidden}
+.wz-summary-card::before{content:'';position:absolute;top:0;right:0;bottom:0;width:3.5px;background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:0 var(--r) var(--r) 0}
+.summary-label{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;color:var(--accent);letter-spacing:.6px;margin-bottom:9px;background:color-mix(in srgb,var(--accent) 14%,transparent);border:1px solid color-mix(in srgb,var(--accent) 28%,transparent);padding:4px 10px;border-radius:20px}
+.detail-summary{position:relative;background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 12%,var(--s1)),var(--s1) 75%);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:var(--r);padding:15px 18px;margin:4px 0 12px;overflow:hidden;box-shadow:0 4px 18px color-mix(in srgb,var(--accent) 10%,transparent)}
+.detail-summary::before{content:'';position:absolute;top:0;right:0;bottom:0;width:3.5px;background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:0 var(--r) var(--r) 0}
+.detail-summary::after{content:'❝';position:absolute;top:6px;left:14px;font-size:34px;line-height:1;color:color-mix(in srgb,var(--accent) 22%,transparent);pointer-events:none}
+.detail-summary-text{color:var(--text);font-size:16px;line-height:2;outline:none;border-radius:6px;min-height:1.6em}
+.wz-summary-title{font-size:17px;font-weight:800;margin-bottom:8px}
+.wz-summary-text{font-size:15px;line-height:1.8;color:var(--text2)}
+.wz-error{background:color-mix(in srgb,var(--accent3) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent3) 35%,transparent);border-radius:12px;padding:13px;font-size:14px;line-height:1.7;color:var(--text);margin-bottom:14px;white-space:pre-wrap}
+
+/* Toast */
+.toast{position:fixed;bottom:calc(88px + env(safe-area-inset-bottom,16px));left:50%;transform:translateX(-50%);background:var(--s3);color:var(--text);border:1px solid var(--border2);padding:10px 20px;border-radius:12px;font-size:14px;font-weight:600;z-index:600;white-space:nowrap;box-shadow:0 8px 24px #0008;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+
+/* FAB overlay backdrop */
+.fab-backdrop{position:fixed;inset:0;z-index:150;display:none}
+.fab-backdrop.show{display:block}
+
+
+/* ═══ UX UPGRADE PATCH: dashboard, cards, quick actions ═══ */
+.ux-hero{position:relative;overflow:hidden;border:1px solid var(--border2);border-radius:24px;padding:18px;margin:0 0 14px;background:radial-gradient(circle at 18% 10%,color-mix(in srgb,var(--accent) 30%,transparent),transparent 38%),linear-gradient(135deg,color-mix(in srgb,var(--s1) 86%,var(--accent)),var(--s2));box-shadow:var(--shadow)}
+.ux-hero::after{content:"";position:absolute;inset:auto -40px -72px auto;width:170px;height:170px;border-radius:50%;background:color-mix(in srgb,var(--accent2) 18%,transparent);filter:blur(3px)}
+.ux-hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:relative;z-index:1}
+.ux-hero-title{font-family:"Noto Kufi Arabic",sans-serif;font-size:18px;font-weight:800;color:var(--text);line-height:1.5}
+.ux-hero-sub{font-size:12px;color:var(--text2);margin-top:4px}
+.ux-ring{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--accent) calc(var(--p,0)*1%),var(--s3) 0);box-shadow:inset 0 0 0 8px color-mix(in srgb,var(--s1) 88%,transparent);font-size:14px;font-weight:900;color:var(--text)}
+.ux-hero-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;position:relative;z-index:1}
+.ux-metric{background:color-mix(in srgb,var(--s1) 72%,transparent);border:1px solid var(--border);border-radius:16px;padding:10px;text-align:center;backdrop-filter:blur(10px)}
+.ux-metric b{display:block;font-size:18px;color:var(--text)}
+.ux-metric span{font-size:11px;color:var(--text3)}
+.ux-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 14px}
+.ux-action{border:1px solid var(--border2);border-radius:16px;background:var(--s1);color:var(--text);font-family:inherit;font-weight:800;padding:12px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 14px rgba(0,0,0,.08);cursor:pointer}
+.ux-action.primary{background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 70%,var(--accent2)));color:var(--on-accent)}
+.idea-card{border-radius:22px!important;overflow:hidden;position:relative;animation:uxCardIn .22s ease both}
+.idea-card::before{content:"";position:absolute;top:0;bottom:0;right:0;width:5px;background:var(--cat-color,var(--accent));opacity:.9}
+.card-title{font-family:"Noto Kufi Arabic",sans-serif;font-size:15px!important;line-height:1.55}
+.ux-cat-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:13px;background:color-mix(in srgb,var(--cat-color,var(--accent)) 18%,var(--s2));border:1px solid color-mix(in srgb,var(--cat-color,var(--accent)) 26%,transparent);font-size:17px;flex:0 0 auto}
+.ux-card-score{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:999px;background:color-mix(in srgb,var(--accent) 14%,var(--s2));color:var(--text);font-size:11px;font-weight:900;border:1px solid var(--border)}
+.ux-card-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
+.ux-mini{border:none;border-radius:12px;background:var(--s2);color:var(--text2);font-family:inherit;font-weight:800;font-size:12px;padding:8px 5px;cursor:pointer}
+.ux-mini:active{transform:scale(.97)}
+.ux-mini.done{color:var(--accent2)}.ux-mini.danger{color:var(--accent3)}
+.empty{border:1px dashed var(--border2);border-radius:24px;background:linear-gradient(180deg,var(--s1),color-mix(in srgb,var(--s1) 72%,var(--s2)));padding:34px 18px!important}
+.empty-cta{margin-top:14px;border:none;border-radius:16px;background:var(--accent);color:var(--on-accent);font-family:inherit;font-weight:800;padding:12px 18px;box-shadow:0 8px 24px color-mix(in srgb,var(--accent) 35%,transparent)}
+.fab-backdrop.show{display:block;background:rgba(0,0,0,.28);backdrop-filter:blur(2px)}
+.fab-menu{gap:10px}.fab-item{min-width:245px;justify-content:flex-start;padding:14px 16px;border-radius:18px}.fab.open{transform:translateY(-4px) rotate(45deg)}
+.sheet-swatches.compact .swatch:nth-child(n+7),.sheet-labels.compact .swatch-label:nth-child(n+7){display:none}.theme-more-btn{margin:12px 16px 4px;width:calc(100% - 32px);border:1px solid var(--border2);border-radius:14px;background:var(--s2);color:var(--text);font-family:inherit;font-weight:800;padding:11px;cursor:pointer}
+@keyframes uxCardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- Splash Screen -->
+<div class="splash" id="splash">
+  <div class="splash-top">
+    <div class="splash-icon-wrap">
+      <div class="splash-glow"></div>
+      <div class="splash-icon">💡</div>
+    </div>
+    <div class="splash-name">IdeaSpark</div>
+    <div class="splash-tagline" id="splash-tagline">Your idea deserves to become a real project<br><span style="font-size:13px;opacity:.78">فكرتك تستحق أن تصبح مشروعاً حقيقياً</span><br><b>Powered by AI</b><br><span style="font-size:13px;opacity:.78">مدعوم بالذكاء الاصطناعي</span></div>
+    <div class="splash-lang-box">
+      <div class="splash-lang-title" id="splash-lang-title">اختر لغة التطبيق · Choose app language</div>
+      <select id="splash-lang-select" class="splash-lang-select" onchange="setLang(this.value)"></select>
+    </div>
+    <div class="splash-creator">CREATED BY <b>M. ALQATTAN</b></div>
+  </div>
+  <label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-top:16px;">
+    <input type="checkbox" id="splash-skip-cb" style="width:18px;height:18px;accent-color:#7b6cf0;cursor:pointer">
+    <span id="splash-skip-text" style="font-size:15px;color:#fff;text-shadow:0 0 10px rgba(255,255,255,.5)">تخطي هذه الشاشة في المرة القادمة · Skip this screen next time</span>
+  </label>
+  <button class="splash-start" id="splash-start-btn" onclick="dismissSplash()">ابدأ الآن · Start now ←</button>
+  <div class="splash-ver">v3.1 · Powered by OpenRouter</div>
+</div>
+
+
+
+  <!-- Selection bar (replaces header in selection mode) -->
+  <div class="sel-bar" id="sel-bar">
+    <button class="sel-btn sel-cancel-btn" onclick="exitSelectionMode()" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
+    <span class="sel-count" id="sel-count">0 محدد</span>
+    <div class="sel-actions">
+      <button class="sel-btn sel-all-btn" onclick="selectAll()" data-ar="تحديد الكل" data-en="Select all">تحديد الكل</button>
+      <button class="sel-btn sel-del-btn" onclick="deleteSelected()" data-ar="🗑️ حذف" data-en="🗑️ Delete">🗑️ حذف</button>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="hdr" id="main-hdr">
+    <div class="hdr-inner">
+      <div class="logo">
+        <div class="logo-icon">💡</div>
+        <span class="logo-name">IdeaSpark</span>
+      </div>
+      <div class="hdr-btns">
+        <!-- View toggle (only on list screen) -->
+        <div class="view-toggle" id="view-toggle-wrap">
+          <button class="vt-btn active" id="vt-list" onclick="setViewMode('list')" title="قائمة">☰</button>
+          <button class="vt-btn" id="vt-grid" onclick="setViewMode('grid')" title="شبكة">⊞</button>
+          <button class="vt-btn" id="vt-table" onclick="setViewMode('table')" title="جدول">≡</button>
+        </div>
+        <button class="icon-btn" id="theme-hdr-btn" onclick="openThemeSheet()">🎨</button>
+        <button class="icon-btn" id="lang-hdr-btn" onclick="toggleQuickLang()" title="Switch language">EN</button>
+        <button class="icon-btn hidden" id="warn-btn" onclick="showNoKeyToastAndNav()" title="لم يتم إدخال مفتاح الذكاء الاصطناعي بعد">⚠️</button>
+        <button class="icon-btn" id="settings-btn" onclick="nav('settings')">⚙️</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content" id="content">
+
+    <!-- LIST -->
+    <div class="screen active" id="screen-list">
+      <div class="search-wrap">
+        <input class="search-box" id="search-input" placeholder="ابحث...">
+      </div>
+      <!-- Stats bar -->
+      <div class="stats-bar" id="stats-bar"></div>
+      <!-- Filter chips -->
+      <div class="chips" id="filter-chips"></div>
+      <!-- Ideas -->
+      <div class="ideas-grid" id="ideas-grid"></div>
+    </div>
+
+    <!-- NEW (text) -->
+    <div class="screen" id="screen-new">
+      <div class="form-view">
+        <div>
+          <div class="form-title" id="form-title-txt">✨ فكرة جديدة</div>
+          <div class="form-sub" id="form-sub-txt"></div>
+        </div>
+        <div class="field">
+          <div class="field-label">عنوان الفكرة</div>
+          <input class="input" id="idea-title-input" placeholder="اكتب فكرتك...">
+          <span class="field-error hidden" id="title-error"></span>
+        </div>
+        <div class="field">
+          <div class="field-label">تفاصيل (اختياري)</div>
+          <textarea class="textarea" id="idea-desc-input" placeholder="أي تفاصيل إضافية..."></textarea>
+        </div>
+        <div class="field">
+          <div class="field-label">نوع الفكرة</div>
+          <div class="cat-grid" id="cat-grid"></div>
+        </div>
+        <div class="field hidden" id="custom-type-field">
+          <div class="field-label">نوع مخصص <span class="pro-badge" id="pro-badge-customtype" style="display:none">⭐ PRO</span></div>
+          <input class="input" id="custom-type-input" placeholder="اكتب نوعاً مخصصاً..." list="saved-types-list">
+          <datalist id="saved-types-list"></datalist>
+        </div>
+        <div class="field hidden" id="new-form-model-field">
+          <div class="field-label" style="display:flex;align-items:center;justify-content:space-between">
+            <span data-ar="نموذج الذكاء الاصطناعي" data-en="AI model">نموذج الذكاء الاصطناعي</span>
+            <span class="sdesc" id="new-form-model-desc" style="font-size:11px"></span>
+          </div>
+          <select id="new-form-model-select" onchange="setModel(this.value)"
+            style="width:100%;background:var(--s2);color:var(--text);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:13px;font-weight:600;outline:none;cursor:pointer">
+          </select>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" id="save-btn" onclick="doSave()" data-ar="حفظ الفكرة" data-en="Save idea">حفظ الفكرة</button>
+          <button class="btn btn-ghost" onclick="nav('list')">📋 أفكاري</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW (AI quick) -->
+    <div class="screen" id="screen-ai-new">
+      <div class="form-view">
+        <div>
+          <div class="form-title">🤖 فكرة بالذكاء الاصطناعي</div>
+          <div class="form-sub">اكتب جملة واحدة، الذكاء الاصطناعي يكمّل الباقي</div>
+        </div>
+        <div class="ai-quick-area">
+          <div class="ai-quick-label">✨ وصف الفكرة</div>
+          <div class="ai-quick-desc">مثال: "أبي أبيع عطور كويتية أونلاين" أو "اختراع لتوفير الماء في المنزل"</div>
+          <textarea class="textarea" id="ai-quick-input" placeholder="اكتب فكرتك بجملة أو جملتين..." style="min-height:100px"></textarea>
+          <span class="field-error hidden" id="ai-quick-error"></span>
+        </div>
+        <div class="field hidden" id="ai-quick-model-field">
+          <div class="field-label" style="display:flex;align-items:center;justify-content:space-between">
+            <span data-ar="نموذج الذكاء الاصطناعي" data-en="AI model">نموذج الذكاء الاصطناعي</span>
+            <span class="sdesc" id="ai-quick-model-desc" style="font-size:11px"></span>
+          </div>
+          <select id="ai-quick-model-select" onchange="setModel(this.value)"
+            style="width:100%;background:var(--s2);color:var(--text);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:13px;font-weight:600;outline:none;cursor:pointer">
+          </select>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" id="ai-quick-btn" onclick="doAiQuickSave()">
+            <span>✨ توليد الفكرة</span>
+          </button>
+          <button class="btn btn-ghost" onclick="nav('list')" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- WIZARD (guided flow) -->
+    <div class="screen" id="screen-wizard">
+      <button class="back-btn" onclick="wizardExit()"><span class="back-arrow-circle">→</span><span>خروج</span></button>
+      <div class="wz-stepper">
+        <div class="wz-step" id="wz-step-1"></div>
+        <div class="wz-step" id="wz-step-2"></div>
+        <div class="wz-step" id="wz-step-3"></div>
+      </div>
+      <div class="wz-stage-label" id="wz-stage-label">١ / ٣ · محادثة سريعة</div>
+
+      <!-- Stage 1: chat -->
+      <div id="wz-stage-chat">
+        <div class="wz-chat" id="wz-chat"></div>
+        <div class="wz-quick" id="wz-quick"></div>
+        <div class="wz-input-row" id="wz-input-row">
+          <input class="input" id="wz-input" placeholder="اكتب هنا..." autocomplete="off">
+          <button class="wz-send" id="wz-send-btn" onclick="wzSubmit()">➤</button>
+        </div>
+        <button class="wz-analyze-btn hidden" id="wz-to-form-btn" onclick="wzGoForm()">🔍 تحليل الفكرة</button>
+      </div>
+
+      <!-- Stage 2: form -->
+      <div id="wz-stage-form" class="hidden">
+        <div class="wz-form-field">
+          <div class="field-label">🎯 الهدف من الفكرة</div>
+          <select class="wz-select" id="wz-goal">
+            <option value="مشروع ربحي">مشروع ربحي</option>
+            <option value="حل مشكلة شخصية أو عامة">حل مشكلة شخصية أو عامة</option>
+            <option value="مشروع مجتمعي / غير ربحي">مشروع مجتمعي / غير ربحي</option>
+            <option value="تجربة وتعلّم">تجربة وتعلّم</option>
+          </select>
+        </div>
+        <div class="wz-form-field">
+          <div class="field-label">💰 نموذج الربح المتوقع</div>
+          <select class="wz-select" id="wz-profit">
+            <option value="بيع مباشر">بيع مباشر</option>
+            <option value="اشتراك شهري">اشتراك شهري</option>
+            <option value="إعلانات">إعلانات</option>
+            <option value="عمولة / وساطة">عمولة / وساطة</option>
+            <option value="خدمة مدفوعة">خدمة مدفوعة</option>
+            <option value="غير ربحي">غير ربحي</option>
+            <option value="غير محدد بعد">غير محدد بعد</option>
+          </select>
+        </div>
+        <div class="wz-form-field">
+          <div class="field-label">📊 مستوى التعقيد المتوقع</div>
+          <div class="wz-slider-wrap">
+            <input type="range" class="wz-slider" id="wz-complexity" min="1" max="5" value="3" oninput="wzComplexityLabel()">
+            <div class="wz-slider-val" id="wz-complexity-val">متوسط</div>
+          </div>
+        </div>
+        <div class="wz-form-field">
+          <div class="field-label">🧑‍💻 الموارد المتاحة لك (اختر أكثر من واحد)</div>
+          <div class="ms-chips" id="wz-resources"></div>
+        </div>
+        <button class="wz-analyze-btn" id="wz-final-btn" onclick="wzFinalAnalysis()">✨ التحليل النهائي</button>
+        <div class="form-actions" style="margin-top:10px">
+          <button class="btn btn-ghost" onclick="wzBackToChat()">← رجوع للمحادثة</button>
+        </div>
+      </div>
+
+      <!-- Stage 3: result -->
+      <div id="wz-stage-result" class="hidden">
+        <div id="wz-result-loading" class="ai-card"><div class="ai-text" id="wz-loading-txt">⏳ جارٍ التحليل...</div></div>
+        <div id="wz-result-error" class="wz-error hidden"></div>
+        <div id="wz-result-body" class="hidden">
+          <div class="wz-summary-card">
+            <div class="summary-label">📝 ملخص الفكرة</div>
+            <div class="wz-summary-title" id="wz-r-title"></div>
+            <div class="wz-summary-text" id="wz-r-summary"></div>
+          </div>
+          <div class="score-block">
+            <div class="score-block-title">📊 التقييم</div>
+            <div id="wz-r-scores"></div>
+          </div>
+          <div class="ai-card">
+            <div class="ai-card-title">💡 اقتراحات تطوير</div>
+            <div class="ai-text" id="wz-r-suggestions"></div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="wzConfirmSave()">✅ تأكيد الحفظ</button>
+            <button class="btn btn-outline" onclick="wzEdit()">✏️ تعديل</button>
+            <button class="btn btn-ghost" onclick="wizardExit()" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
+          </div>
+        </div>
+        <button class="wz-analyze-btn hidden" id="wz-retry-btn" onclick="wzFinalAnalysis()">🔁 إعادة المحاولة</button>
+      </div>
+    </div>
+
+    <!-- DETAIL -->
+    <div class="screen" id="screen-detail">
+      <button class="back-btn" onclick="nav('list')"><span class="back-arrow-circle">→</span><span>رجوع لأفكاري</span></button>
+      <div id="detail-title" class="detail-title" contenteditable="true" spellcheck="false" onblur="saveDetailEdits()" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur();}"></div>
+      <div class="detail-summary" id="detail-summary">
+        <div class="summary-label">📝 ملخص الفكرة</div>
+        <div id="detail-desc" class="detail-summary-text" contenteditable="true" spellcheck="false" onblur="saveDetailEdits()" data-ar-placeholder="اضغط لإضافة تفاصيل..." data-en-placeholder="Tap to add details..."></div>
+      </div>
+      <div class="detail-meta">
+        <span id="detail-badge"></span>
+        <span id="detail-date" class="card-date"></span>
+        <span id="detail-status-badge"></span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <button class="export-btn" onclick="openStatusSheetFromDetail()">&#x1F3F7;&#xFE0F; &#x627;&#x644;&#x62D;&#x627;&#x644;&#x629;</button>
+        <button class="export-btn" onclick="openRelatedSheetFromDetail()">&#x1F517; &#x631;&#x628;&#x637;</button>
+        <button class="export-btn" onclick="openExportSheet()">&#x1F4E4; &#x62A;&#x635;&#x62F;&#x64A;&#x631; <span class="pro-badge" id="pro-badge-export-idea" style="display:none">⭐ PRO</span></button>
+      </div>
+      <div style="display:none" id="detail-related-section">
+        <div style="font-size:12px;font-weight:700;color:var(--text3);margin-top:12px;padding-top:12px;border-top:1px solid var(--border);margin-bottom:8px">&#x623;&#x641;&#x643;&#x627;&#x631; &#x645;&#x631;&#x62A;&#x628;&#x637;&#x629;</div>
+        <div id="detail-related-chips"></div>
+      </div>
+      <div class="score-block hidden" id="detail-scores-block">
+        <div class="score-block-title">📊 التقييم</div>
+        <div id="detail-scores"></div>
+      </div>
+      <div id="no-key-banner" class="no-key-banner hidden">
+        <span id="no-key-txt"></span>
+        <button class="btn btn-sm btn-ghost" onclick="nav('settings')" id="go-settings-btn" data-ar="الإعدادات" data-en="Settings">الإعدادات</button>
+      </div>
+      <div id="analysis-off-banner" class="analysis-off hidden"></div>
+      <div class="btn-row" id="ai-btns">
+        <button class="btn btn-outline btn-sm" id="analyze-btn" onclick="triggerAnalysis()"></button>
+        <button class="btn btn-teal btn-sm" id="plan-btn" onclick="triggerPlan()" disabled></button>
+      </div>
+      <div class="btn-row" id="ai-btns-2" style="margin-top:0">
+        <button class="btn btn-outline btn-sm" id="similar-btn" onclick="triggerSimilar()">💡 أفكار مشابهة</button>
+        <button class="btn btn-outline btn-sm" id="develop-btn" onclick="triggerDevelop()">🚀 تطوير الفكرة</button>
+      </div>
+      <div id="ai-analysis-card" class="ai-card hidden">
+        <div class="ai-card-title" id="analysis-card-title">🤖 أسئلة التحليل</div>
+        <div class="ai-text" id="ai-analysis-text"></div>
+      </div>
+      <div id="chat-summary-card" class="ai-card chat-summary-card hidden">
+        <div class="ai-card-title" style="color:var(--accent2)">🧠 ملخص ذكي للنقاش</div>
+        <div class="ai-text" id="chat-summary-text"></div>
+        <div class="chat-summary-meta" id="chat-summary-meta"></div>
+      </div>
+      <button class="chat-toggle hidden" id="chat-toggle-btn" onclick="toggleChat()"></button>
+      <div id="chat-section" class="chat-card hidden">
+        <div class="chat-hdr" id="chat-hdr-txt">💬 محادثة</div>
+        <div class="chat-msgs" id="chat-msgs"></div>
+        <div class="chat-input-row">
+          <textarea class="chat-input" id="chat-input" rows="1" placeholder="اكتب ردك..."></textarea>
+          <button class="chat-send" id="chat-send-btn" onclick="sendChat()">➤</button>
+        </div>
+      </div>
+      <div id="ai-followup-card" class="ai-card hidden">
+        <div class="ai-card-title" id="followup-card-title">✨ اقتراحات وتفاصيل التحليل</div>
+        <div class="ai-text" id="ai-followup-text"></div>
+      </div>
+      <div id="ai-plan-card" class="ai-card hidden">
+        <div class="ai-card-title" id="plan-card-title">🗺️ خطة التنفيذ</div>
+        <div class="ai-text" id="ai-plan-text"></div>
+      </div>
+      <div id="ai-similar-card" class="ai-card hidden">
+        <div class="ai-card-title">💡 أفكار مشابهة</div>
+        <div class="ai-text" id="ai-similar-text"></div>
+      </div>
+      <div id="ai-develop-card" class="ai-card hidden">
+        <div class="ai-card-title">🚀 تطوير الفكرة</div>
+        <div class="ai-text" id="ai-develop-text"></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="screen" id="screen-settings">
+      <button class="back-btn" onclick="nav('list')" style="margin-bottom:12px"><span class="back-arrow-circle">→</span><span data-ar="أفكاري" data-en="Ideas">أفكاري</span></button>
+      <div class="settings-title">⚙️ الإعدادات</div>
+
+      <!-- Pro Status -->
+      <div class="section-label" data-ar="الاشتراك" data-en="Subscription">الاشتراك</div>
+      <div class="section">
+        <div class="srow-block" id="pro-status-block"></div>
+      </div>
+
+      <!-- API Key -->
+      <div class="section-label">مفتاح API الشخصي</div>
+      <div class="section">
+        <div class="srow-block">
+          <div class="slabel">مفتاح OpenRouter API</div>
+          <div id="api-key-saved-state" class="hidden">
+            <div class="api-key-status">المفتاح محفوظ على جهازك فقط ✓</div>
+            <button class="btn btn-danger btn-sm" style="margin-top:8px" onclick="clearApiKey()">حذف المفتاح</button>
+          </div>
+          <div id="api-key-input-state">
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <input class="input" id="api-key-input" type="password" placeholder="sk-or-..." autocomplete="off" style="flex:1;padding:11px 13px;font-size:14px;font-family:monospace" oninput="$('save-key-btn').disabled=!this.value.trim()">
+              <button class="btn btn-primary btn-sm" id="save-key-btn" onclick="saveApiKey()" disabled>حفظ</button>
+            </div>
+          </div>
+        </div>
+        <div class="srow-block">
+          <button onclick="toggleApiHelp()" style="background:none;border:none;color:var(--accent);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:0" id="api-help-btn">كيف أحصل على المفتاح؟ ▼</button>
+          <div class="api-help-steps hidden" id="api-help-content">
+            <div class="api-step">1. افتح <a class="api-link" href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a></div>
+            <div class="api-step">2. من القائمة اختر «API Keys»</div>
+            <div class="api-step">3. اضغط «Create Key» وانسخ المفتاح</div>
+            <div class="api-step">4. الصقه هنا — التوكنز تُحتسب من حسابك على OpenRouter</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Model Selector (only shown once API key is saved) -->
+      <div id="model-selector-block" class="hidden">
+        <div class="section-label">النموذج</div>
+        <div class="section">
+          <div class="srow">
+            <div>
+              <div class="slabel">موديل الذكاء الاصطناعي</div>
+              <div class="sdesc" id="model-desc-txt">اختر النموذج المناسب</div>
+            </div>
+            <select id="model-select" onchange="setModel(this.value)"
+              style="background:var(--s2);color:var(--text);border:1px solid var(--border2);border-radius:10px;padding:8px 10px;font-family:inherit;font-size:13px;font-weight:600;outline:none;cursor:pointer;max-width:160px">
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Mode -->
+      <div class="section-label">وضع الذكاء الاصطناعي</div>
+      <div class="section">
+        <div class="mode-option" onclick="setAiMode(true)">
+          <div><div class="slabel">تحليل تلقائي عند الحفظ</div><div class="sdesc">بعد حفظ الفكرة يبدأ التحليل فوراً</div></div>
+          <div class="mode-dot" id="mode-auto-dot"></div>
+        </div>
+        <div class="mode-option" onclick="setAiMode(false)">
+          <div><div class="slabel">دفتر ملاحظات فقط</div><div class="sdesc">احفظ أفكارك كما هي، التحليل اختياري</div></div>
+          <div class="mode-dot" id="mode-manual-dot"></div>
+        </div>
+      </div>
+
+      <!-- Language -->
+      <div class="section-label" data-ar="اللغة" data-en="Language">اللغة</div>
+      <div class="section">
+        <div class="srow">
+          <div class="slabel" data-ar="اللغة" data-en="Language">اللغة</div>
+          <select id="lang-select" onchange="setLang(this.value)" style="background:var(--s2);color:var(--text);border:1px solid var(--border2);border-radius:12px;padding:9px 12px;font-family:inherit;font-size:13px;font-weight:700;outline:none;cursor:pointer;max-width:220px"></select>
+        </div>
+      </div>
+
+      <!-- Country -->
+      <div class="section-label" data-ar="بلدك" data-en="Country">بلدك</div>
+      <div class="section">
+        <div class="srow-block">
+          <div class="sdesc" style="margin-bottom:8px">يُستخدم لاقتراح موردين محليين</div>
+          <input class="input" id="country-input" placeholder="مثال: الكويت، السعودية..." oninput="saveCountry()">
+        </div>
+      </div>
+
+      <!-- Backup & Restore -->
+      <div class="section-label">إدارة البيانات</div>
+      <div class="section">
+        <div class="backup-btn" onclick="backupData()">
+          <div class="backup-btn-icon">💾</div>
+          <div class="backup-btn-info">
+            <div class="backup-btn-label">تصدير النسخة الاحتياطية <span class="pro-badge" id="pro-badge-export" style="display:none">⭐ PRO</span></div>
+            <div class="backup-btn-desc">حفظ كل أفكارك كملف JSON</div>
+          </div>
+          <div class="backup-btn-arrow">←</div>
+        </div>
+        <div class="backup-btn" onclick="triggerRestore()">
+          <div class="backup-btn-icon">📥</div>
+          <div class="backup-btn-info">
+            <div class="backup-btn-label">استعادة من نسخة احتياطية <span class="pro-badge" id="pro-badge-restore" style="display:none">⭐ PRO</span></div>
+            <div class="backup-btn-desc">استيراد ملف JSON سابق</div>
+          </div>
+          <div class="backup-btn-arrow">←</div>
+        </div>
+        <input type="file" id="restore-file-input" accept=".json" class="hidden" onchange="restoreData(event)">
+      </div>
+
+      <!-- Custom types -->
+      <div class="section-label">الأنواع المخصصة</div>
+      <div class="section">
+        <div class="srow">
+          <div class="sdesc" id="custom-types-display">—</div>
+          <button class="btn btn-danger btn-sm hidden" id="clear-types-btn" onclick="clearCustomTypes()">مسح الكل</button>
+        </div>
+      </div>
+
+      <div class="section-label">تجربة الاستخدام</div>
+      <div class="section">
+        <div class="srow">
+          <div><div class="slabel">تخطي شاشة البداية</div><div class="sdesc">فتح التطبيق مباشرة دون عرض الشاشة الترحيبية</div></div>
+          <label class="toggle-wrap"><input type="checkbox" id="skip-splash-toggle" onchange="setSkipSplash(this.checked)"><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+        </div>
+      </div>
+
+
+      <div class="section-label" data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</div>
+      <div class="section">
+        <div class="backup-btn" onclick="location.href='mailto:m.alqattan@soapaaet.com?subject=IdeaSpark%20Support'">
+          <div class="backup-btn-icon">✉️</div>
+          <div class="backup-btn-info">
+            <div class="backup-btn-label" data-ar="البريد الإلكتروني" data-en="Email">البريد الإلكتروني</div>
+            <div class="backup-btn-desc">m.alqattan@soapaaet.com</div>
+          </div>
+          <div class="backup-btn-arrow">←</div>
+        </div>
+        <div style="padding:14px 16px;display:flex;gap:8px;justify-content:center">
+          <a class="soc-btn" href="https://www.facebook.com/share/1F5ecZv453/?mibextid=wwXIfr" target="_blank">
+            <div class="soc-icon" style="background:#1877f222">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </div>
+            <span class="soc-name">Facebook</span>
+          </a>
+          <a class="soc-btn" href="https://instagram.com/QoooLxxx" target="_blank">
+            <div class="soc-icon" style="background:linear-gradient(135deg,#f0900022,#e1306c22,#833ab422)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="url(#ig-settings)"><defs><linearGradient id="ig-settings" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#f09000"/><stop offset="50%" stop-color="#e1306c"/><stop offset="100%" stop-color="#833ab4"/></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </div>
+            <span class="soc-name">QoooLxxx</span>
+          </a>
+          <a class="soc-btn" href="https://x.com/QoooLxxx" target="_blank">
+            <div class="soc-icon" style="background:rgba(255,255,255,.06)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--text)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </div>
+            <span class="soc-name">QoooLxxx</span>
+          </a>
+          <a class="soc-btn" href="https://snapchat.com/add/QoooLxxxZ" target="_blank">
+            <div class="soc-icon" style="background:#fffc0022">
+              <svg width="18" height="18" viewBox="0 0 100 100"><path fill="#fffc00" d="M15,60 C15,12 85,12 85,60 L85,78 C77.22,94 69.44,94 61.67,78 C53.89,94 46.11,94 38.33,78 C30.56,94 22.78,94 15.00,78 L15,60 Z"/><circle cx="38" cy="38" r="5" fill="#1a1a2e"/><circle cx="62" cy="38" r="5" fill="#1a1a2e"/></svg>
+            </div>
+            <span class="soc-name">QoooLxxxZ</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="section-label" id="trash-section-label">سلة المهملات</div>
+      <div class="section">
+        <div class="srow">
+          <div><div class="slabel">الأفكار المحذوفة</div><div class="sdesc" id="trash-count-label">لا توجد أفكار محذوفة</div></div>
+          <button type="button" class="btn btn-sm btn-ghost" id="open-trash-btn" onclick="openTrashSheet()">عرض</button>
+        </div>
+      </div>
+
+    </div><!-- /settings -->
+  </div><!-- /content -->
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav" id="bottom-nav">
+    <button class="nav-btn active" id="nav-list" onclick="nav('list')">
+      <span class="nav-icon">📋</span>
+      <span data-ar="أفكاري" data-en="Ideas">أفكاري</span>
+    </button>
+    <div class="fab-wrap">
+      <div class="fab-menu hidden" id="fab-menu">
+        <div class="fab-item" onclick="closeFabMenu();openWizard()">
+          <span class="fab-item-icon">🧭</span>فكرة موجّهة (محادثة + تحليل)
+        </div>
+        <div class="fab-item" onclick="closeFabMenu();openNew()">
+          <span class="fab-item-icon">✍️</span>فكرة نصية
+        </div>
+        <div class="fab-item" onclick="closeFabMenu();openAiNew()">
+          <span class="fab-item-icon">🤖</span>فكرة بالذكاء الاصطناعي
+        </div>
+      </div>
+      <button class="fab" id="fab-btn">+</button>
+    </div>
+    <button class="nav-btn" id="nav-starred" onclick="setFilter('starred')">
+      <span class="nav-icon">⭐</span>
+      <span>المفضلة</span>
+    </button>
+  </div>
+</div>
+
+<!-- FAB backdrop -->
+<div class="fab-backdrop" id="fab-backdrop" onclick="closeFabMenu()"></div>
+
+<!-- Floating back (appears on scroll in detail) -->
+<button class="back-float" id="back-float" onclick="nav('list')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg><span>رجوع</span></button>
+
+<!-- Theme Bottom Sheet -->
+<div class="sheet-backdrop" id="sheet-backdrop" onclick="closeThemeSheet()"></div>
+<div class="theme-sheet" id="theme-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">اختر الثيم</div>
+  <div class="sheet-swatches" id="sheet-swatches"></div>
+  <div class="sheet-labels" id="sheet-labels"></div>
+</div>
+
+<!-- Delete Modal -->
+<div class="overlay hidden" id="delete-modal">
+  <div class="modal">
+    <h3>🗑️ حذف هذه الفكرة؟</h3>
+    <p id="delete-idea-name"></p>
+    <p style="font-size:12px;color:var(--text3);margin-top:4px">ستنتقل إلى سلة المهملات</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeDeleteModal()" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
+      <button class="btn btn-danger" onclick="confirmDelete()">حذف</button>
+    </div>
+  </div>
+</div>
+
+<!-- Restore warning modal -->
+<div class="overlay hidden" id="restore-modal">
+  <div class="modal">
+    <h3>⚠️ استعادة البيانات</h3>
+    <p>هذا الإجراء سيحل محل كل أفكارك الحالية. هل أنت متأكد؟</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="hide('restore-modal')" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
+      <button class="btn btn-danger" onclick="confirmRestore()">استعادة</button>
+    </div>
+  </div>
+</div>
+
+<!-- Paywall Modal -->
+<div class="overlay hidden" id="paywall-modal">
+  <div class="modal pw-modal">
+    <div class="pw-icon">⭐</div>
+    <div class="pw-title" data-ar="ترقية إلى IdeaSpark Pro" data-en="Upgrade to IdeaSpark Pro">ترقية إلى IdeaSpark Pro</div>
+    <div class="pw-sub" data-ar="وصلت للحد المجاني. افتح كل المزايا بلا حدود" data-en="You've reached the free limit. Unlock everything without limits">وصلت للحد المجاني. افتح كل المزايا بلا حدود</div>
+    <div class="pw-features">
+      <div class="pw-feature">✅ <span data-ar="أفكار غير محدودة" data-en="Unlimited ideas">أفكار غير محدودة</span></div>
+      <div class="pw-feature">✅ <span data-ar="كل الثيمات (18 ثيم)" data-en="All themes (18 themes)">كل الثيمات (18 ثيم)</span></div>
+      <div class="pw-feature">✅ <span data-ar="نسخ احتياطي واستعادة" data-en="Backup & restore">نسخ احتياطي واستعادة</span></div>
+      <div class="pw-feature">✅ <span data-ar="أنواع أفكار مخصصة" data-en="Custom idea types">أنواع أفكار مخصصة</span></div>
+    </div>
+    <div class="pw-plans">
+      <div class="pw-plan recommended" onclick="purchasePlan('lifetime')">
+        <div class="pw-plan-info">
+          <div class="pw-plan-title-row"><span class="pw-plan-name" data-ar="مدى الحياة" data-en="Lifetime">مدى الحياة</span><span class="pw-plan-badge" data-ar="🔥 أفضل قيمة" data-en="🔥 Best value">🔥 أفضل قيمة</span></div>
+          <div class="pw-plan-sub" data-ar="= أقل من 4 شهور اشتراك، تدفعها مرة واحدة فقط" data-en="= less than 4 months, pay once forever">= أقل من 4 شهور اشتراك، تدفعها مرة واحدة فقط</div>
+        </div>
+        <div class="pw-plan-price">$6.99<small> · <span data-ar="مرة واحدة" data-en="once">مرة واحدة</span></small></div>
+      </div>
+      <div class="pw-plan" onclick="purchasePlan('monthly')">
+        <div class="pw-plan-name" data-ar="شهري" data-en="Monthly">شهري</div>
+        <div class="pw-plan-price">$1.99<small> / <span data-ar="شهر" data-en="month">شهر</span></small></div>
+      </div>
+    </div>
+    <button class="pw-restore" onclick="restorePurchases()" data-ar="اشتريت من قبل؟ استعد اشتراكك" data-en="Already purchased? Restore it">اشتريت من قبل؟ استعد اشتراكك</button>
+    <br>
+    <button class="pw-close" onclick="hide('paywall-modal')" data-ar="ليس الآن" data-en="Not now">ليس الآن</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+
+
+<script>
+// ═══════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════
+const KEYS = { ideas:'ispark_ideas_v3', settings:'ispark_settings_v3', types:'ispark_custom_types', api:'ispark_api_key', trash:'ispark_trash_v1', pro:'ispark_is_pro' };
+const load = (k,d) => { try{return JSON.parse(localStorage.getItem(k))??d}catch{return d} };
+const persist = (k,v) => localStorage.setItem(k,JSON.stringify(v));
+
+const LANGUAGES = [
+  ['ar','العربية','ar-KW'],['en','English','en-GB']
+];
+
+const UI_TRANSLATIONS = {
+  en: {
+    'فكرة جديدة':'✨ New idea','عنوان الفكرة':'Idea title','اكتب فكرتك...':'Write your idea...','تفاصيل (اختياري)':'Details (optional)','أي تفاصيل إضافية':'Any extra details','نوع الفكرة':'Idea type','حفظ الفكرة':'Save idea','أفكاري':'Ideas','المفضلة':'Favorites','الإعدادات':'Settings','اللغة':'Language','بلدك':'Country','اختر اللغة':'Choose language','اختر لغة التطبيق':'Choose app language','إلغاء':'Cancel','تحديد الكل':'Select all','حذف':'Delete','جديدة':'New','قيد الدراسة':'Studying','مرفوضة':'Rejected','منفّذة':'Done','ابحث في أفكارك…':'Search your ideas…','احفظ أفكارك وطورها بالذكاء الاصطناعي':'Save your ideas and grow them with AI','لا توجد أفكار بعد':'No ideas yet','ابدأ بإضافة فكرة جديدة':'Start by adding a new idea','المظهر':'Theme','تجربة الاستخدام':'Experience','تخطي شاشة البداية':'Skip splash screen','فتح التطبيق مباشرة دون عرض الشاشة الترحيبية':'Open the app directly without the welcome screen','سلة المهملات':'Trash','الأفكار تُحذف نهائياً تلقائياً بعد 30 يوم':'Ideas are permanently deleted automatically after 30 days','مسح الكل':'Clear all','المفضلة':'Favorites','كل الأفكار':'All ideas','بحث':'Search','رجوع':'Back','تحليل تلقائي':'Automatic analysis','دفتر ملاحظات فقط':'Notebook only','المشروع':'Project','تجربة':'Experiment','تجاري':'Commercial',
+    '0 محدد':'0 selected',
+    '1. افتح':'1. Open',
+    '2. من القائمة اختر «API Keys»':'2. From the menu choose «API Keys»',
+    '3. اضغط «Create Key» وانسخ المفتاح':'3. Click «Create Key» and copy the key',
+    '4. الصقه هنا — التوكنز تُحتسب من حسابك على OpenRouter':'4. Paste it here — tokens are billed to your OpenRouter account',
+    'أي تفاصيل إضافية...':'Any additional details...',
+    'إدارة البيانات':'Data Management',
+    'إعلانات':'Ads',
+    'ابحث...':'Search...',
+    'احفظ أفكارك كما هي، التحليل اختياري':'Keep your ideas as-is, analysis is optional',
+    'اختر الثيم':'Choose theme',
+    'اختر النموذج المناسب':'Choose the right model',
+    'استعادة':'Restore',
+    'استعادة من نسخة احتياطية':'Restore from Backup',
+    'استيراد ملف JSON سابق':'Import a previous JSON file',
+    'اشتراك شهري':'Monthly subscription',
+    'اكتب جملة واحدة، الذكاء الاصطناعي يكمّل الباقي':'Write one sentence, AI completes the rest',
+    'اكتب ردك...':'Type your reply...',
+    'اكتب فكرتك بجملة أو جملتين...':'Describe your idea in one or two sentences...',
+    'اكتب نوعاً مخصصاً...':'Type a custom type...',
+    'اكتب هنا...':'Type here...',
+    'الأفكار المحذوفة':'Deleted Ideas',
+    'الأنواع المخصصة':'Custom Types',
+    'المفتاح محفوظ على جهازك فقط ✓':'Key stored on your device only ✓',
+    'النموذج':'Model',
+    'بعد حفظ الفكرة يبدأ التحليل فوراً':'Analysis starts right after saving the idea',
+    'بيع مباشر':'Direct sales',
+    'تجربة وتعلّم':'Experiment & learn',
+    'تحليل تلقائي عند الحفظ':'Automatic analysis on save',
+    'تصدير النسخة الاحتياطية':'Export Backup',
+    'حذف المفتاح':'Delete Key',
+    'حفظ':'Save',
+    'حفظ كل أفكارك كملف JSON':'Save all your ideas as a JSON file',
+    'حل مشكلة شخصية أو عامة':'Solve a personal or general problem',
+    'خدمة مدفوعة':'Paid service',
+    'خروج':'Exit',
+    'رجوع لأفكاري':'Back to my ideas',
+    'ستنتقل إلى سلة المهملات':'It will move to Trash',
+    'عرض':'View',
+    'عمولة / وساطة':'Commission / brokerage',
+    'غير ربحي':'Non-profit',
+    'غير محدد بعد':'Not decided yet',
+    'فكرة بالذكاء الاصطناعي':'AI Idea',
+    'فكرة موجّهة (محادثة + تحليل)':'Guided idea (chat + analysis)',
+    'فكرة نصية':'Text Idea',
+    'كيف أحصل على المفتاح؟ ▼':'How do I get a key? ▼',
+    'لا توجد أفكار محذوفة':'No deleted ideas',
+    'متوسط':'Medium',
+    'مثال: "أبي أبيع عطور كويتية أونلاين" أو "اختراع لتوفير الماء في المنزل"':'e.g. "I want to sell Kuwaiti perfumes online" or "An invention to save water at home"',
+    'مثال: الكويت، السعودية...':'e.g. USA, UK...',
+    'مشروع ربحي':'For-profit project',
+    'مشروع مجتمعي / غير ربحي':'Community / non-profit project',
+    'مفتاح API الشخصي':'Personal API Key',
+    'مفتاح OpenRouter API':'OpenRouter API Key',
+    'موديل الذكاء الاصطناعي':'AI Model',
+    'نوع مخصص':'Custom type',
+    'هذا الإجراء سيحل محل كل أفكارك الحالية. هل أنت متأكد؟':'This action will replace all your current ideas. Are you sure?',
+    'وضع الذكاء الاصطناعي':'AI Mode',
+    'يُستخدم لاقتراح موردين محليين':'Used to suggest local suppliers',
+    '١ / ٣ · محادثة سريعة':'1 / 3 · Quick chat',
+    '← رجوع للمحادثة':'← Back to chat',
+    '⏳ جارٍ التحليل...':'⏳ Analyzing...',
+    '⚙️ الإعدادات':'⚙️ Settings',
+    '⚠️ استعادة البيانات':'⚠️ Restore Data',
+    '✅ تأكيد الحفظ':'✅ Confirm Save',
+    '✏️ تعديل':'✏️ Edit',
+    '✨ اقتراحات وتفاصيل التحليل':'✨ Suggestions & analysis details',
+    '✨ التحليل النهائي':'✨ Final Analysis',
+    '✨ توليد الفكرة':'✨ Generate Idea',
+    '✨ فكرة جديدة':'✨ New Idea',
+    '✨ وصف الفكرة':'✨ Idea Description',
+    '🎯 الهدف من الفكرة':'🎯 Goal of the Idea',
+    '💡 أفكار مشابهة':'💡 Similar Ideas',
+    '💡 اقتراحات تطوير':'💡 Development Suggestions',
+    '💬 محادثة':'💬 Chat',
+    '💰 نموذج الربح المتوقع':'💰 Expected Revenue Model',
+    '📊 التقييم':'📊 Evaluation',
+    '📊 مستوى التعقيد المتوقع':'📊 Expected Complexity Level',
+    '📋 أفكاري':'📋 My Ideas',
+    '📝 ملخص الفكرة':'📝 Idea Summary',
+    '🔁 إعادة المحاولة':'🔁 Retry',
+    '🔍 تحليل الفكرة':'🔍 Analyze Idea',
+    '🗑️ حذف':'🗑️ Delete',
+    '🗑️ حذف هذه الفكرة؟':'🗑️ Delete this idea?',
+    '🗺️ خطة التنفيذ':'🗺️ Execution Plan',
+    '🚀 تطوير الفكرة':'🚀 Develop Idea',
+    '🤖 أسئلة التحليل':'🤖 Analysis Questions',
+    '🤖 فكرة بالذكاء الاصطناعي':'🤖 AI Idea',
+    '🧑‍💻 الموارد المتاحة لك (اختر أكثر من واحد)':'🧑‍💻 Resources available to you (select more than one)',
+    '🧠 ملخص ذكي للنقاش':'🧠 Smart Discussion Summary',
+    'سريع ومجاني':'Fast and free',
+    'متوازن وذكي':'Balanced and smart',
+    'الأقوى من Google':'Most powerful from Google',
+    'Claude اقتصادي وسريع':'Economical and fast Claude',
+    'ذكي وسريع':'Smart and fast',
+    'الأقوى والأعلى تكلفة من Anthropic':'Most powerful and most expensive from Anthropic',
+    'سريع من OpenAI':'Fast from OpenAI',
+    'قوي من OpenAI':'Powerful from OpenAI',
+    'مفتوح المصدر':'Open source',
+    'أوروبي وقوي':'European and powerful',
+    'اقتصادي وذكي':'Economical and smart',
+    'تجارية':'Commercial',
+    'اختراع':'Invention',
+    'أخرى':'Other',
+    'الكل':'All',
+    'محللة':'Analyzed',
+    'محللة بالذكاء':'AI-analyzed'
+  },
+  fa: {
+    'فكرة جديدة':'✨ ایده جدید','عنوان الفكرة':'عنوان ایده','اكتب فكرتك...':'ایده‌ات را بنویس...','تفاصيل (اختياري)':'جزئیات (اختیاری)','أي تفاصيل إضافية':'هر جزئیات اضافی','نوع الفكرة':'نوع ایده','حفظ الفكرة':'ذخیره ایده','Save idea':'ذخیره ایده','أفكاري':'ایده‌های من','Ideas':'ایده‌ها','المفضلة':'علاقه‌مندی‌ها','الإعدادات':'تنظیمات','اللغة':'زبان','بلدك':'کشور شما','اختر اللغة':'انتخاب زبان','اختر لغة التطبيق':'زبان برنامه را انتخاب کنید','Choose your language':'زبان خود را انتخاب کنید','Choose app language':'زبان برنامه را انتخاب کنید','إلغاء':'لغو','Cancel':'لغو','تحديد الكل':'انتخاب همه','حذف':'حذف','Delete':'حذف','جديدة':'جدید','قيد الدراسة':'در حال بررسی','مرفوضة':'رد شده','منفّذة':'انجام شده','ابحث في أفكارك…':'در ایده‌هایت جستجو کن…','Search your ideas…':'در ایده‌هایت جستجو کن…','احفظ أفكارك وطورها بالذكاء الاصطناعي':'ایده‌هایت را ذخیره کن و با هوش مصنوعی توسعه بده','لا توجد أفكار بعد':'هنوز ایده‌ای وجود ندارد','ابدأ بإضافة فكرة جديدة':'با افزودن یک ایده جدید شروع کن','المظهر':'ظاهر','تجربة الاستخدام':'تجربه کاربری','تخطي شاشة البداية':'رد کردن صفحه آغازین','فتح التطبيق مباشرة دون عرض الشاشة الترحيبية':'باز شدن مستقیم برنامه بدون صفحه خوش‌آمدگویی','سلة المهملات':'سطل زباله','الأفكار تُحذف نهائياً تلقائياً بعد 30 يوم':'ایده‌ها پس از ۳۰ روز به‌طور خودکار برای همیشه حذف می‌شوند','مسح الكل':'پاک کردن همه','كل الأفكار':'همه ایده‌ها','بحث':'جستجو','رجوع':'بازگشت','تحليل تلقائي':'تحلیل خودکار','دفتر ملاحظات فقط':'فقط دفترچه یادداشت','المشروع':'پروژه','تجربة':'تجربه','تجاري':'تجاری','وصفات ومقادير طبخات':'دستورها و مقدارهای آشپزی','أفكاري':'ایده‌های من','Created by':'ساخته شده توسط','CREATED BY':'ساخته شده توسط','ابدأ الآن':'شروع کن','Start now':'شروع کن','تخطي هذه الشاشة في المرة القادمة':'دفعه بعد این صفحه نمایش داده نشود','Skip this screen next time':'دفعه بعد این صفحه نمایش داده نشود','Your idea deserves to become a real project':'ایده‌ات شایسته تبدیل شدن به یک پروژه واقعی است','فكرتك تستحق أن تصبح مشروعاً حقيقياً':'ایده‌ات شایسته تبدیل شدن به یک پروژه واقعی است','Powered by AI':'با قدرت هوش مصنوعی','مدعوم بالذكاء الاصطناعي':'با قدرت هوش مصنوعی','Your idea deserves to be seen':'ایده‌ات شایسته دیده شدن است','فكرتك تستحق أن تُرى':'ایده‌ات شایسته دیده شدن است','Turn it into a real project':'آن را به یک پروژه واقعی تبدیل کن','حوّلها إلى مشروع حقيقي بقوة الذكاء الاصطناعي':'آن را با هوش مصنوعی به پروژه‌ای واقعی تبدیل کن'
+  }
+};
+function uiText(ar,en){
+  const lang = state?.settings?.lang || 'ar';
+  if(lang==='ar') return ar;
+  const dict = UI_TRANSLATIONS.en || {};
+  return dict[ar] || en || ar;
+}
+function translateTextNodeValue(v){
+  const lang = state?.settings?.lang || 'ar';
+  if(lang==='ar') return v;
+  const dict = UI_TRANSLATIONS.en || {};
+  let out = v;
+  Object.keys(dict).sort((a,b)=>b.length-a.length).forEach(k=>{
+    if(out.includes(k)) out = out.split(k).join(dict[k]);
+  });
+  return out;
+}
+// Auto-translate any newly rendered content (covers all render*() call sites)
+let __translating = false;
+let __translateScheduled = false;
+function scheduleTranslate(){
+  if(state.settings.lang === 'ar' || __translating) return;
+  if(__translateScheduled) return;
+  __translateScheduled = true;
+  requestAnimationFrame(() => {
+    __translateScheduled = false;
+    __translating = true;
+    translateStaticUI();
+    __translating = false;
+  });
+}
+function startTranslateObserver(){
+  const content = $('content');
+  if(!content) return;
+  const obs = new MutationObserver(muts => {
+    if(__translating) return;
+    scheduleTranslate();
+  });
+  obs.observe(content, { childList:true, subtree:true, characterData:true });
+}
+// so we can always translate FROM the source regardless of current state.
+const __origTextMap = new WeakMap();
+const __origPlaceholderMap = new WeakMap();
+
+function translateStaticUI(){
+  const lang = state?.settings?.lang || 'ar';
+  const isAr = lang === 'ar';
+
+  // Text nodes
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node){
+      const p=node.parentElement; if(!p) return NodeFilter.FILTER_REJECT;
+      if(['SCRIPT','STYLE','TEXTAREA','INPUT','OPTION'].includes(p.tagName)) return NodeFilter.FILTER_REJECT;
+      if(p.closest('#splash')) return NodeFilter.FILTER_REJECT;
+      if(!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(n=>{
+    if(!__origTextMap.has(n)) __origTextMap.set(n, n.nodeValue);
+    const original = __origTextMap.get(n);
+    const next = isAr ? original : translateTextNodeValue(original);
+    if(n.nodeValue !== next) n.nodeValue = next;
+  });
+
+  // Placeholders
+  document.querySelectorAll('input[placeholder],textarea[placeholder]').forEach(el=>{
+    if(el.closest('#splash')) return;
+    if(!__origPlaceholderMap.has(el)) __origPlaceholderMap.set(el, el.placeholder);
+    const original = __origPlaceholderMap.get(el);
+    const next = isAr ? original : translateTextNodeValue(original);
+    if(el.placeholder !== next) el.placeholder = next;
+  });
+
+  // data-ar/data-en elements (always reversible via dataset)
+  document.querySelectorAll('[data-ar][data-en]').forEach(el=>{
+    if(el.closest('#splash')) return;
+    el.textContent = isAr ? el.dataset.ar : el.dataset.en;
+  });
+}
+
+function currentLang(){ return LANGUAGES.find(l=>l[0]===state.settings.lang) || LANGUAGES[0]; }
+function currentLangName(){ return currentLang()[1]; }
+function currentLocale(){ return currentLang()[2] || 'en-GB'; }
+function aiLangInstruction(){ return state.settings.lang==='ar' ? 'اكتب بالعربية.' : `Write the entire response in ${currentLangName()}.`; }
+
+const FREE_IDEA_LIMIT = 3;
+
+let state = {
+  ideas: load(KEYS.ideas,[]),
+  isPro: localStorage.getItem(KEYS.pro)==='1',
+  settings: load(KEYS.settings,{ lang:'ar', country:'', aiAuto:true, theme:'dark', viewMode:'list' }),
+  customTypes: load(KEYS.types,[]),
+  apiKey: localStorage.getItem(KEYS.api)||'',
+  currentView:'list',
+  filter:'all',
+  search:'',
+  selectedId:null,
+  deleteTarget:null,
+  trash: load(KEYS.trash,[]),
+  aiAnalysis:'', aiPlan:'', aiSimilar:'', aiDevelop:'', chatHistory:[],
+  chatOpen:false, chatSummary:'', summarizing:false,
+  loadingAnalysis:false, loadingPlan:false, loadingChat:false,
+  loadingSimilar:false, loadingDevelop:false,
+  // selection mode
+  selectionMode:false, selectedIds:new Set(),
+  // fab
+  fabMenuOpen:false,
+  // restore pending
+  pendingRestoreData:null,
+};
+
+// ═══════════════════════════════════════════════════
+// THEMES
+// ═══════════════════════════════════════════════════
+// ── OpenRouter Models ──
+const OR_MODELS = [
+  { id:'google/gemini-2.5-flash-lite',       label:'Gemini 2.5 Flash Lite',  desc:'سريع ومجاني' },
+  { id:'google/gemini-2.5-flash',            label:'Gemini 2.5 Flash',       desc:'متوازن وذكي' },
+  { id:'google/gemini-2.5-pro',              label:'Gemini 2.5 Pro',         desc:'الأقوى من Google' },
+  { id:'anthropic/claude-haiku-4.5',         label:'Claude Haiku 4.5',       desc:'Claude اقتصادي وسريع' },
+  { id:'anthropic/claude-sonnet-4.5',        label:'Claude Sonnet 4.5',      desc:'ذكي وسريع' },
+  { id:'anthropic/claude-opus-4.5',          label:'Claude Opus 4.5',        desc:'الأقوى والأعلى تكلفة من Anthropic' },
+  { id:'openai/gpt-4o-mini',                 label:'GPT-4o Mini',            desc:'سريع من OpenAI' },
+  { id:'openai/gpt-4o',                      label:'GPT-4o',                 desc:'قوي من OpenAI' },
+  { id:'meta-llama/llama-3.3-70b-instruct',  label:'Llama 3.3 70B',          desc:'مفتوح المصدر' },
+  { id:'mistralai/mistral-large',            label:'Mistral Large',          desc:'أوروبي وقوي' },
+  { id:'deepseek/deepseek-chat',             label:'DeepSeek Chat',          desc:'اقتصادي وذكي' },
+];
+
+function renderModelSelect() {
+  const cur = state.settings.orModel || OR_MODELS[0].id;
+  const curModel = OR_MODELS.find(m=>m.id===cur) || OR_MODELS[0];
+  const optionsHtml = OR_MODELS.map(m =>
+    `<option value="${m.id}" ${cur===m.id?'selected':''}>${m.label}</option>`
+  ).join('');
+
+  const sel = $('model-select');
+  if(sel){ sel.innerHTML = optionsHtml; }
+  setText('model-desc-txt', curModel.desc);
+
+  const quickSel = $('ai-quick-model-select');
+  if(quickSel){ quickSel.innerHTML = optionsHtml; }
+  setText('ai-quick-model-desc', curModel.desc);
+
+  const newFormSel = $('new-form-model-select');
+  if(newFormSel){ newFormSel.innerHTML = optionsHtml; }
+  setText('new-form-model-desc', curModel.desc);
+}
+
+function setModel(id) {
+  state.settings.orModel = id;
+  persist(KEYS.settings, state.settings);
+  const m = OR_MODELS.find(m=>m.id===id) || OR_MODELS[0];
+  setText('model-desc-txt', m.desc);
+  setText('ai-quick-model-desc', m.desc);
+  setText('new-form-model-desc', m.desc);
+  // keep all selects in sync regardless of which one triggered the change
+  if($('model-select')) $('model-select').value = id;
+  if($('ai-quick-model-select')) $('ai-quick-model-select').value = id;
+  if($('new-form-model-select')) $('new-form-model-select').value = id;
+}
+
+const THEMES = [
+  { id:'dark',     label:'Dark',      bg:'#08080f', dot:'#7b6cf0', free:true },
+  { id:'trueblack',label:'True Black ⚫', bg:'#000000', dot:'#7b6cf0' },
+  { id:'neon',     label:'Neon ⚡',   bg:'#040408', dot:'#00ffb4' },
+  { id:'velvet',   label:'Velvet',    bg:'#1a0820', dot:'#c48be0' },
+  { id:'navy',     label:'Navy',      bg:'#07013f', dot:'#8888ff', free:true },
+  { id:'sunset',   label:'Sunset 🌅', bg:'#2a1530', dot:'#ff8a5b' },
+  { id:'espresso', label:'Espresso ☕', bg:'#1c130c', dot:'#d9a366' },
+  { id:'sky',      label:'Sky',       bg:'#0e2d4a', dot:'#58aadc' },
+  { id:'ocean',    label:'Ocean',     bg:'#0d3d6e', dot:'#7dd4f8' },
+  { id:'forest',   label:'Forest',    bg:'#243d3c', dot:'#7dc4b8' },
+  { id:'noir',     label:'Noir',      bg:'#1a1710', dot:'#d4a84b' },
+  { id:'sienna',   label:'Sienna 🍊', bg:'#f8f0e8', dot:'#c8622a' },
+  { id:'sage',     label:'Sage 🌿',   bg:'#eef3ec', dot:'#6b9b6f' },
+  { id:'beige',    label:'Beige',     bg:'#f2e9dc', dot:'#8b5e3c' },
+  { id:'rose',     label:'Rose',      bg:'#f5e9e9', dot:'#b05070' },
+  { id:'sakura',   label:'Sakura 🌸', bg:'#fdf0f5', dot:'#d4629a' },
+  { id:'lavender', label:'Lavender 💜',bg:'#f4f0fc', dot:'#9b6de0' },
+  { id:'white',    label:'White',     bg:'#f8f8fa', dot:'#7b6cf0', free:true },
+];
+
+function applyTheme(themeId) {
+  const theme = THEMES.find(t=>t.id===themeId);
+  if(theme && !theme.free && !state.isPro){ show('paywall-modal'); renderSheetSwatches(); return; }
+  state.settings.theme = themeId;
+  persist(KEYS.settings, state.settings);
+  document.documentElement.setAttribute('data-theme', themeId === 'dark' ? '' : themeId);
+  const fab = $('fab-btn');
+  if(fab) fab.style.boxShadow = themeId==='neon' ? '0 0 20px #00ffb4, 0 0 40px #00ffb488' : '';
+  renderSheetSwatches();
+}
+
+function openThemeSheet() {
+  renderSheetSwatches();
+  $('theme-sheet').classList.add('open');
+  $('sheet-backdrop').classList.add('show');
+}
+function closeThemeSheet() {
+  $('theme-sheet').classList.remove('open');
+  $('sheet-backdrop').classList.remove('show');
+}
+
+function renderSheetSwatches() {
+  const ss = $('sheet-swatches');
+  const sl = $('sheet-labels');
+  if(!ss) return;
+  ss.innerHTML = THEMES.map(th => {
+    const locked = !th.free && !state.isPro;
+    return `
+    <div class="swatch ${state.settings.theme===th.id?'active':''} ${locked?'locked':''}"
+      style="background:${th.bg}"
+      onclick="applyTheme('${th.id}');${locked?'':'closeThemeSheet()'}">
+      <div class="swatch-check">✓</div>
+      ${locked?'<div class="swatch-lock">🔒</div>':''}
+    </div>`;
+  }).join('');
+  sl.innerHTML = THEMES.map(th =>
+    `<div class="swatch-label" style="color:${state.settings.theme===th.id?'var(--accent)':'var(--text3)'}">${th.label}</div>`
+  ).join('');
+}
+
+function renderThemeDropdown() { /* replaced by bottom sheet */ }
+
+// ═══════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════
+const $ = id => document.getElementById(id);
+const show = id => $(id)?.classList.remove('hidden');
+const hide = id => $(id)?.classList.add('hidden');
+const setText = (id,txt) => { if($(id)) $(id).textContent=txt };
+
+function showToast(msg) {
+  const el=$('toast'); el.textContent=msg; el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2200);
+}
+
+function fmtDate(iso) {
+  return new Date(iso).toLocaleDateString(
+    currentLocale(),
+    {year:'numeric',month:'short',day:'numeric'}
+  );
+}
+
+const CAT = {
+  commercial:{icon:'💼',color:'#10b981'},
+  invention: {icon:'💡',color:'#6366f1'},
+  other:     {icon:'✏️',color:'#f59e0b'},
+};
+const CUSTOM_COLORS=['#e879f9','#38bdf8','#fb923c','#a3e635','#f472b6','#34d399','#60a5fa','#facc15'];
+function catColor(cat){let h=0;for(let c of cat)h=(h*31+c.charCodeAt(0))&0xffff;return CUSTOM_COLORS[h%CUSTOM_COLORS.length];}
+function badgeHTML(cat) {
+  const m=CAT[cat]||{icon:'🏷️',color:catColor(cat)};
+  return `<span class="badge" style="background:${m.color}22;color:${m.color};border:1px solid ${m.color}44">${m.icon} ${cat}</span>`;
+}
+
+function formatAI(text) {
+  if(!text) return '';
+  return text.split('\n').map(line=>{
+    if(/^\*\*.*\*\*$/.test(line.trim())) return `<h4>${line.replace(/\*\*/g,'')}</h4>`;
+    if(/\*\*(.*?)\*\*/.test(line)) return `<p>${line.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</p>`;
+    if(/^[•\-]/.test(line)) return `<li>${line.replace(/^[•\-]\s*/,'')}</li>`;
+    if(/^\d+\./.test(line)) return `<li>${line}</li>`;
+    if(!line.trim()) return '<br>';
+    return `<p>${line}</p>`;
+  }).join('');
+}
+
+function splitAnalysisForChat(text) {
+  if(!text || text.startsWith('❌') || text.startsWith('⚠️')) return {questions:text||'', followup:''};
+  const lines = text.split('\n');
+  const followupIndex = lines.findIndex(line =>
+    /مقترحات|اقتراحات|تطوير|توصيات|suggestions|recommendations|improvements/i.test(line)
+  );
+  if(followupIndex <= 0) return {questions:text, followup:''};
+  return {
+    questions: lines.slice(0, followupIndex).join('\n').trim(),
+    followup: lines.slice(followupIndex).join('\n').trim(),
+  };
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function errMsg(e) {
+  const msg = String(e?.message || '');
+  const model = e?.model ? `\nالموديل: ${e.model}` : '';
+  const status = e?.status ? `HTTP ${e.status}` : '';
+  const rawDetail = String(e?.detail || '').replace(/\s+/g,' ').trim();
+  const detail = rawDetail && rawDetail !== msg ? `\nتفاصيل OpenRouter: ${rawDetail.slice(0,240)}` : '';
+  if(msg==='no_api_key') return '⚠️ أدخل مفتاح API من الإعدادات أولاً';
+  if(msg==='timeout' || e?.name==='AbortError') return '❌ انتهت المهلة، حاول مجدداً';
+  if(msg==='empty_response') return '❌ لم يرجع الذكاء الاصطناعي نتيجة، جرّب موديل آخر';
+  if(msg==='garbled_response') return `❌ رجع الموديل نصاً غير مفهوم، جرّب تغيير الموديل من الإعدادات أو فورم الفكرة.${model}`;
+  if(e?.status===401 || msg.includes('401')) return `❌ مفتاح API غير صحيح أو منتهي${model}`;
+  if(e?.status===402 || /credit|balance|quota|billing|funds/i.test(msg)) return `❌ OpenRouter رفض الطلب بسبب رصيد/حد صرف أو مزود Claude.${model}\n${status}: ${msg}${detail}`;
+  if(e?.status===404 || msg.includes('404') || /model|not found|No endpoints/i.test(msg)) return `❌ الموديل المختار غير متاح حالياً.${model}\n${status}: ${msg}${detail}`;
+  if(e?.status===429 || msg.includes('429')) return `❌ عدد الطلبات كبير حالياً، انتظر قليلاً ثم حاول مرة أخرى${model}`;
+  if(/Failed to fetch|NetworkError|Load failed/i.test(msg)) return '❌ تعذر الاتصال بـ OpenRouter. تأكد من الإنترنت أو جرّب تشغيل التطبيق عبر رابط https';
+  return `❌ حدث خطأ${model}\n${status}: ${msg || 'حاول مجدداً'}${detail}`;
+}
+
+// ═══════════════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════════════
+function nav(view) {
+  ['list','new','ai-new','wizard','detail','settings'].forEach(v=>{
+    $(`screen-${v}`)?.classList.remove('active');
+  });
+  ['list','settings'].forEach(v=>$(`nav-${v}`)?.classList.remove('active'));
+  $(`screen-${view}`)?.classList.add('active');
+  $(`nav-${view}`)?.classList.add('active');
+  if(view==='new') $('nav-list')?.classList.remove('active');
+  state.currentView = view;
+  $('content').scrollTop = 0;
+  $('back-float')?.classList.remove('show');
+
+  const showNav = view==='list' || view==='new';
+  $('bottom-nav').style.display = showNav?'flex':'none';
+  $('view-toggle-wrap').style.display = view==='list'?'flex':'none';
+
+  // exit selection mode on nav
+  if(state.selectionMode) exitSelectionMode();
+
+  $('settings-btn').classList.toggle('active', view==='settings');
+  $('warn-btn') && (state.apiKey?hide('warn-btn'):show('warn-btn'));
+
+  if(view==='list') renderList();
+  if(view==='settings') renderSettings();
+  if(view==='ai-new'){
+    if(state.apiKey){ show('ai-quick-model-field'); renderModelSelect(); }
+    else hide('ai-quick-model-field');
+  }
+  if(view==='new'){
+    if(state.apiKey){ show('new-form-model-field'); renderModelSelect(); }
+    else hide('new-form-model-field');
+  }
+
+  // re-apply translation to freshly-rendered content
+  if(state.settings.lang !== 'ar') translateStaticUI();
+
+  // force repaint on iOS — fixes buttons not rendering on first visit
+  requestAnimationFrame(() => {
+    const screen = $(`screen-${view}`);
+    if(screen) { screen.style.opacity='0.99'; requestAnimationFrame(()=>screen.style.opacity=''); }
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// VIEW MODE (grid/list)
+// ═══════════════════════════════════════════════════
+function setViewMode(mode) {
+  state.settings.viewMode = mode;
+  persist(KEYS.settings, state.settings);
+  $('vt-list').classList.toggle('active', mode==='list');
+  $('vt-grid').classList.toggle('active', mode==='grid');
+  $('vt-table')?.classList.toggle('active', mode==='table');
+  const grid = $('ideas-grid');
+  grid.classList.toggle('grid-view', mode==='grid');
+  grid.classList.toggle('table-view', mode==='table');
+  if(mode!=='grid') grid.classList.remove('grid-view');
+  if(mode!=='table') grid.classList.remove('table-view');
+  renderList();
+}
+
+// ═══════════════════════════════════════════════════
+// STATS BAR
+// ═══════════════════════════════════════════════════
+function renderStats() {
+  const total = state.ideas.length;
+  const commercial = state.ideas.filter(i=>i.category==='commercial').length;
+  const invention = state.ideas.filter(i=>i.category==='invention').length;
+  const analyzed = state.ideas.filter(i=>i.analysis&&!i.analysis.startsWith('❌')).length;
+
+  const starred = state.ideas.filter(i=>i.starred).length;
+  const stats = [
+    {icon:'💡',num:total,label:'الكل',filter:'all'},
+    {icon:'💼',num:commercial,label:'تجارية',filter:'commercial'},
+    {icon:'🔬',num:invention,label:'اختراع',filter:'invention'},
+    {icon:'✨',num:analyzed,label:'محللة',filter:'analyzed'},
+  ];
+
+  $('stats-bar').innerHTML = stats.map(s=>`
+    <div class="stat-card ${state.filter===s.filter?'active':''}" onclick="setFilter('${s.filter}')">
+      <div class="stat-icon">${s.icon}</div>
+      <div class="stat-num">${s.num}</div>
+      <div class="stat-label">${s.label}</div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════
+// LIST
+// ═══════════════════════════════════════════════════
+function renderList() {
+  renderStats();
+
+  // chips
+  const filters=[
+    {val:'all',label:'الكل'},
+    {val:'commercial',label:'💼 تجارية'},
+    {val:'invention',label:'💡 اختراع'},
+    {val:'other',label:'✏️ أخرى'},
+    {val:'starred',label:'⭐ المفضلة'},
+  ];
+  $('filter-chips').innerHTML = filters.map(f=>
+    `<button class="chip${state.filter===f.val?' active':''}" onclick="setFilter('${f.val}')">${f.label}</button>`
+  ).join('');
+  // sync bottom nav starred button
+  $('nav-starred')?.classList.toggle('active', state.filter==='starred');
+
+  // ── Fuzzy Arabic search ──
+  function normalizeAr(s) {
+    if(!s) return '';
+    return s.toLowerCase()
+      .replace(/[ً-ٰٟ]/g, '')
+      .replace(/[أإآٱ]/g, 'ا')
+      .replace(/ة/g, 'ه')
+      .replace(/ؤ/g, 'و')
+      .replace(/[يى]/g, 'ي')
+      .replace(/ئ/g, 'ي')
+      .replace(/[ ]+/g, ' ').trim();
+  }
+  function fuzzyMatch(text, query) {
+    if(!query) return true;
+    const t = normalizeAr(text);
+    const q = normalizeAr(query);
+    if(!q) return true;
+    if(t.includes(q)) return true;
+    // all query words must appear in text
+    return q.split(' ').filter(Boolean).every(w => t.includes(w));
+  }
+  const filtered = state.ideas.filter(i=>{
+    let mf = state.filter==='all'
+      || i.category===state.filter
+      || (state.filter==='other'&&i.category!=='commercial'&&i.category!=='invention')
+      || (state.filter==='analyzed'&&i.analysis&&!i.analysis.startsWith('❌'))
+      || (state.filter==='starred'&&i.starred);
+    if(!mf) return false;
+    if(!state.search) return true;
+    return fuzzyMatch(i.title, state.search) || fuzzyMatch(i.description, state.search);
+  });
+
+  const grid = $('ideas-grid');
+  grid.className = 'ideas-grid' + (state.settings.viewMode==='grid'?' grid-view':'') + (state.settings.viewMode==='table'?' table-view':'');
+  grid.className += state.selectionMode?' selection-mode':'';
+
+  if(!filtered.length){
+    grid.innerHTML=`<div class="empty"><div class="empty-icon">💡</div><div class="empty-title">لا توجد أفكار بعد</div><div class="empty-sub">ابدأ بكتابة فكرتك الأولى 🚀</div></div>`;
+    return;
+  }
+
+  if(state.settings.viewMode==='table') {
+    const ts = state.tableSort || {col:'date', dir:'desc'};
+    const sortedT = [...filtered].sort((a,b)=>{
+      if(ts.col==='title') return ts.dir==='asc'?a.title.localeCompare(b.title,'ar'):b.title.localeCompare(a.title,'ar');
+      if(ts.col==='type') return ts.dir==='asc'?a.category.localeCompare(b.category,'ar'):b.category.localeCompare(a.category,'ar');
+      return ts.dir==='asc'?(a.createdAt>b.createdAt?1:-1):(a.createdAt<b.createdAt?1:-1);
+    });
+    const cl=(col)=>col===ts.col?(ts.dir==='asc'?' sort-asc':' sort-desc'):'';
+    grid.innerHTML = `
+      <div class="table-header">
+        <span class="${cl('title')}" onclick="tableSort('title')">العنوان</span>
+        <span class="${cl('date')}" style="text-align:center" onclick="tableSort('date')">التاريخ</span>
+        <span class="${cl('type')}" style="text-align:center" onclick="tableSort('type')">النوع</span>
+      </div>` +
+      sortedT.map(idea=>`
+      <div class="table-row" onclick="cardClick('${idea.id}')">
+        <div class="t-title">${idea.starred?'⭐ ':''}${escHtml(idea.title)}</div>
+        <div class="t-date">${fmtDate(idea.createdAt)}</div>
+        <div class="t-type">${badgeHTML(idea.category)}</div>
+      </div>`).join('');
+    return;
+  }
+
+  const sortedF = [...filtered].sort((a,b)=>(b.starred?1:0)-(a.starred?1:0));
+  grid.innerHTML = sortedF.map(idea=>{
+    const isSel = state.selectedIds.has(idea.id);
+    return `
+    <div class="idea-card ${isSel?'selecting':''}"
+      id="card-${idea.id}"
+      onclick="cardClick('${idea.id}')"
+      ontouchstart="cardTouchStart(event,'${idea.id}')"
+      ontouchend="cardTouchEnd(event,'${idea.id}')"
+      ontouchmove="cardTouchMove(event,'${idea.id}')">
+      <div class="card-top">
+        <div class="sel-checkbox">${isSel?'✓':''}</div>
+        <div class="card-title" style="flex:1">${escHtml(idea.title)}</div>
+        ${!state.selectionMode?`
+          <button class="star-btn ${idea.starred?'starred':''}" onclick="event.stopPropagation();toggleStar('${idea.id}')">${idea.starred?'⭐':'☆'}</button>
+          <button class="del-btn" onclick="event.stopPropagation();openDeleteModal('${idea.id}')">🗑️</button>`:''}
+      </div>
+      ${idea.description?`<div class="card-desc">${escHtml(idea.description)}</div>`:''}
+      <div class="card-footer">
+        ${badgeHTML(idea.category)}
+        <div class="card-dots">
+          ${idea.analysis&&!idea.analysis.startsWith('❌')?'<div class="ai-dot"></div>':''}
+          <span class="card-date">${fmtDate(idea.createdAt)}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // swipe support
+  filtered.forEach(idea=>initSwipe(idea.id));
+}
+
+function setFilter(f) { state.filter=f; renderList(); }
+$('search-input').addEventListener('input',e=>{state.search=e.target.value;renderList()});
+
+function toggleStar(id) {
+  const idea = state.ideas.find(i=>i.id===id);
+  if(!idea) return;
+  idea.starred = !idea.starred;
+  persist(KEYS.ideas, state.ideas);
+  renderList();
+}
+
+function tableSort(col) {
+  if(!state.tableSort) state.tableSort={col:'date',dir:'desc'};
+  if(state.tableSort.col===col) state.tableSort.dir = state.tableSort.dir==='asc'?'desc':'asc';
+  else { state.tableSort.col=col; state.tableSort.dir='asc'; }
+  renderList();
+}
+
+// ═══════════════════════════════════════════════════
+// SELECTION MODE
+// ═══════════════════════════════════════════════════
+let longPressTimer = null;
+let touchStartX = 0, touchStartY = 0, touchMoved = false, suppressNextClick = false;
+const TOUCH_MOVE_THRESHOLD = 10; // px — anything below this is a tap, not a scroll/drag
+
+function cardTouchStart(e, id) {
+  const t = e.touches[0];
+  touchStartX = t.clientX; touchStartY = t.clientY;
+  touchMoved = false;
+  longPressTimer = setTimeout(()=>{
+    if(touchMoved) return; // finger moved meaningfully — this was a scroll, not a long-press
+    if(!state.selectionMode) enterSelectionMode();
+    toggleSelect(id);
+    suppressNextClick = true; // the long-press already handled this touch; the upcoming synthetic click should be ignored
+  }, 500);
+}
+function cardTouchMove(e, id) {
+  const t = e.touches[0];
+  const dx = Math.abs(t.clientX - touchStartX);
+  const dy = Math.abs(t.clientY - touchStartY);
+  if(dx > TOUCH_MOVE_THRESHOLD || dy > TOUCH_MOVE_THRESHOLD){
+    touchMoved = true;
+    clearTimeout(longPressTimer);
+  }
+}
+function cardTouchEnd(e, id) {
+  clearTimeout(longPressTimer);
+  if(touchMoved){
+    // this was a scroll gesture that happened to start on a card — never treat it as a tap
+    suppressNextClick = true;
+  }
+}
+function cardClick(id) {
+  if(suppressNextClick){ suppressNextClick = false; return; }
+  if(state.selectionMode){ toggleSelect(id); return; }
+  openIdea(id);
+}
+
+function enterSelectionMode() {
+  state.selectionMode = true;
+  state.selectedIds = new Set();
+  $('sel-bar').classList.add('active');
+  $('main-hdr').style.display = 'none';
+  renderList();
+  updateSelCount();
+}
+function exitSelectionMode() {
+  state.selectionMode = false;
+  state.selectedIds = new Set();
+  $('sel-bar').classList.remove('active');
+  $('main-hdr').style.display = '';
+  renderList();
+}
+function toggleSelect(id) {
+  if(state.selectedIds.has(id)) state.selectedIds.delete(id);
+  else state.selectedIds.add(id);
+  updateSelCount();
+  const card = $('card-'+id);
+  if(card){
+    card.classList.toggle('selecting', state.selectedIds.has(id));
+    const cb = card.querySelector('.sel-checkbox');
+    if(cb) cb.textContent = state.selectedIds.has(id)?'✓':'';
+  }
+}
+function selectAll() {
+  state.ideas.forEach(i=>state.selectedIds.add(i.id));
+  updateSelCount();
+  renderList();
+}
+function updateSelCount() {
+  $('sel-count').textContent = `${state.selectedIds.size} محدد`;
+}
+function deleteSelected() {
+  if(!state.selectedIds.size) return;
+  const now=new Date().toISOString();
+  state.ideas.filter(i=>state.selectedIds.has(i.id)).forEach(i=>{i.deletedAt=now;state.trash.unshift({...i});});
+  persist(KEYS.trash,state.trash);
+  state.ideas=state.ideas.filter(i=>!state.selectedIds.has(i.id));
+  persist(KEYS.ideas,state.ideas);
+  exitSelectionMode();
+  showToast('نُقلت للسلة');
+}
+
+// ═══════════════════════════════════════════════════
+// SWIPE TO DELETE
+// ═══════════════════════════════════════════════════
+const swipeState = {};
+function initSwipe(id) {
+  const card = $('card-'+id);
+  if(!card||state.selectionMode) return;
+  swipeState[id] = {startX:0, startY:0, swiping:false, deleted:false};
+
+  card.addEventListener('touchstart', e=>{
+    swipeState[id].startX = e.touches[0].clientX;
+    swipeState[id].startY = e.touches[0].clientY;
+    swipeState[id].swiping = false;
+  },{passive:true});
+
+  card.addEventListener('touchmove', e=>{
+    const dx = e.touches[0].clientX - swipeState[id].startX;
+    const dy = e.touches[0].clientY - swipeState[id].startY;
+    if(Math.abs(dy)>Math.abs(dx)) return;
+    if(Math.abs(dx)>10) swipeState[id].swiping=true;
+    if(!swipeState[id].swiping) return;
+    const dir = document.documentElement.dir==='rtl'?1:-1;
+    const pull = dx*dir;
+    if(pull<0) return;
+    card.style.transform = `translateX(${dx}px)`;
+    card.style.opacity = 1-Math.min(pull/120,0.5);
+  },{passive:true});
+
+  card.addEventListener('touchend', e=>{
+    if(!swipeState[id].swiping){card.style.transform='';card.style.opacity='';return;}
+    const dx = e.changedTouches[0].clientX - swipeState[id].startX;
+    const dir = document.documentElement.dir==='rtl'?1:-1;
+    const pull = dx*dir;
+    if(pull>80){
+      card.style.transition='all .25s';
+      card.style.transform=`translateX(${dir>0?200:-200}px)`;
+      card.style.opacity='0';
+      setTimeout(()=>{
+        state.ideas = state.ideas.filter(i=>i.id!==id);
+        persist(KEYS.ideas,state.ideas);
+        renderList();
+        showToast('تم الحذف');
+      },260);
+    } else {
+      card.style.transition='all .2s';
+      card.style.transform='';
+      card.style.opacity='';
+      setTimeout(()=>card.style.transition='',200);
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// FAB
+// ═══════════════════════════════════════════════════
+let fabTimer=null;
+const fabBtn=$('fab-btn');
+fabBtn.addEventListener('touchstart',()=>{
+  fabTimer=setTimeout(()=>{ fabTimer=null; openFabMenu(); },400);
+},{passive:true});
+fabBtn.addEventListener('touchend',e=>{
+  if(fabTimer){ clearTimeout(fabTimer); fabTimer=null; openNew(); }
+});
+fabBtn.addEventListener('click',e=>{
+  // desktop fallback
+  if(state.fabMenuOpen) closeFabMenu();
+  else openNew();
+});
+
+function openFabMenu(){
+  state.fabMenuOpen=true;
+  $('fab-menu').classList.remove('hidden');
+  $('fab-backdrop').classList.add('show');
+  fabBtn.textContent='×';
+}
+function closeFabMenu(){
+  state.fabMenuOpen=false;
+  $('fab-menu').classList.add('hidden');
+  $('fab-backdrop').classList.remove('show');
+  fabBtn.textContent='+';
+}
+
+// ═══════════════════════════════════════════════════
+// NEW IDEA
+// ═══════════════════════════════════════════════════
+let formCat='commercial';
+
+function openNew(){
+  formCat='commercial';
+  $('idea-title-input').value='';
+  $('idea-desc-input').value='';
+  $('custom-type-input').value='';
+  hide('title-error'); hide('custom-type-field');
+  renderCatGrid();
+  renderSavedTypes();
+  nav('new');
+  // ensure save btn visible (sometimes hidden by previous state)
+  const saveBtn = $('save-btn');
+  if(saveBtn){ saveBtn.style.display=''; saveBtn.disabled=false; }
+}
+
+function openAiNew(){
+  $('ai-quick-input').value='';
+  hide('ai-quick-error');
+  nav('ai-new');
+}
+
+function renderCatGrid(){
+  const cats=[
+    {val:'commercial',icon:'💼',label:'تجارية'},
+    {val:'invention', icon:'💡',label:'اختراع'},
+    {val:'other',     icon:'✏️',label:'أخرى'},
+  ];
+  $('cat-grid').innerHTML=cats.map(c=>`
+    <button class="cat-btn${formCat===c.val?' sel':''}" onclick="selectCat('${c.val}')">
+      <span class="cat-icon">${c.icon}</span>${c.label}
+    </button>`).join('');
+}
+
+function selectCat(cat){
+  formCat=cat; renderCatGrid();
+  cat==='other'?show('custom-type-field'):hide('custom-type-field');
+  const badge = $('pro-badge-customtype');
+  if(badge) badge.style.display = state.isPro ? 'none' : 'inline-flex';
+}
+
+function renderSavedTypes(){
+  $('saved-types-list').innerHTML=state.customTypes.map(t=>`<option value="${escHtml(t)}">`).join('');
+}
+
+function doSave(){
+  if(!state.isPro && state.ideas.length >= FREE_IDEA_LIMIT){ show('paywall-modal'); return; }
+  const title=$('idea-title-input').value.trim();
+  if(!title){$('title-error').textContent='اكتب عنوان الفكرة';show('title-error');return;}
+  hide('title-error');
+  const customType=$('custom-type-input').value.trim();
+  if(formCat==='other'&&customType&&!state.isPro){ show('paywall-modal'); return; }
+  const finalCat=formCat==='other'&&customType?customType:formCat;
+  if(formCat==='other'&&customType&&!state.customTypes.includes(customType)){
+    state.customTypes.push(customType);persist(KEYS.types,state.customTypes);
+  }
+  const idea={id:Date.now().toString(),title,description:$('idea-desc-input').value.trim(),category:finalCat,createdAt:new Date().toISOString(),analysis:'',plan:'',chatHistory:[]};
+  state.ideas.unshift(idea);persist(KEYS.ideas,state.ideas);
+  showToast('✓ تم الحفظ');
+
+  // إذا كان وضع الإعدادات "دفتر ملاحظات فقط"، ارجع مباشرة لصفحة الأفكار.
+  // الرجوع لصفحة التفاصيل يبقى فقط عند تفعيل التحليل التلقائي.
+  if(state.settings.aiAuto && state.apiKey){
+    openIdea(idea.id);
+    setTimeout(()=>triggerAnalysis(),100);
+  } else {
+    nav('list');
+  }
+}
+
+async function doAiQuickSave(){
+  if(!state.isPro && state.ideas.length >= FREE_IDEA_LIMIT){ show('paywall-modal'); return; }
+  const prompt=$('ai-quick-input').value.trim();
+  if(!prompt){$('ai-quick-error').textContent='اكتب وصف الفكرة أولاً';show('ai-quick-error');return;}
+  if(!state.apiKey){$('ai-quick-error').textContent='⚠️ أدخل مفتاح API من الإعدادات';show('ai-quick-error');return;}
+  hide('ai-quick-error');
+
+  const btn=$('ai-quick-btn');
+  btn.disabled=true; btn.innerHTML='<span>⏳ جارٍ التوليد...</span>';
+
+  const system='أنت مساعد لتنظيم الأفكار. ردك يجب أن يكون JSON فقط بدون أي نص آخر.';
+  const content=`المستخدم يريد إنشاء فكرة بناءً على هذا الوصف: "${prompt}"\n\nأنشئ JSON بهذا الشكل بالضبط:\n{"title":"عنوان مختصر للفكرة","description":"وصف موجز من 2-3 جمل","category":"commercial أو invention أو other"}`;
+
+  try {
+    const text = await callClaude([{role:'user',content}], system);
+    const clean = text.replace(/```json|```/g,'').trim();
+    const data = JSON.parse(clean);
+    const title = (data.title||'').trim();
+    const desc = (data.description||'').trim();
+    if(title && !isCoherentText(title)) throw new Error('garbled_response');
+    if(desc && !isCoherentText(desc)) throw new Error('garbled_response');
+    const idea={id:Date.now().toString(),title:title||prompt,description:desc,category:data.category||'commercial',createdAt:new Date().toISOString(),analysis:'',plan:'',chatHistory:[]};
+    state.ideas.unshift(idea);persist(KEYS.ideas,state.ideas);
+    showToast('✓ تم إنشاء الفكرة');
+    openIdea(idea.id);
+    if(state.settings.aiAuto&&state.apiKey) setTimeout(()=>triggerAnalysis(),100);
+  } catch(e) {
+    $('ai-quick-error').textContent=errMsg(e);show('ai-quick-error');
+  }
+  btn.disabled=false; btn.innerHTML='<span>✨ توليد الفكرة</span>';
+}
+
+// ═══════════════════════════════════════════════════
+// DETAIL
+// ═══════════════════════════════════════════════════
+function openIdea(id){
+  const idea=state.ideas.find(i=>i.id===id);
+  if(!idea) return;
+  state.selectedId=id;
+  state.aiAnalysis=idea.analysis||'';
+  state.aiPlan=idea.plan||'';
+  state.aiSimilar=idea.similar||'';
+  state.aiDevelop=idea.develop||'';
+  state.chatHistory=idea.chatHistory||[];
+  state.chatOpen=false;
+  state.chatSummary=idea.chatSummary||'';
+  state.summarizing=false;
+  state.loadingAnalysis=false;state.loadingPlan=false;state.loadingChat=false;
+  state.loadingSimilar=false;state.loadingDevelop=false;
+  $('detail-title').textContent=idea.title;
+  $('detail-desc').textContent=idea.description||'';
+  $('detail-badge').innerHTML=badgeHTML(idea.category);
+  $('detail-date').textContent=fmtDate(idea.createdAt);
+  if($('detail-status-badge')) $('detail-status-badge').innerHTML=statusBadgeHTML?statusBadgeHTML(idea.status):'';
+  window._detailIdeaId=idea.id;
+  if($('pro-badge-export-idea')) $('pro-badge-export-idea').style.display = state.isPro ? 'none' : 'inline-flex';
+  const _rel=(idea.related||[]).map(rid=>state.ideas.find(i=>i.id===rid)).filter(Boolean);
+  const _rs=$('detail-related-section');
+  if(_rs){if(_rel.length){$('detail-related-chips').innerHTML=_rel.map(r=>'<div class="related-chip" onclick="openIdea(\'' +r.id+ '\')">' +escHtml(r.title.slice(0,30))+ '</div>').join('');_rs.style.display='';}else{_rs.style.display='none';}}
+  // scores (from guided wizard)
+  if(idea.scores){
+    $('detail-scores').innerHTML=scoreBarsHTML(idea.scores);
+    show('detail-scores-block');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>animateScoreBars('detail-scores')));
+  } else hide('detail-scores-block');
+  setText('analysis-card-title', idea.scores ? '🤖 ملخص التحليل' : '🤖 أسئلة التحليل');
+  renderDetailAI();renderChat();
+  nav('detail');
+  // refresh stale chat summary silently in the background
+  if(state.apiKey && (idea.chatHistory||[]).length > (idea.summarizedCount||0)){
+    updateChatSummary(idea.id);
+  }
+}
+
+function saveDetailEdits(){
+  const idea = state.ideas.find(i=>i.id===state.selectedId);
+  if(!idea) return;
+  let newTitle = $('detail-title').textContent.replace(/\s+/g,' ').trim();
+  const newDesc = $('detail-desc').textContent.replace(/\u200B/g,'').trim();
+  // never allow an empty title — silently revert to the last saved value instead of blocking the user
+  if(!newTitle){ $('detail-title').textContent = idea.title; newTitle = idea.title; }
+  if(newTitle === idea.title && newDesc === (idea.description||'')) return; // nothing changed, skip persist+toast
+  idea.title = newTitle;
+  idea.description = newDesc;
+  persist(KEYS.ideas, state.ideas);
+  showToast(uiText('✓ تم حفظ التعديل','✓ Changes saved'));
+}
+
+function renderDetailAI(){
+  const hasKey=!!state.apiKey;
+  const hasAnalysis=state.aiAnalysis&&!state.aiAnalysis.startsWith('❌')&&!state.aiAnalysis.startsWith('⚠️');
+  if(!hasKey){
+    setText('no-key-txt', uiText('⚠️ لم يتم إدخال مفتاح الذكاء الاصطناعي بعد','⚠️ AI key has not been added yet'));
+    show('no-key-banner');hide('analysis-off-banner');hide('ai-btns');hide('ai-btns-2');
+  }
+  else{
+    hide('no-key-banner');
+    (!state.settings.aiAuto&&!state.aiAnalysis)?show('analysis-off-banner'):hide('analysis-off-banner');
+    show('ai-btns');show('ai-btns-2');
+  }
+  setText('analyze-btn',state.loadingAnalysis?'جارٍ التحليل...':(state.aiAnalysis?'إعادة التحليل ✨':'✨ حلّل الفكرة'));
+  $('analyze-btn').disabled=state.loadingAnalysis;
+  $('plan-btn').disabled=state.loadingPlan||!hasAnalysis;
+  setText('plan-btn',state.loadingPlan?'جارٍ بناء الخطة...':'🗺️ خطة التنفيذ');
+  setText('similar-btn',state.loadingSimilar?'⏳ جارٍ البحث...':'💡 أفكار مشابهة');
+  $('similar-btn').disabled=state.loadingSimilar;
+  setText('develop-btn',state.loadingDevelop?'⏳ جارٍ التطوير...':'🚀 تطوير الفكرة');
+  $('develop-btn').disabled=state.loadingDevelop;
+  if(state.aiAnalysis){
+    const parts=splitAnalysisForChat(state.aiAnalysis);
+    $('ai-analysis-text').innerHTML=formatAI(parts.questions);
+    show('ai-analysis-card');
+    if(parts.followup){$('ai-followup-text').innerHTML=formatAI(parts.followup);show('ai-followup-card');}
+    else hide('ai-followup-card');
+  }else{hide('ai-analysis-card');hide('ai-followup-card');}
+  const canChat = hasAnalysis&&!state.loadingAnalysis;
+  // chat: collapsed behind a toggle; smart summary shown when collapsed
+  if(canChat){
+    const n=state.chatHistory.length;
+    show('chat-toggle-btn');
+    setText('chat-toggle-btn', state.chatOpen ? 'إخفاء المحادثة ▲' : (n ? `💬 فتح المحادثة (${n} رسائل)` : '💬 ابدأ محادثة حول الفكرة'));
+    state.chatOpen?show('chat-section'):hide('chat-section');
+    if(!state.chatOpen && n && (state.chatSummary||state.summarizing)){
+      $('chat-summary-text').innerHTML=state.chatSummary?formatAI(state.chatSummary):'';
+      $('chat-summary-meta').innerHTML=state.summarizing
+        ?'⏳ يجري تحديث الملخص...'
+        :`✓ ملخص تلقائي يغطي ${state.chatHistory.length} رسائل`;
+      show('chat-summary-card');
+    } else hide('chat-summary-card');
+  } else { hide('chat-toggle-btn'); hide('chat-section'); hide('chat-summary-card'); }
+  if(state.aiPlan){$('ai-plan-text').innerHTML=formatAI(state.aiPlan);show('ai-plan-card');}else hide('ai-plan-card');
+  if(state.aiSimilar){$('ai-similar-text').innerHTML=formatAI(state.aiSimilar);show('ai-similar-card');}else hide('ai-similar-card');
+  if(state.aiDevelop){$('ai-develop-text').innerHTML=formatAI(state.aiDevelop);show('ai-develop-card');}else hide('ai-develop-card');
+}
+
+// safe formatting for chat bubbles: escape first, then bold/bullets/linebreaks
+function fmtBubble(text){
+  return escHtml(text)
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .split('\n').map(l=>{
+      const t=l.trim();
+      if(/^[•\-]\s*/.test(t)) return '• '+t.replace(/^[•\-]\s*/,'');
+      return l;
+    }).join('<br>');
+}
+
+function renderChat(){
+  const msgs=$('chat-msgs');
+  msgs.innerHTML=state.chatHistory.map(m=>`
+    <div class="bubble ${m.role==='user'?'user':'ai-bubble'}">
+      <div class="bubble-label">${m.role==='user'?'أنت':'الذكاء الاصطناعي'}</div>
+      ${fmtBubble(m.text)}
+    </div>`).join('');
+  if(state.loadingChat) msgs.innerHTML+=`<div class="chat-thinking">⏳ يفكر...</div>`;
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+// ═══════════════════════════════════════════════════
+// OPENROUTER API
+// ═══════════════════════════════════════════════════
+async function callClaude(messages, system){
+  if(!state.apiKey) throw new Error('no_api_key');
+  const model = state.settings.orModel || 'google/gemini-2.5-flash-lite';
+  const controller=new AbortController();
+  const tid=setTimeout(()=>controller.abort(),60000);
+  try {
+    const res=await fetch('https://openrouter.ai/api/v1/chat/completions',{
+      method:'POST',signal:controller.signal,
+      headers:{
+        'Content-Type':'application/json',
+        'Accept':'application/json',
+        'Authorization':'Bearer '+state.apiKey.trim(),
+        'HTTP-Referer': location.origin && location.origin !== 'null' ? location.origin : 'https://ideaspark.app',
+        'X-Title':'IdeaSpark',
+      },
+      body:JSON.stringify({
+        model,
+        max_tokens:1200,
+        temperature:0.7,
+        messages:[{role:'system',content:system},...messages],
+      }),
+    });
+    if(!res.ok){
+      const raw=await res.text().catch(()=>'');
+      let info={};
+      try{info=JSON.parse(raw);}catch{}
+      const err = new Error(info?.error?.message || info?.message || raw || `HTTP ${res.status}`);
+      err.status = res.status;
+      err.model = model;
+      err.detail = raw;
+      throw err;
+    }
+    const data=await res.json();
+    const content=data.choices?.[0]?.message?.content;
+    const text=Array.isArray(content)
+      ? content.map(part => typeof part==='string' ? part : (part?.text || '')).join('')
+      : (content || '');
+    if(!text.trim()) throw new Error('empty_response');
+    if(!isCoherentText(text)){
+      const err=new Error('garbled_response'); err.model=model; throw err;
+    }
+    return text.trim();
+  } finally {
+    clearTimeout(tid);
+  }
+}
+
+// Heuristic guard against garbled / mojibake-style model output (rare but seen with
+// some lightweight models on short Arabic prompts). Not a language-correctness check —
+// just catches text that's clearly broken before it gets saved into the user's data.
+function isCoherentText(raw){
+  const text = raw.trim();
+  if(text.length < 2) return false;
+  // strip JSON punctuation/whitespace/digits/common symbols so we judge actual letters
+  const letters = text.replace(/[\s\d{}\[\]":,.\-_()،؛؟!?'"`*#%/\\]/g,'');
+  if(letters.length < 2) return true; // nothing to judge (e.g. pure JSON skeleton), let it through
+  // 1) excessive immediate repetition of the same character (e.g. "تتتتتت")
+  if(/(.)\1{3,}/.test(letters)) return false;
+  // 2) short cyclical repeating patterns (e.g. "تغتعتغت" cycling through 2-4 distinct chars) —
+  //    real words/sentences don't repeat a short window this regularly
+  if(letters.length >= 6){
+    for(const period of [2,3,4]){
+      if(letters.length < period+3) continue;
+      let matches=0, total=0;
+      for(let i=period;i<letters.length;i++){ total++; if(letters[i]===letters[i-period]) matches++; }
+      if(total>0 && matches/total >= 0.6) return false;
+    }
+  }
+  // 3) for short strings, a single character (or pair) dominating the entire string is a red flag
+  if(letters.length >= 5 && letters.length < 10){
+    if(new Set(letters.split('')).size <= 2) return false;
+  }
+  return true;
+}
+
+async function triggerAnalysis(){
+  const idea=state.ideas.find(i=>i.id===state.selectedId);if(!idea)return;
+  state.loadingAnalysis=true;state.aiAnalysis='';state.chatHistory=[];
+  renderDetailAI();
+  let dots=0;
+  const pulse=setInterval(()=>{dots=(dots%3)+1;$('ai-analysis-text').innerHTML=`⏳ جارٍ التحليل`+'.'.repeat(dots);show('ai-analysis-card');},500);
+  const isAr=state.settings.lang==='ar';
+  const system=(isAr?'أنت مستشار أعمال وابتكار خبير. ردودك مختصرة وعملية. ':'You are an expert business and innovation advisor. Be concise and practical. ')+aiLangInstruction();
+  const content=isAr
+    ?`فكرة: "${idea.title}"\nالنوع: ${idea.category}\nالتفاصيل: ${idea.description||'لا يوجد'}\n\nاسأل 3 أسئلة مختصرة تساعد على فهم الفكرة أعمق، ثم أعطِ 3 مقترحات تطوير سريعة.\n\n**أسئلة:**\n1. ...\n2. ...\n3. ...\n\n**مقترحات تطوير:**\n• ...\n• ...\n• ...`
+    :`Idea: "${idea.title}"\nType: ${idea.category}\nDetails: ${idea.description||'None'}\n\nAsk 3 short questions to understand the idea better, then give 3 quick development suggestions.\n\nLanguage: ${currentLangName()}.`;
+  try{const text=await callClaude([{role:'user',content}],system);clearInterval(pulse);state.aiAnalysis=text;state.ideas=state.ideas.map(i=>i.id===idea.id?{...i,analysis:text}:i);persist(KEYS.ideas,state.ideas);}
+  catch(e){clearInterval(pulse);state.aiAnalysis=errMsg(e);}
+  state.loadingAnalysis=false;renderDetailAI();
+}
+
+async function triggerPlan(){
+  const idea=state.ideas.find(i=>i.id===state.selectedId);if(!idea)return;
+  state.loadingPlan=true;state.aiPlan='';renderDetailAI();
+  let dots=0;
+  const pulse=setInterval(()=>{dots=(dots%3)+1;$('ai-plan-text').innerHTML=`⏳ جارٍ بناء الخطة`+'.'.repeat(dots);show('ai-plan-card');},500);
+  const isAr=state.settings.lang==='ar';
+  const country=state.settings.country||(isAr?'الكويت':'Kuwait');
+  const system=(isAr?'أنت مستشار تنفيذي خبير. ردودك عملية ومفصلة مع أسعار تقريبية. ':'You are an executive consultant. Be practical and detailed with approximate prices. ')+aiLangInstruction();
+  const content=isAr
+    ?`فكرة: "${idea.title}"\nالنوع: ${idea.category}\nالبلد: ${country}\n\n**1. مراحل التنفيذ:** (المرحلة، الوقت، التكلفة)\n**2. الأدوات والمواد:** (مع سعر تقريبي)\n**3. موردون محليون:** (محلات، مواقع)\n**4. موردون دوليون:** (AliExpress/Alibaba/Amazon)\n**5. خطوة البداية الفورية:** (شيء واحد اليوم)`
+    :`Idea: "${idea.title}"\nType: ${idea.category}\nCountry: ${country}\n\n**1. Execution Phases:**\n**2. Required Tools & Materials:**\n**3. Local Suppliers:**\n**4. International Suppliers:**\n**5. Immediate First Step:**\n\nLanguage: ${currentLangName()}.`;
+  try{const text=await callClaude([{role:'user',content}],system);clearInterval(pulse);state.aiPlan=text;state.ideas=state.ideas.map(i=>i.id===idea.id?{...i,plan:text}:i);persist(KEYS.ideas,state.ideas);}
+  catch(e){clearInterval(pulse);state.aiPlan=errMsg(e);}
+  state.loadingPlan=false;renderDetailAI();
+}
+
+async function sendChat(){
+  const msg=$('chat-input').value.trim();
+  if(!msg||state.loadingChat)return;
+  const idea=state.ideas.find(i=>i.id===state.selectedId);
+  if(!idea||!state.aiAnalysis)return;
+  $('chat-input').value='';
+  state.chatHistory.push({role:'user',text:msg});
+  state.loadingChat=true;renderChat();
+  const isAr=state.settings.lang==='ar';
+  const system=(isAr?'أنت مستشار أعمال وابتكار. أجب بشكل مختصر وعملي. ':'You are a business advisor. Be concise and practical. ')+aiLangInstruction();
+  const history=[
+    {role:'user',content:isAr?`فكرتي: "${idea.title}"`:  `My idea: "${idea.title}"`},
+    {role:'assistant',content:state.aiAnalysis},
+    ...state.chatHistory.slice(0,-1).map(m=>({role:m.role==='user'?'user':'assistant',content:m.text})),
+    {role:'user',content:msg},
+  ];
+  let reply;
+  try{reply=await callClaude(history,system);}catch(e){reply=errMsg(e);}
+  state.chatHistory.push({role:'assistant',text:reply});
+  state.loadingChat=false;
+  state.ideas=state.ideas.map(i=>i.id===idea.id?{...i,chatHistory:[...state.chatHistory]}:i);
+  persist(KEYS.ideas,state.ideas);renderChat();
+  // refresh the smart summary in the background after every exchange
+  updateChatSummary(idea.id);
+}
+
+// ═══════════════════════════════════════════════════
+// SMART CHAT SUMMARY
+// ═══════════════════════════════════════════════════
+function toggleChat(){
+  state.chatOpen=!state.chatOpen;
+  renderDetailAI();
+  if(state.chatOpen){
+    renderChat();
+    setTimeout(()=>$('chat-section').scrollIntoView({behavior:'smooth',block:'nearest'}),80);
+  }
+}
+
+async function updateChatSummary(ideaId){
+  const idea=state.ideas.find(i=>i.id===ideaId);
+  if(!idea||!state.apiKey) return;
+  const msgs=idea.chatHistory||[];
+  const done=idea.summarizedCount||0;
+  if(!msgs.length||msgs.length<=done||state.summarizing) return;
+  state.summarizing=true;
+  if(state.selectedId===ideaId&&state.currentView==='detail') renderDetailAI();
+
+  const newMsgs=msgs.slice(done).map(m=>(m.role==='user'?'المستخدم: ':'المساعد: ')+m.text).join('\n');
+  const isAr=state.settings.lang==='ar';
+  const system=isAr
+    ?'أنت مساعد يلخّص النقاشات. ردك هو نص الملخص فقط بدون مقدمات أو عناوين. '+aiLangInstruction()
+    :'You summarize discussions. Reply with the summary text only, no preamble. '+aiLangInstruction();
+  const content=isAr
+    ?`فكرة: "${idea.title}"\n\nالملخص السابق للنقاش:\n${idea.chatSummary||'لا يوجد بعد'}\n\nرسائل جديدة في النقاش:\n${newMsgs}\n\nاكتب ملخصاً محدثاً (3-5 جمل) يدمج الملخص السابق مع الجديد: أهم النقاط والقرارات والأرقام المذكورة فقط، بدون حشو.`
+    :`Idea: "${idea.title}"\n\nPrevious discussion summary:\n${idea.chatSummary||'None yet'}\n\nNew messages:\n${newMsgs}\n\nWrite an updated 3-5 sentence summary merging old and new: key points, decisions, and numbers only.`;
+
+  try{
+    const text=await callClaude([{role:'user',content}],system);
+    state.ideas=state.ideas.map(i=>i.id===ideaId?{...i,chatSummary:text,summarizedCount:msgs.length}:i);
+    persist(KEYS.ideas,state.ideas);
+    if(state.selectedId===ideaId) state.chatSummary=text;
+  }catch(e){ /* يُعاد تلقائياً مع الرسالة القادمة */ }
+  state.summarizing=false;
+  if(state.selectedId===ideaId&&state.currentView==='detail') renderDetailAI();
+}
+
+$('chat-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}});
+
+// ═══════════════════════════════════════════════════
+// SCORE HELPERS
+// ═══════════════════════════════════════════════════
+function clampScore(v){const n=Number(v);return isNaN(n)?50:Math.max(0,Math.min(100,Math.round(n)));}
+function scoreBarsHTML(scores){
+  const rows=[
+    {label:'💪 قوة الفكرة', val:clampScore(scores.strength),  color:'var(--accent)'},
+    {label:'🛠️ قابلية التنفيذ', val:clampScore(scores.feasibility),color:'var(--accent2)'},
+    {label:'⚠️ مستوى المخاطر', val:clampScore(scores.risk),     color:'var(--accent3)'},
+  ];
+  return rows.map(r=>`
+    <div class="score-row">
+      <div class="score-head"><span>${r.label}</span><span class="score-num">${r.val}/100</span></div>
+      <div class="score-track"><div class="score-fill" data-w="${r.val}" style="background:${r.color}"></div></div>
+    </div>`).join('');
+}
+function animateScoreBars(containerId){
+  $(containerId)?.querySelectorAll('.score-fill').forEach(f=>{f.style.width=f.dataset.w+'%';});
+}
+
+// ═══════════════════════════════════════════════════
+// SIMILAR IDEAS & DEVELOP
+// ═══════════════════════════════════════════════════
+async function triggerSimilar(){
+  const idea=state.ideas.find(i=>i.id===state.selectedId);if(!idea)return;
+  state.loadingSimilar=true;renderDetailAI();
+  const isAr=state.settings.lang==='ar';
+  const system=(isAr?'أنت مستشار ابتكار. ردودك مختصرة وعملية. ':'You are an innovation advisor. Be concise. ')+aiLangInstruction();
+  const content=isAr
+    ?`فكرتي: "${idea.title}"\nالوصف: ${idea.description||'لا يوجد'}\n\nأعطني 3 أفكار مشابهة أو مكمّلة، لكل واحدة سطر يشرح لماذا تناسبني:\n**أفكار مشابهة:**\n1. ...\n2. ...\n3. ...`
+    :`My idea: "${idea.title}"\nDetails: ${idea.description||'None'}\n\nGive 3 similar or complementary ideas, one line each on why it fits.\n\nLanguage: ${currentLangName()}.`;
+  try{
+    const text=await callClaude([{role:'user',content}],system);
+    state.aiSimilar=text;
+    state.ideas=state.ideas.map(i=>i.id===idea.id?{...i,similar:text}:i);
+    persist(KEYS.ideas,state.ideas);
+  }catch(e){state.aiSimilar=errMsg(e);}
+  state.loadingSimilar=false;renderDetailAI();
+}
+
+async function triggerDevelop(){
+  const idea=state.ideas.find(i=>i.id===state.selectedId);if(!idea)return;
+  state.loadingDevelop=true;renderDetailAI();
+  const isAr=state.settings.lang==='ar';
+  const system=(isAr?'أنت مستشار أعمال خبير. ردودك مختصرة وعملية. ':'You are an expert business advisor. Be concise. ')+aiLangInstruction();
+  const content=isAr
+    ?`فكرتي: "${idea.title}"\nالوصف: ${idea.description||'لا يوجد'}\n\nكيف أطوّر هذه الفكرة؟ أجب بهذا الشكل:\n**ميزة تنافسية مقترحة:**\n...\n**أول 3 خطوات عملية:**\n1. ...\n2. ...\n3. ...\n**خطأ شائع تجنّبه:**\n...`
+    :`My idea: "${idea.title}"\nDetails: ${idea.description||'None'}\n\nHow do I develop it? Answer with: a competitive edge, first 3 practical steps, one common mistake to avoid.\n\nLanguage: ${currentLangName()}.`;
+  try{
+    const text=await callClaude([{role:'user',content}],system);
+    state.aiDevelop=text;
+    state.ideas=state.ideas.map(i=>i.id===idea.id?{...i,develop:text}:i);
+    persist(KEYS.ideas,state.ideas);
+  }catch(e){state.aiDevelop=errMsg(e);}
+  state.loadingDevelop=false;renderDetailAI();
+}
+
+// ═══════════════════════════════════════════════════
+// GUIDED WIZARD (chat → form → analysis → confirm)
+// ═══════════════════════════════════════════════════
+const WZ_RESOURCES=['⏰ وقت فراغ','💵 ميزانية مالية','👥 فريق / شركاء','💻 مهارات تقنية','📣 علاقات وتسويق','🌱 لا شيء بعد'];
+const WZ_COMPLEXITY=['بسيط جداً','بسيط','متوسط','معقد','معقد جداً'];
+let wz=null;
+
+function openWizard(){
+  if(!state.apiKey){showToast('⚠️ أدخل مفتاح API من الإعدادات أولاً');nav('settings');return;}
+  wz={
+    phase:'title',           // title → summary → questions → ready
+    title:'', summary:'',
+    questions:[], answers:[], qIndex:0,
+    form:{goal:'مشروع ربحي',profit:'بيع مباشر',complexity:3,resources:new Set()},
+    result:null, loadingQs:false,
+  };
+  $('wz-chat').innerHTML='';
+  $('wz-quick').innerHTML='';
+  $('wz-input').value='';
+  show('wz-stage-chat');hide('wz-stage-form');hide('wz-stage-result');
+  hide('wz-to-form-btn');show('wz-input-row');
+  wzSetStep(1);
+  nav('wizard');
+  wzBot('👋 هلا! عطني <b>عنوان الفكرة</b> أول شي');
+  setTimeout(()=>$('wz-input').focus(),300);
+}
+
+function wizardExit(){ wz=null; nav('list'); }
+
+function wzSetStep(n){
+  for(let i=1;i<=3;i++) $('wz-step-'+i).classList.toggle('done',i<=n);
+  const labels={1:'١ / ٣ · محادثة سريعة',2:'٢ / ٣ · تفاصيل منظّمة',3:'٣ / ٣ · التحليل النهائي'};
+  setText('wz-stage-label',labels[n]);
+}
+
+function wzBot(html){
+  $('wz-chat').insertAdjacentHTML('beforeend',
+    `<div class="bubble ai-bubble"><div class="bubble-label">المساعد</div>${html}</div>`);
+  wzScroll();
+}
+function wzUser(text){
+  $('wz-chat').insertAdjacentHTML('beforeend',
+    `<div class="bubble user"><div class="bubble-label">أنت</div>${escHtml(text)}</div>`);
+  wzScroll();
+}
+function wzScroll(){ $('content').scrollTop=$('content').scrollHeight; }
+
+$('wz-input').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();wzSubmit();}});
+
+function wzSubmit(){
+  if(!wz||wz.loadingQs) return;
+  const val=$('wz-input').value.trim();
+  if(!val) return;
+  $('wz-input').value='';
+  wzUser(val);
+  if(wz.phase==='title'){
+    wz.title=val;
+    wz.phase='summary';
+    setTimeout(()=>wzBot('حلو 👌 الحين <b>اختصر فكرتك بجملة وحدة</b>'),300);
+  } else if(wz.phase==='summary'){
+    wz.summary=val;
+    wz.phase='questions';
+    wzGenerateQuestions();
+  } else if(wz.phase==='questions'){
+    wzAnswer(val);
+  }
+}
+
+async function wzGenerateQuestions(){
+  wz.loadingQs=true;
+  wzBot('⏳ ثواني، أجهّز لك أسئلة ذكية...');
+  const system='أنت مستشار أعمال. ردك JSON صالح فقط بدون أي نص آخر وبدون Markdown.';
+  const content=`فكرة: "${wz.title}"\nالملخص: "${wz.summary}"\n\nاكتب 3 أسئلة قصيرة جداً (سطر واحد لكل سؤال) مخصصة لهذه الفكرة تحديداً، تغطي: الجمهور المستهدف، المشكلة التي تحلها، المنافسين أو البدائل الموجودة.\n\nأرجع بالضبط: {"questions":["سؤال 1","سؤال 2","سؤال 3"]}`;
+  try{
+    const text=await callClaude([{role:'user',content}],system);
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim());
+    wz.questions=(Array.isArray(data.questions)?data.questions:[]).slice(0,3).map(q=>String(q));
+    if(!wz.questions.length) throw new Error('empty');
+  }catch{
+    // fallback — الفلو ما يتكسر أبداً
+    wz.questions=['من الجمهور المستهدف لفكرتك؟','شنو المشكلة اللي تحلها؟','هل في منافسين أو بدائل موجودة؟'];
+  }
+  wz.loadingQs=false;
+  wz.qIndex=0;
+  wzAskNext();
+}
+
+function wzAskNext(){
+  if(wz.qIndex>=wz.questions.length){
+    wz.phase='ready';
+    wzBot('ممتاز ✅ كل شي جاهز. اضغط الزر تحت ونكمل 👇');
+    hide('wz-input-row');
+    $('wz-quick').innerHTML='';
+    show('wz-to-form-btn');
+    wzScroll();
+    return;
+  }
+  wzBot(escHtml(wz.questions[wz.qIndex]));
+  $('wz-quick').innerHTML=`<button class="chip" onclick="wzSkip()">تخطّي ←</button>`;
+}
+
+function wzAnswer(val){
+  wz.answers[wz.qIndex]=val;
+  wz.qIndex++;
+  setTimeout(wzAskNext,250);
+}
+function wzSkip(){
+  wzUser('(تخطّي)');
+  wz.answers[wz.qIndex]='';
+  wz.qIndex++;
+  wzAskNext();
+}
+
+function wzGoForm(){
+  wzSetStep(2);
+  hide('wz-stage-chat');show('wz-stage-form');hide('wz-stage-result');
+  $('wz-goal').value=wz.form.goal;
+  $('wz-profit').value=wz.form.profit;
+  $('wz-complexity').value=wz.form.complexity;
+  wzComplexityLabel();
+  renderWzResources();
+  $('content').scrollTop=0;
+}
+
+function wzBackToChat(){
+  wzSetStep(1);
+  show('wz-stage-chat');hide('wz-stage-form');
+  wzScroll();
+}
+
+function wzComplexityLabel(){
+  const v=Number($('wz-complexity').value);
+  wz && (wz.form.complexity=v);
+  setText('wz-complexity-val',WZ_COMPLEXITY[v-1]);
+}
+
+function renderWzResources(){
+  $('wz-resources').innerHTML=WZ_RESOURCES.map((r,i)=>
+    `<button class="ms-chip${wz.form.resources.has(r)?' sel':''}" onclick="wzToggleRes(${i})">${r}</button>`
+  ).join('');
+}
+function wzToggleRes(i){
+  const r=WZ_RESOURCES[i];
+  wz.form.resources.has(r)?wz.form.resources.delete(r):wz.form.resources.add(r);
+  renderWzResources();
+}
+
+async function wzFinalAnalysis(){
+  wz.form.goal=$('wz-goal').value;
+  wz.form.profit=$('wz-profit').value;
+  wzSetStep(3);
+  hide('wz-stage-chat');hide('wz-stage-form');show('wz-stage-result');
+  show('wz-result-loading');hide('wz-result-body');hide('wz-result-error');hide('wz-retry-btn');
+  let dots=0;
+  const pulse=setInterval(()=>{dots=(dots%3)+1;setText('wz-loading-txt','⏳ جارٍ التحليل النهائي'+'.'.repeat(dots));},500);
+  $('content').scrollTop=0;
+
+  const qa=wz.questions.map((q,i)=>`س: ${q}\nج: ${wz.answers[i]||'لم يُجب'}`).join('\n');
+  const resources=[...wz.form.resources].join('، ')||'غير محددة';
+  const country=state.settings.country||'الكويت';
+  const system='أنت مستشار أعمال وابتكار خبير. ردك JSON صالح فقط بدون أي نص آخر وبدون Markdown.';
+  const content=`حلّل هذه الفكرة:\nالعنوان: "${wz.title}"\nالملخص: "${wz.summary}"\n${qa}\nالهدف: ${wz.form.goal}\nنموذج الربح: ${wz.form.profit}\nمستوى التعقيد: ${WZ_COMPLEXITY[wz.form.complexity-1]}\nالموارد المتاحة: ${resources}\nالبلد: ${country}\n\nأرجع JSON بهذا الشكل بالضبط:\n{"title":"عنوان محسّن ومختصر","summary":"ملخص الفكرة معاد صياغته باحترافية في 2-3 جمل","category":"commercial أو invention أو other","scores":{"strength":رقم من 0 إلى 100,"feasibility":رقم من 0 إلى 100,"risk":رقم من 0 إلى 100},"suggestions":["اقتراح تطوير 1","اقتراح تطوير 2","اقتراح تطوير 3"]}`;
+
+  try{
+    const text=await callClaude([{role:'user',content}],system);
+    clearInterval(pulse);
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim());
+    wz.result={
+      title:data.title||wz.title,
+      summary:data.summary||wz.summary,
+      category:['commercial','invention','other'].includes(data.category)?data.category:'commercial',
+      scores:{
+        strength:clampScore(data.scores?.strength),
+        feasibility:clampScore(data.scores?.feasibility),
+        risk:clampScore(data.scores?.risk),
+      },
+      suggestions:(Array.isArray(data.suggestions)?data.suggestions:[]).slice(0,4).map(s=>String(s)),
+    };
+    hide('wz-result-loading');show('wz-result-body');
+    setText('wz-r-title','💡 '+wz.result.title);
+    setText('wz-r-summary',wz.result.summary);
+    $('wz-r-scores').innerHTML=scoreBarsHTML(wz.result.scores);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>animateScoreBars('wz-r-scores')));
+    $('wz-r-suggestions').innerHTML=formatAI(wz.result.suggestions.map(s=>'• '+s).join('\n'));
+  }catch(e){
+    clearInterval(pulse);
+    hide('wz-result-loading');
+    $('wz-result-error').textContent=errMsg(e);
+    show('wz-result-error');show('wz-retry-btn');
+  }
+}
+
+function wzEdit(){
+  wzSetStep(2);
+  hide('wz-stage-result');show('wz-stage-form');
+  $('content').scrollTop=0;
+}
+
+function wzConfirmSave(){
+  if(!wz?.result) return;
+  if(!state.isPro && state.ideas.length >= FREE_IDEA_LIMIT){ show('paywall-modal'); return; }
+  const r=wz.result;
+  const analysisSeed=
+    `**التقييم:**\n`+
+    `• قوة الفكرة: ${r.scores.strength}/100\n`+
+    `• قابلية التنفيذ: ${r.scores.feasibility}/100\n`+
+    `• مستوى المخاطر: ${r.scores.risk}/100\n\n`+
+    `**مقترحات تطوير:**\n`+
+    r.suggestions.map(s=>'• '+s).join('\n');
+  const idea={
+    id:Date.now().toString(),
+    title:r.title,
+    description:r.summary,
+    category:r.category,
+    createdAt:new Date().toISOString(),
+    analysis:analysisSeed, plan:'', chatHistory:[],
+    scores:r.scores,
+    wizard:{
+      summary:wz.summary,
+      questions:wz.questions, answers:wz.answers,
+      goal:wz.form.goal, profit:wz.form.profit,
+      complexity:wz.form.complexity, resources:[...wz.form.resources],
+    },
+  };
+  state.ideas.unshift(idea);
+  persist(KEYS.ideas,state.ideas);
+  showToast('✓ تم حفظ الفكرة');
+  wz=null;
+  openIdea(idea.id);
+}
+
+// ═══════════════════════════════════════════════════
+// DELETE
+// ═══════════════════════════════════════════════════
+function openDeleteModal(id){
+  state.deleteTarget=id;
+  $('delete-idea-name').textContent=state.ideas.find(i=>i.id===id)?.title||'';
+  show('delete-modal');
+}
+function closeDeleteModal(){hide('delete-modal');state.deleteTarget=null;}
+function confirmDelete(){
+  const idea=state.ideas.find(i=>i.id===state.deleteTarget);
+  if(idea){idea.deletedAt=new Date().toISOString();state.trash.unshift(idea);persist(KEYS.trash,state.trash);}
+  state.ideas=state.ideas.filter(i=>i.id!==state.deleteTarget);
+  persist(KEYS.ideas,state.ideas);closeDeleteModal();
+  if(state.selectedId===state.deleteTarget) nav('list');
+  showToast('نُقلت للسلة — تُحذف تلقائياً بعد 30 يوم');
+  renderList();
+}
+
+// ═══════════════════════════════════════════════════
+// BACKUP & RESTORE
+// ═══════════════════════════════════════════════════
+function backupData(){
+  if(!state.isPro){ show('paywall-modal'); return; }
+  const data={ideas:state.ideas,customTypes:state.customTypes,exportedAt:new Date().toISOString()};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`ideaspark-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();URL.revokeObjectURL(url);
+  showToast('✓ تم تصدير النسخة الاحتياطية');
+}
+
+function triggerRestore(){
+  if(!state.isPro){ show('paywall-modal'); return; }
+  $('restore-file-input').click();
+}
+
+function restoreData(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const data=JSON.parse(ev.target.result);
+      if(!data.ideas) throw new Error('invalid');
+      state.pendingRestoreData=data;
+      show('restore-modal');
+    }catch{showToast('❌ الملف غير صالح');}
+  };
+  reader.readAsText(file);
+  e.target.value='';
+}
+
+function confirmRestore(){
+  if(!state.pendingRestoreData) return;
+  state.ideas=state.pendingRestoreData.ideas||[];
+  state.customTypes=state.pendingRestoreData.customTypes||[];
+  persist(KEYS.ideas,state.ideas);
+  persist(KEYS.types,state.customTypes);
+  state.pendingRestoreData=null;
+  hide('restore-modal');
+  showToast('✓ تم استعادة البيانات');
+  renderList();
+}
+
+// ═══════════════════════════════════════════════════
+// SETTINGS
+// ═══════════════════════════════════════════════════
+function renderSettings(){
+  const isAr = state.settings.lang === 'ar';
+  const proBlock = $('pro-status-block');
+  if(proBlock){
+    if(state.isPro){
+      proBlock.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div class="slabel"><span class="pro-badge">⭐ PRO</span></div>
+            <div class="sdesc" style="margin-top:6px">${isAr?'كل المزايا مفتوحة — شكراً لدعمك!':'All features unlocked — thanks for your support!'}</div>
+          </div>
+        </div>`;
+    } else {
+      const used = state.ideas.length;
+      proBlock.innerHTML = `
+        <div class="slabel">${isAr?'النسخة المجانية':'Free plan'}</div>
+        <div class="sdesc" style="margin:4px 0 12px">${isAr ? `${used} / ${FREE_IDEA_LIMIT} فكرة مستخدمة` : `${used} / ${FREE_IDEA_LIMIT} ideas used`}</div>
+        <button class="btn btn-primary btn-sm" onclick="show('paywall-modal')">⭐ ${isAr?'الترقية إلى Pro':'Upgrade to Pro'}</button>
+        <button class="btn btn-ghost btn-sm" style="margin-top:8px" onclick="restorePurchases()">${isAr?'استرجاع المشتريات':'Restore purchases'}</button>`;
+    }
+  }
+
+  state.apiKey?show('api-key-saved-state'):hide('api-key-saved-state');
+  state.apiKey?hide('api-key-input-state'):show('api-key-input-state');
+  state.apiKey?show('model-selector-block'):hide('model-selector-block');
+
+  // PRO badges for gated features
+  const proDisplay = state.isPro ? 'none' : 'inline-flex';
+  if($('pro-badge-export'))     $('pro-badge-export').style.display = proDisplay;
+  if($('pro-badge-restore'))    $('pro-badge-restore').style.display = proDisplay;
+  if($('pro-badge-customtype')) $('pro-badge-customtype').style.display = proDisplay;
+  $('api-key-input').value='';
+  $('save-key-btn').disabled=true;
+  $('mode-auto-dot').className='mode-dot'+(state.settings.aiAuto?' sel':'');
+  $('mode-manual-dot').className='mode-dot'+(!state.settings.aiAuto?' sel':'');
+  renderLanguageSelect();
+  $('country-input').value=state.settings.country;
+  if(state.customTypes.length){$('custom-types-display').textContent=state.customTypes.join(' · ');show('clear-types-btn');}
+  else{$('custom-types-display').textContent='—';hide('clear-types-btn');}
+  if($('skip-splash-toggle')) $('skip-splash-toggle').checked = !!state.settings.skipSplash;
+  autoExpireTrash();
+  updateTrashLabel();
+  $('vt-list').classList.toggle('active',state.settings.viewMode==='list');
+  $('vt-grid').classList.toggle('active',state.settings.viewMode==='grid');
+  $('vt-table')?.classList.toggle('active',state.settings.viewMode==='table');
+  renderModelSelect();
+}
+
+function saveApiKey(){
+  const k=$('api-key-input').value.trim();if(!k)return;
+  localStorage.setItem(KEYS.api,k);state.apiKey=k;
+  renderSettings();showToast('✓ تم حفظ المفتاح');
+}
+function clearApiKey(){
+  localStorage.removeItem(KEYS.api);state.apiKey='';renderSettings();
+}
+let apiHelpOpen=false;
+function toggleApiHelp(){
+  apiHelpOpen=!apiHelpOpen;
+  apiHelpOpen?show('api-help-content'):hide('api-help-content');
+  $('api-help-btn').textContent = apiHelpOpen
+    ? uiText('كيف أحصل على المفتاح؟ ▲','How do I get a key? ▲')
+    : uiText('كيف أحصل على المفتاح؟ ▼','How do I get a key? ▼');
+}
+function setAiMode(auto){
+  state.settings.aiAuto=auto;persist(KEYS.settings,state.settings);
+  $('mode-auto-dot').className='mode-dot'+(auto?' sel':'');
+  $('mode-manual-dot').className='mode-dot'+(!auto?' sel':'');
+}
+function renderLanguageSelect(){
+  const html = LANGUAGES.map(l=>`<option value="${l[0]}" ${state.settings.lang===l[0]?'selected':''}>${l[1]}</option>`).join('');
+  const sel=$('lang-select'); if(sel){ sel.innerHTML = html; sel.value = state.settings.lang; }
+  const spl=$('splash-lang-select'); if(spl){ spl.innerHTML = html; spl.value = state.settings.lang; }
+}
+function t(ar,en){ return uiText(ar,en); }
+function ideaSparkApplyPatchedLanguage(){
+  // validate saved lang
+  if(!LANGUAGES.some(l=>l[0]===state.settings.lang)) state.settings.lang='ar';
+  const lang = state.settings.lang || 'ar';
+  const isAr = lang === 'ar';
+
+  // 1. Direction + html lang
+  document.documentElement.lang = lang;
+  document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+
+  // 2. Font family
+  if(isAr){
+    document.body.style.fontFamily = "'IBM Plex Sans Arabic','Noto Kufi Arabic',sans-serif";
+  } else {
+    document.body.style.fontFamily = "'Plus Jakarta Sans',sans-serif";
+  }
+
+  // 3. Translate data-ar / data-en elements (skip splash — it's always bilingual)
+  document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+    if(el.closest('#splash')) return;
+    el.textContent = isAr ? el.dataset.ar : el.dataset.en;
+  });
+
+  // 4. Re-render dynamic screens (creates fresh DOM with Arabic source text)
+  if(state.currentView === 'list')     renderList();
+  if(state.currentView === 'settings') renderSettings();
+  if(state.currentView === 'detail')   renderDetailAI();
+
+  // 5. Translate all text nodes (both directions, idempotent) — runs after re-render
+  translateStaticUI();
+
+  // 6. Update lang selects
+  renderLanguageSelect();
+
+  // 7. Back arrow direction
+  document.querySelectorAll('.back-arrow-circle').forEach(el => {
+    el.textContent = isAr ? '→' : '←';
+  });
+
+  // 8. Search placeholder
+  const searchEl = $('search-input');
+  if(searchEl) searchEl.placeholder = uiText('ابحث في أفكارك…','Search your ideas…');
+}
+
+function applyAppLanguage(){ ideaSparkApplyPatchedLanguage(); }
+function setLang(lang){
+  state.settings.lang = lang;
+  persist(KEYS.settings, state.settings);
+  try{ ideaSparkApplyPatchedLanguage(); } catch(e){ console.log(e); }
+  // force re-render current screen
+  if(state.currentView === 'settings') renderSettings();
+  if(state.currentView === 'list') renderList();
+  updateQuickLangBtn();
+  showToast(state.settings.lang==='ar' ? '✓ تم تغيير اللغة إلى '+currentLangName() : '✓ Language changed to '+currentLangName());
+}
+function toggleQuickLang(){
+  setLang(state.settings.lang === 'ar' ? 'en' : 'ar');
+}
+function showNoKeyToastAndNav(){
+  showToast(uiText('⚠️ لم يتم إدخال مفتاح الذكاء الاصطناعي بعد','⚠️ AI key has not been added yet'));
+  nav('settings');
+}
+function updateQuickLangBtn(){
+  const btn = $('lang-hdr-btn');
+  if(!btn) return;
+  btn.textContent = state.settings.lang === 'ar' ? 'EN' : 'ع';
+}
+function saveCountry(){
+  state.settings.country=$('country-input').value;persist(KEYS.settings,state.settings);
+}
+function clearCustomTypes(){
+  state.customTypes=[];persist(KEYS.types,state.customTypes);renderSettings();
+}
+
+
+
+
+
+// ═══════════════════════════════════════════════════
+// IN-APP PURCHASES (RevenueCat)
+// ═══════════════════════════════════════════════════
+// Product IDs — must match exactly what you configure in:
+//   App Store Connect / Google Play Console  →  RevenueCat dashboard
+const RC_API_KEY = {
+  ios: 'test_xnrGgNTQYznNexFyOUucJIIbedo',     // ⚠️ Sandbox key — replace with appl_... (Production) after App Store Connect link
+  android: 'YOUR_REVENUECAT_ANDROID_PUBLIC_KEY', // goog_xxxxxxxx
+};
+const RC_PACKAGE_IDS = {
+  monthly: '$rc_monthly',
+  lifetime: 'lifetime', // non-subscription one-time product identifier
+};
+const RC_ENTITLEMENT = 'pro'; // the Entitlement identifier you create in RevenueCat
+
+function getPurchasesPlugin(){
+  // Available once the app is wrapped with Capacitor + @revenuecat/purchases-capacitor
+  return window?.Capacitor?.Plugins?.Purchases || window?.Purchases || null;
+}
+
+async function initPurchases(){
+  const Purchases = getPurchasesPlugin();
+  if(!Purchases){ return; } // running in plain browser/PWA — IAP unavailable
+  try{
+    const platform = window?.Capacitor?.getPlatform?.() || 'ios';
+    const apiKey = platform === 'android' ? RC_API_KEY.android : RC_API_KEY.ios;
+    await Purchases.configure({ apiKey });
+    await refreshProStatus();
+  }catch(e){ console.log('RC init error', e); }
+}
+
+async function refreshProStatus(){
+  const Purchases = getPurchasesPlugin();
+  if(!Purchases) return;
+  try{
+    const { customerInfo } = await Purchases.getCustomerInfo();
+    setProStatus(!!customerInfo?.entitlements?.active?.[RC_ENTITLEMENT]);
+  }catch(e){ console.log('RC status error', e); }
+}
+
+function setProStatus(isPro){
+  state.isPro = !!isPro;
+  localStorage.setItem(KEYS.pro, state.isPro ? '1' : '0');
+  if(state.isPro) hide('paywall-modal');
+  if(state.currentView==='settings') renderSettings();
+}
+
+async function purchasePlan(plan){
+  const Purchases = getPurchasesPlugin();
+  if(!Purchases){
+    showToast(uiText('⚠️ الشراء متاح فقط داخل التطبيق من المتجر','⚠️ Purchases are only available in the store app'));
+    return;
+  }
+  try{
+    const offerings = await Purchases.getOfferings();
+    const pkgId = RC_PACKAGE_IDS[plan];
+    const pkg = offerings?.current?.availablePackages?.find(p=>p.identifier===pkgId)
+             || (plan === 'monthly' ? offerings?.current?.monthly : null);
+    if(!pkg) throw new Error('package_not_found');
+    const { customerInfo } = await Purchases.purchasePackage({ aPackage: pkg });
+    const active = !!customerInfo?.entitlements?.active?.[RC_ENTITLEMENT];
+    setProStatus(active);
+    if(active) showToast(uiText('✓ تم تفعيل Pro بنجاح','✓ Pro activated successfully'));
+  }catch(e){
+    if(e?.userCancelled || e?.code === '1') return; // user cancelled, no error toast
+    showToast(uiText('❌ تعذّر إكمال الشراء','❌ Purchase could not be completed'));
+  }
+}
+
+async function restorePurchases(){
+  const Purchases = getPurchasesPlugin();
+  if(!Purchases){
+    showToast(uiText('⚠️ متاح فقط داخل التطبيق من المتجر','⚠️ Only available in the store app'));
+    return;
+  }
+  try{
+    const { customerInfo } = await Purchases.restorePurchases();
+    const active = !!customerInfo?.entitlements?.active?.[RC_ENTITLEMENT];
+    setProStatus(active);
+    showToast(active
+      ? uiText('✓ تم استرجاع اشتراكك','✓ Your purchase was restored')
+      : uiText('لم يتم العثور على مشتريات سابقة','No previous purchases found'));
+  }catch(e){
+    showToast(uiText('❌ تعذّر الاسترجاع','❌ Restore failed'));
+  }
+}
+
+
+
+// ═══════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════
+if('serviceWorker'in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
+initPurchases();
+
+// apply saved theme
+applyTheme(state.settings.theme||'dark');
+
+// apply view mode
+setViewMode(state.settings.viewMode||'list');
+renderLanguageSelect();
+try{applyAppLanguage();}catch(e){console.log(e);}
+startTranslateObserver();
+
+// splash — auto-skip or show
+(function(){
+  if(state.settings.skipSplash){
+    const s=$('splash');
+    if(s) s.style.display='none';
+  }
+})();
+
+function dismissSplash() { try{
+  if(typeof renderLanguageSelect==='function') renderLanguageSelect();
+  if($('splash-lang-select')) setLang($('splash-lang-select').value);
+  const skipNext = $('splash-skip-cb')?.checked || false;
+  if(skipNext) {
+    state.settings.skipSplash = true;
+    persist(KEYS.settings, state.settings);
+    if($('skip-splash-toggle')) $('skip-splash-toggle').checked = true;
+  }
+  const splash = $('splash');
+  splash.classList.add('hide');
+  setTimeout(() => { splash.style.display = 'none'; }, 520);
+  nav('list'); }catch(e){ const splash=document.getElementById('splash'); if(splash) splash.style.display='none'; } }
+
+
+const STATUS_MAP = {
+  new:      {label:'\u062c\u062f\u064a\u062f\u0629',    icon:'🆕', cls:'status-new'},
+  studying: {label:'\u0642\u064a\u062f \u0627\u0644\u062f\u0631\u0627\u0633\u0629', icon:'🔍', cls:'status-studying'},
+  rejected: {label:'\u0645\u0631\u0641\u0648\u0636\u0629',  icon:'\u274C', cls:'status-rejected'},
+  done:     {label:'\u0645\u0646\u0641\u0651\u0630\u0629',   icon:'\u2705', cls:'status-done'},
+};
+function statusBadgeHTML(status) {
+  if(!status||status==='new') return '';
+  const s=STATUS_MAP[status]||STATUS_MAP.new;
+  return '<span class="status-badge '+s.cls+'">'+s.icon+' '+t(s.label,s.label)+'</span>';
+}
+function isReminderDue(d){ return d&&new Date(d)<=new Date(); }
+function openStatusSheetFromDetail(){ if(window._detailIdeaId) openStatusSheet(window._detailIdeaId); }
+function openRelatedSheetFromDetail(){ if(window._detailIdeaId) openRelatedSheet(window._detailIdeaId); }
+
+function openStatusSheet(id){
+  const idea=state.ideas.find(i=>i.id===id); if(!idea) return;
+  const cur=idea.status||'new';
+  const remVal=idea.reminder?idea.reminder.split('T')[0]:'';
+  const opts=Object.entries(STATUS_MAP).map(([k,v])=>'<div class="status-opt '+(cur===k?'active':'')+'" onclick="setIdeaStatus(\''+id+'\',\''+k+'\')">'+v.icon+' '+v.label+'</div>').join('');
+  showGenericSheet('<div style="padding:16px"><div style="font-size:15px;font-weight:700;margin-bottom:12px">\u062d\u0627\u0644\u0629 \u0627\u0644\u0641\u0643\u0631\u0629</div><div class="status-opts">'+opts+'</div><div style="margin-top:16px"><div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:8px">\u23F0 \u062a\u0630\u0643\u064a\u0631</div><input type="date" id="reminder-input" value="'+remVal+'" style="width:100%;background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:9px 12px;color:var(--text);font-family:inherit;font-size:14px;outline:none"><div style="display:flex;gap:8px;margin-top:10px"><button class="btn" style="flex:1" onclick="saveReminder(\''+id+'\')">&#x62D;&#x641;&#x638;</button>'+(idea.reminder?'<button class="btn btn-ghost" onclick="clearReminder(\''+id+'\')">\u0645\u0633\u062d \u0627\u0644\u062a\u0630\u0643\u064a\u0631</button>':'')+'</div></div></div>');
+}
+function setIdeaStatus(id,status){const idea=state.ideas.find(i=>i.id===id);if(!idea)return;idea.status=status;persist(KEYS.ideas,state.ideas);renderList();closeSheet();showToast('\u2713 '+STATUS_MAP[status].label);if(window._detailIdeaId===id&&$('detail-status-badge'))$('detail-status-badge').innerHTML=statusBadgeHTML(status);}
+function saveReminder(id){const val=$('reminder-input')?.value;if(!val)return;const idea=state.ideas.find(i=>i.id===id);if(!idea)return;idea.reminder=new Date(val).toISOString();persist(KEYS.ideas,state.ideas);closeSheet();showToast('\u2713 \u062a\u0645 \u062d\u0641\u0638 \u0627\u0644\u062a\u0630\u0643\u064a\u0631');renderList();}
+function clearReminder(id){const idea=state.ideas.find(i=>i.id===id);if(!idea)return;delete idea.reminder;persist(KEYS.ideas,state.ideas);closeSheet();showToast('\u062a\u0645 \u0645\u0633\u062d \u0627\u0644\u062a\u0630\u0643\u064a\u0631');renderList();}
+
+function openExportSheet(){
+  if(!state.isPro){ show('paywall-modal'); return; }
+  const id = window._detailIdeaId;
+  const idea = state.ideas.find(i=>i.id===id);
+  if(!idea){ return; }
+  const isAr = state.settings.lang === 'ar';
+  showGenericSheet('<div style="padding:16px"><div style="font-size:15px;font-weight:700;margin-bottom:14px">📤 '+(isAr?'تصدير الفكرة':'Export idea')+'</div><div style="display:flex;flex-direction:column;gap:8px"><button class="export-btn" onclick="exportSingleIdea(\''+id+'\',\'csv\')" style="width:100%;justify-content:center">📊 '+(isAr?'تصدير CSV':'Export CSV')+'</button><button class="export-btn" onclick="exportSingleIdea(\''+id+'\',\'json\')" style="width:100%;justify-content:center">📋 '+(isAr?'تصدير JSON':'Export JSON')+'</button></div></div>');
+}
+function exportSingleIdea(id,fmt){
+  const idea=state.ideas.find(i=>i.id===id);
+  if(!idea){ closeSheet(); return; }
+  const safeName = idea.title.replace(/[^\p{L}\p{N}\s-]/gu,'').trim().slice(0,40).replace(/\s+/g,'-') || 'idea';
+  if(fmt==='csv'){
+    const rows=[
+      ['العنوان','الوصف','النوع','الحالة','التاريخ'],
+      [idea.title, idea.description||'', idea.category, idea.status||'new', new Date(idea.createdAt).toLocaleDateString('ar-KW')],
+    ];
+    if(idea.analysis) rows.push(['التحليل', idea.analysis, '', '', '']);
+    if(idea.plan) rows.push(['خطة التنفيذ', idea.plan, '', '', '']);
+    downloadText(rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n'), `ideaspark-${safeName}.csv`, 'text/csv');
+  } else {
+    downloadText(JSON.stringify(idea,null,2), `ideaspark-${safeName}.json`, 'application/json');
+  }
+  closeSheet();
+}
+function downloadText(c,n,m){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:m}));a.download=n;a.click();}
+
+function openRelatedSheet(id){
+  const idea=state.ideas.find(i=>i.id===id);if(!idea)return;
+  const linked=idea.related||[];
+  const others=state.ideas.filter(i=>i.id!==id);
+  const chips=others.map(i=>{const isL=linked.includes(i.id);return '<div class="related-chip '+(isL?'active':'')+'" onclick="toggleRelated(\''+id+'\',\''+i.id+'\',this)">'+(isL?'\uD83D\uDD17':'\u2795')+' '+escHtml(i.title.slice(0,30))+'</div>';}).join('');
+  showGenericSheet('<div style="padding:16px"><div style="font-size:15px;font-weight:700;margin-bottom:12px">\uD83D\uDD17 \u0631\u0628\u0637 \u0627\u0644\u0623\u0641\u0643\u0627\u0631</div>'+(chips||'<div style="color:var(--text3);font-size:13px">\u0644\u0627 \u062a\u0648\u062c\u062f \u0623\u0641\u0643\u0627\u0631 \u0623\u062e\u0631\u0649</div>')+'<button class="btn" style="width:100%;margin-top:14px" onclick="closeSheet()">\u062a\u0645</button></div>');
+}
+function toggleRelated(fromId,toId,el){
+  const idea=state.ideas.find(i=>i.id===fromId);if(!idea)return;
+  if(!idea.related)idea.related=[];
+  const idx=idea.related.indexOf(toId);
+  if(idx>-1){idea.related.splice(idx,1);el.innerHTML=el.innerHTML.replace('\uD83D\uDD17','\u2795');el.classList.remove('active');}
+  else{idea.related.push(toId);el.innerHTML=el.innerHTML.replace('\u2795','\uD83D\uDD17');el.classList.add('active');}
+  persist(KEYS.ideas,state.ideas);
+}
+function showGenericSheet(innerHtml){
+  let s=$('generic-sheet');
+  if(!s){s=document.createElement('div');s.id='generic-sheet';s.className='sheet hidden';s.innerHTML='<div id="gsc"></div>';document.querySelector('.app').appendChild(s);
+  const bd=document.createElement('div');bd.className='sheet-backdrop';bd.id='generic-sheet-bd';bd.onclick=closeSheet;document.querySelector('.app').appendChild(bd);}
+  $('gsc').innerHTML=innerHtml;
+  requestAnimationFrame(()=>{$('generic-sheet-bd').style.opacity='1';$('generic-sheet-bd').style.pointerEvents='auto';s.style.transform='translateX(-50%) translateY(0)';s.classList.remove('hidden');});
+}
+function closeSheet(){
+  const s=$('generic-sheet'),bd=$('generic-sheet-bd');
+  if(s)s.style.transform='translateX(-50%) translateY(100%)';
+  if(bd){bd.style.opacity='0';bd.style.pointerEvents='none';}
+}
+
+// ═══════════════════════════════════════════════════
+// TRASH
+// ═══════════════════════════════════════════════════
+function autoExpireTrash() {
+  const cutoff = Date.now() - 30*24*60*60*1000;
+  state.trash = state.trash.filter(i=> new Date(i.deletedAt).getTime() > cutoff);
+  persist(KEYS.trash, state.trash);
+}
+function updateTrashLabel() {
+  const n = state.trash.length;
+  const el = $('trash-count-label');
+  if(!el) return;
+  const isAr = state.settings.lang === 'ar';
+  if(!n) { el.textContent = isAr ? 'لا توجد أفكار محذوفة' : 'No deleted ideas'; return; }
+  el.textContent = isAr ? (n + ' فكرة محذوفة') : (n + (n===1 ? ' deleted idea' : ' deleted ideas'));
+}
+function openTrashSheet() {
+  autoExpireTrash();
+  let sheet = $('trash-sheet');
+  if(!sheet){
+    sheet=document.createElement('div');sheet.id='trash-sheet';sheet.className='sheet hidden';
+    (document.querySelector('.app')||document.body).appendChild(sheet);
+    const bd=document.createElement('div');bd.className='sheet-backdrop';bd.id='trash-sheet-bd';
+    bd.onclick=closeTrashSheet;(document.querySelector('.app')||document.body).appendChild(bd);
+  }
+  renderTrashSheet();
+  const bd=$('trash-sheet-bd');
+  // أظهر السلة فوراً قبل تشغيل الحركة حتى لا تمنع .hidden الظهور
+  sheet.classList.remove('hidden');
+  sheet.style.display='block';
+  sheet.style.zIndex='901';
+  sheet.style.transform='translateX(-50%) translateY(100%)';
+  bd.style.zIndex='900';
+  bd.style.opacity='1';
+  bd.style.pointerEvents='auto';
+  requestAnimationFrame(()=>{sheet.style.transform='translateX(-50%) translateY(0)';});
+}
+function closeTrashSheet(){
+  const s=$('trash-sheet'),bd=$('trash-sheet-bd');
+  if(s){s.style.transform='translateX(-50%) translateY(100%)'; setTimeout(()=>s.classList.add('hidden'),320);}
+  if(bd){bd.style.opacity='0';bd.style.pointerEvents='none';}
+  updateTrashLabel();
+}
+function renderTrashSheet(){
+  const sheet=$('trash-sheet');if(!sheet)return;
+  const isAr = state.settings.lang === 'ar';
+  if(!state.trash.length){
+    sheet.innerHTML=`<div class="sheet-handle"></div><div style="padding:20px;text-align:center;color:var(--text3);font-size:14px">🗑️<br><br>${isAr?'السلة فارغة':'Trash is empty'}</div>`;
+    return;
+  }
+  const items = state.trash.map((idea,idx)=>{
+    const daysLeft = Math.ceil((new Date(idea.deletedAt).getTime()+30*24*60*60*1000-Date.now())/(1000*60*60*24));
+    const daysTxt = isAr ? `تُحذف بعد ${daysLeft} يوم` : `Deletes in ${daysLeft} day${daysLeft===1?'':'s'}`;
+    return `<div class="trash-item">
+      <div class="trash-dot"></div>
+      <div class="trash-item-info">
+        <div class="trash-item-title">${escHtml(idea.title)}</div>
+        <div class="trash-item-meta">${badgeHTML(idea.category)} · ${daysTxt}</div>
+      </div>
+      <div class="trash-item-actions">
+        <button class="btn btn-sm btn-ghost" onclick="restoreFromTrash(${idx})">↩️</button>
+        <button class="btn btn-sm btn-danger" onclick="permDeleteFromTrash(${idx})">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+  sheet.innerHTML=`<div class="sheet-handle"></div>
+    <div style="padding:0 16px 16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div style="font-size:15px;font-weight:700">🗑️ ${isAr?'سلة المهملات':'Trash'}</div>
+        <button class="btn btn-sm btn-danger" onclick="emptyTrash()">${isAr?'إفراغ الكل':'Empty all'}</button>
+      </div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:12px">${isAr?'الأفكار تُحذف نهائياً تلقائياً بعد 30 يوم':'Ideas are permanently deleted automatically after 30 days'}</div>
+      ${items}
+    </div>`;
+}
+function restoreFromTrash(idx){
+  const idea=state.trash[idx]; if(!idea)return;
+  delete idea.deletedAt;
+  state.ideas.unshift(idea);
+  state.trash.splice(idx,1);
+  persist(KEYS.ideas,state.ideas);persist(KEYS.trash,state.trash);
+  renderTrashSheet();renderList();showToast(uiText('✓ تمت الاستعادة','✓ Restored'));
+}
+function permDeleteFromTrash(idx){
+  state.trash.splice(idx,1);
+  persist(KEYS.trash,state.trash);
+  renderTrashSheet();showToast('حُذفت نهائياً');
+}
+function emptyTrash(){
+  state.trash=[];persist(KEYS.trash,state.trash);
+  closeTrashSheet();showToast(uiText('تم إفراغ السلة','Trash emptied'));
+}
+
+function setSkipSplash(val) {
+  state.settings.skipSplash = val;
+  persist(KEYS.settings, state.settings);
+}
+
+// ── Stats Sheet ──
+function openStatsSheet() {
+  const total = state.ideas.length;
+  if(!total){ showToast('لا توجد أفكار بعد'); return; }
+  const catCount = {};
+  state.ideas.forEach(i=>{ catCount[i.category]=(catCount[i.category]||0)+1; });
+  const maxCat = Math.max(...Object.values(catCount));
+  const CAT_LOCAL = { commercial:{icon:'💼',color:'#10b981'}, invention:{icon:'💡',color:'#6366f1'}, other:{icon:'✏️',color:'#f59e0b'} };
+  function catColor(cat){ let h=0;for(let c of cat)h=(h*31+c.charCodeAt(0))&0xffff;return ['#e879f9','#38bdf8','#fb923c','#a3e635','#f472b6','#34d399','#60a5fa','#facc15'][h%8]; }
+  const catBars = Object.entries(catCount).sort((a,b)=>b[1]-a[1]).map(([k,v])=>{
+    const m = CAT_LOCAL[k]||{icon:'🏷️',color:catColor(k)};
+    const pct = Math.round(v/maxCat*100);
+    return `<div style="display:flex;align-items:center;gap:8px;font-size:12px">
+      <div style="width:70px;text-align:right;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${m.icon} ${k}</div>
+      <div style="flex:1;height:8px;background:var(--s3);border-radius:4px;overflow:hidden"><div style="height:100%;border-radius:4px;width:${pct}%;background:${m.color};transition:width .4s"></div></div>
+      <div style="width:20px;color:var(--text3);font-size:11px">${v}</div>
+    </div>`;
+  }).join('');
+  const analyzed = state.ideas.filter(i=>i.analysis&&!i.analysis.startsWith('❌')).length;
+  const days = Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-6+i);return{date:d,count:0,label:d.toLocaleDateString('ar-KW',{weekday:'short'})};});
+  state.ideas.forEach(i=>{const d=new Date(i.createdAt);days.forEach(day=>{if(d.toDateString()===day.date.toDateString())day.count++;});});
+  const dots = days.map(d=>`<div style="display:flex;flex-direction:column;align-items:center;gap:2px;width:36px;height:42px;border-radius:8px;justify-content:center;background:${d.count>2?'color-mix(in srgb,var(--accent) 55%,var(--s3))':d.count>0?'color-mix(in srgb,var(--accent) 22%,var(--s3))':'var(--s3)'}">
+    <span style="font-size:9px;color:var(--text3)">${d.label}</span>
+    <span style="font-size:13px;font-weight:700;color:var(--text)">${d.count||'·'}</span>
+  </div>`).join('');
+  // Sheet
+  let sheet = $('stats-sheet');
+  if(!sheet){
+    sheet=document.createElement('div');sheet.id='stats-sheet';sheet.className='sheet hidden';
+    (document.querySelector('.app')||document.body).appendChild(sheet);
+    const bd=document.createElement('div');bd.className='sheet-backdrop';bd.id='stats-sheet-bd';
+    bd.onclick=()=>{sheet.style.transform='translateX(-50%) translateY(100%)';bd.style.opacity='0';bd.style.pointerEvents='none';};
+    document.querySelector('.app').appendChild(bd);
+  }
+  sheet.innerHTML = `<div class="sheet-handle"></div>
+    <div style="padding:0 16px 16px">
+      <div style="font-size:15px;font-weight:700;margin-bottom:14px">📊 إحصائيات</div>
+      <div style="display:flex;gap:12px;margin-bottom:16px">
+        <div style="flex:1;background:var(--s2);border-radius:12px;padding:12px;text-align:center">
+          <div style="font-size:24px;font-weight:800;color:var(--accent)">${total}</div>
+          <div style="font-size:11px;color:var(--text3)">إجمالي الأفكار</div>
+        </div>
+        <div style="flex:1;background:var(--s2);border-radius:12px;padding:12px;text-align:center">
+          <div style="font-size:24px;font-weight:800;color:var(--accent2)">${analyzed}</div>
+          <div style="font-size:11px;color:var(--text3)">محللة بالذكاء</div>
+        </div>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:var(--text3);margin-bottom:8px">حسب النوع</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px">${catBars}</div>
+      <div style="font-size:12px;font-weight:700;color:var(--text3);margin-bottom:8px">نشاط آخر 7 أيام</div>
+      <div style="display:flex;gap:4px;">${dots}</div>
+    </div>`;
+  const bd=$('stats-sheet-bd');
+  requestAnimationFrame(()=>{bd.style.opacity='1';bd.style.pointerEvents='auto';sheet.style.transform='translateX(-50%) translateY(0)';sheet.classList.remove('hidden');});
+}
+
+$('content').addEventListener('scroll',()=>{
+  $('back-float').classList.toggle('show', state.currentView==='detail' && $('content').scrollTop>240);
+},{passive:true});
+
+updateQuickLangBtn();
+nav('list');
+
+
+// ═══ UX UPGRADE PATCH: simpler home, smart scores, action sheet ═══
+(function(){
+  const $id = id => document.getElementById(id);
+  const baseRenderStats = window.renderStats;
+  const catMeta = {
+    commercial:{icon:'💼',label:'تجارية',color:'#10b981'},
+    invention:{icon:'💡',label:'اختراع',color:'#6366f1'},
+    other:{icon:'✏️',label:'أخرى',color:'#f59e0b'},
+    analyzed:{icon:'✨',label:'محللة',color:'#8b5cf6'},
+    starred:{icon:'⭐',label:'مفضلة',color:'#facc15'}
+  };
+  function meta(cat){
+    if(catMeta[cat]) return catMeta[cat];
+    let h=0; String(cat||'other').split('').forEach(c=>h=(h*31+c.charCodeAt(0))&0xffff);
+    const colors=['#e879f9','#38bdf8','#fb923c','#a3e635','#f472b6','#34d399','#60a5fa','#facc15'];
+    return {icon:'🏷️',label:cat||'أخرى',color:colors[h%colors.length]};
+  }
+  window.ideaScore = function(idea){
+    if(idea.scores){
+      const vals=Object.values(idea.scores).map(Number).filter(Boolean);
+      if(vals.length) return Math.max(10,Math.min(100,Math.round(vals.reduce((a,b)=>a+b,0)/vals.length*10)));
+    }
+    let s=48;
+    const txt=((idea.title||'')+' '+(idea.description||'')).toLowerCase();
+    if((idea.description||'').length>60) s+=12; else if((idea.description||'').length>20) s+=6;
+    if(idea.analysis && !String(idea.analysis).startsWith('❌')) s+=14;
+    if(idea.plan) s+=10;
+    if(idea.starred) s+=6;
+    if(idea.status==='done') s+=18; else if(idea.status==='studying') s+=8; else if(idea.status==='rejected') s-=20;
+    if(/ربح|بيع|اشتراك|عمولة|تطبيق|متجر|خدمة|مشروع/.test(txt)) s+=6;
+    return Math.max(15,Math.min(100,s));
+  };
+  window.renderUXDashboard = function(filteredCount){
+    const ideas=state.ideas||[], total=ideas.length;
+    const analyzed=ideas.filter(i=>i.analysis&&!String(i.analysis).startsWith('❌')).length;
+    const done=ideas.filter(i=>i.status==='done').length;
+    const month=ideas.filter(i=>{const d=new Date(i.createdAt); const n=new Date(); return d.getMonth()===n.getMonth()&&d.getFullYear()===n.getFullYear();}).length;
+    const avg=total?Math.round(ideas.reduce((a,i)=>a+ideaScore(i),0)/total):0;
+    const progress=total?Math.min(100,Math.round((done/Math.max(total,1))*100)):0;
+    const latest=ideas[0]?.title ? `آخر فكرة: ${escHtml(ideas[0].title).slice(0,42)}` : 'ابدأ بأول فكرة اليوم';
+    return `<div class="ux-hero">
+      <div class="ux-hero-top"><div><div class="ux-hero-title">فكرتك تستحق أن تتحول إلى مشروع 🚀</div><div class="ux-hero-sub">${latest}</div></div><div class="ux-ring" style="--p:${progress}">${progress}%</div></div>
+      <div class="ux-hero-metrics"><div class="ux-metric"><b>${month}</b><span>هذا الشهر</span></div><div class="ux-metric"><b>${analyzed}</b><span>محللة</span></div><div class="ux-metric"><b>${avg}</b><span>متوسط القوة</span></div></div>
+    </div>
+    <div class="ux-actions"><button class="ux-action primary" onclick="openFabMenu()">➕ أضف بسرعة</button><button class="ux-action" onclick="openStatsSheet()">📊 لوحة التقدم</button></div>`;
+  };
+  window.renderStats = function(){
+    if(baseRenderStats) baseRenderStats();
+  };
+  window.renderList = function(){
+    renderStats();
+    const filters=[{val:'all',label:'الكل'},{val:'commercial',label:'💼 تجارية'},{val:'invention',label:'💡 اختراع'},{val:'starred',label:'⭐ المفضلة'}];
+    const chipWrap=$id('filter-chips'); if(chipWrap) chipWrap.innerHTML=filters.map(f=>`<button class="chip${state.filter===f.val?' active':''}" onclick="setFilter('${f.val}')">${f.label}</button>`).join('');
+    let filtered=(state.ideas||[]).filter(i=>{
+      let mf=state.filter==='all'||i.category===state.filter||(state.filter==='starred'&&i.starred)||(state.filter==='analyzed'&&i.analysis&&!String(i.analysis).startsWith('❌'));
+      if(!mf) return false;
+      if(!state.search) return true;
+      const q=state.search;
+      return fuzzyMatch(i.title,q)||fuzzyMatch(i.description,q)||fuzzyMatch(i.category,q)||(/ربح|مشروع|تطبيق|متجر/.test(q)&&ideaScore(i)>=65);
+    });
+    const grid=$id('ideas-grid'); if(!grid) return;
+    grid.className='ideas-grid'+(state.settings.viewMode==='grid'?' grid-view':'')+(state.settings.viewMode==='table'?' table-view':'')+(state.selectionMode?' selection-mode':'');
+    if(!filtered.length){
+      grid.innerHTML=renderUXDashboard(0)+`<div class="empty"><div class="empty-icon">💡</div><div class="empty-title">مساحة أفكارك جاهزة</div><div class="empty-sub">اكتب فكرة صغيرة الآن، وخلي التطبيق يساعدك تطورها.</div><button class="empty-cta" onclick="openNew()">➕ أضف أول فكرة</button></div>`; return;
+    }
+    if(state.settings.viewMode==='table'){
+      const ts=state.tableSort||{col:'date',dir:'desc'};
+      const sortedT=[...filtered].sort((a,b)=>ts.col==='title'?(ts.dir==='asc'?a.title.localeCompare(b.title,'ar'):b.title.localeCompare(a.title,'ar')):ts.col==='type'?(ts.dir==='asc'?a.category.localeCompare(b.category,'ar'):b.category.localeCompare(a.category,'ar')):(ts.dir==='asc'?(a.createdAt>b.createdAt?1:-1):(a.createdAt<b.createdAt?1:-1)));
+      const cl=col=>col===ts.col?(ts.dir==='asc'?' sort-asc':' sort-desc'):'';
+      grid.innerHTML=renderUXDashboard(filtered.length)+`<div class="table-header"><span class="${cl('title')}" onclick="tableSort('title')">العنوان</span><span class="${cl('date')}" style="text-align:center" onclick="tableSort('date')">التاريخ</span><span class="${cl('type')}" style="text-align:center" onclick="tableSort('type')">النوع</span></div>`+sortedT.map(idea=>`<div class="table-row" onclick="cardClick('${idea.id}')"><div class="t-title">${idea.starred?'⭐ ':''}${escHtml(idea.title)}</div><div class="t-date">${fmtDate(idea.createdAt)}</div><div class="t-type">${badgeHTML(idea.category)}</div></div>`).join(''); return;
+    }
+    const sortedF=[...filtered].sort((a,b)=>ideaScore(b)-ideaScore(a)||(b.starred?1:0)-(a.starred?1:0));
+    grid.innerHTML=renderUXDashboard(filtered.length)+sortedF.map(idea=>{
+      const isSel=state.selectedIds.has(idea.id), m=meta(idea.category), score=ideaScore(idea), done=idea.status==='done';
+      return `<div class="idea-card ${isSel?'selecting':''}" style="--cat-color:${m.color}" id="card-${idea.id}" onclick="cardClick('${idea.id}')" ontouchstart="cardTouchStart(event,'${idea.id}')" ontouchend="cardTouchEnd(event,'${idea.id}')" ontouchmove="cardTouchMove(event,'${idea.id}')">
+        <div class="card-top"><div class="sel-checkbox">${isSel?'✓':''}</div><div class="ux-cat-icon">${m.icon}</div><div class="card-title" style="flex:1">${escHtml(idea.title)}</div>${!state.selectionMode?`<span class="ux-card-score">⭐ ${score}</span>`:''}</div>
+        ${idea.description?`<div class="card-desc">${escHtml(idea.description)}</div>`:''}
+        <div class="card-footer">${badgeHTML(idea.category)}<div class="card-dots">${idea.analysis&&!String(idea.analysis).startsWith('❌')?'<div class="ai-dot"></div>':''}<span class="card-date">${fmtDate(idea.createdAt)}</span></div></div>
+        ${!state.selectionMode?`<div class="ux-card-actions"><button class="ux-mini" onclick="event.stopPropagation();toggleStar('${idea.id}')">${idea.starred?'⭐':'☆'} حفظ</button><button class="ux-mini done" onclick="event.stopPropagation();quickDone('${idea.id}')">${done?'✅ تم':'✅ نفّذ'}</button><button class="ux-mini" onclick="event.stopPropagation();shareIdea('${idea.id}')">📤 مشاركة</button><button class="ux-mini danger" onclick="event.stopPropagation();openDeleteModal('${idea.id}')">🗑 حذف</button></div>`:''}
+      </div>`;
+    }).join('');
+    filtered.forEach(i=>initSwipe(i.id));
+  };
+  window.quickDone=function(id){ const idea=state.ideas.find(i=>i.id===id); if(!idea) return; idea.status=idea.status==='done'?'new':'done'; persist(KEYS.ideas,state.ideas); renderList(); showToast(idea.status==='done'?'✅ تم تعليمها كمنفذة':'تم إرجاعها كفكرة جديدة'); };
+  window.shareIdea=async function(id){ const idea=state.ideas.find(i=>i.id===id); if(!idea) return; const text=`${idea.title}\n\n${idea.description||''}\n\nIdeaScore: ${ideaScore(idea)}/100`; try{ if(navigator.share) await navigator.share({title:idea.title,text}); else { await navigator.clipboard.writeText(text); showToast('تم نسخ الفكرة للمشاركة'); } }catch(e){} };
+  const oldOpenFab=window.openFabMenu, oldCloseFab=window.closeFabMenu;
+  window.openFabMenu=function(){ state.fabMenuOpen=true; const m=$id('fab-menu'), b=$id('fab-backdrop'), f=$id('fab-btn'); if(m)m.classList.remove('hidden'); if(b)b.classList.add('show'); if(f){f.textContent='+';f.classList.add('open');} };
+  window.closeFabMenu=function(){ state.fabMenuOpen=false; const m=$id('fab-menu'), b=$id('fab-backdrop'), f=$id('fab-btn'); if(m)m.classList.add('hidden'); if(b)b.classList.remove('show'); if(f){f.textContent='+';f.classList.remove('open');} };
+  const fb=$id('fab-btn'); if(fb){ fb.onclick=function(e){ e.preventDefault(); state.fabMenuOpen?closeFabMenu():openFabMenu(); }; }
+  const oldRenderSheet=window.renderSheetSwatches;
+  window.renderSheetSwatches=function(){ if(oldRenderSheet) oldRenderSheet(); const ss=$id('sheet-swatches'), sl=$id('sheet-labels'), sheet=$id('theme-sheet'); if(!ss||!sl||!sheet) return; ss.classList.add('compact'); sl.classList.add('compact'); if(!$id('theme-more-btn')){ const btn=document.createElement('button'); btn.id='theme-more-btn'; btn.className='theme-more-btn'; btn.textContent='عرض كل الثيمات'; btn.onclick=function(){ ss.classList.toggle('compact'); sl.classList.toggle('compact'); btn.textContent=ss.classList.contains('compact')?'عرض كل الثيمات':'إخفاء الثيمات الإضافية'; }; sheet.appendChild(btn); } };
+  setTimeout(()=>{ try{renderList();renderSheetSwatches();}catch(e){} },0);
+})();
+
+</script>
+<style>body{overflow-y:auto!important}.splash{min-height:100vh;padding-bottom:120px!important}</style><style>html[lang="fa"] body, html[lang="fa"] input, html[lang="fa"] textarea, html[lang="fa"] button, html[lang="fa"] select{font-family:"IBM Plex Sans Arabic","Tahoma",sans-serif!important}</style></body>
+</html>

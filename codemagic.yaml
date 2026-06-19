@@ -1,0 +1,62 @@
+workflows:
+  ios-workflow:
+    name: IdeaSpark iOS Workflow
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    integrations:
+      app_store_connect: codemagic
+    environment:
+      vars:
+        BUNDLE_ID: "com.ideaspark.app"
+        XCODE_WORKSPACE: "App.xcworkspace"
+        XCODE_SCHEME: "App"
+      node: 20.11.0
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+    scripts:
+      - name: Install npm dependencies
+        script: |
+          npm install
+      - name: Add iOS platform (only if not already present)
+        script: |
+          test -d ios || npx cap add ios
+      - name: Sync web assets to native project
+        script: |
+          npx cap sync ios
+      - name: Cocoapods installation
+        script: |
+          cd ios/App && pod install
+      - name: Set up keychain to be used for code signing
+        script: |
+          keychain initialize
+      - name: Fetch signing files (creates profile automatically if missing)
+        script: |
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --create
+      - name: Add certificates to keychain
+        script: |
+          keychain add-certificates
+      - name: Set up code signing settings on Xcode project
+        script: |
+          cd ios/App && xcode-project use-profiles
+      - name: Build ipa for distribution
+        script: |
+          xcode-project build-ipa \
+            --workspace "ios/App/$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: false
