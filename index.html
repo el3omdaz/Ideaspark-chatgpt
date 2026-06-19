@@ -631,6 +631,22 @@ html[lang="en"] .detail-summary-text:empty:before{content:attr(data-en-placehold
 .sheet-swatches.compact .swatch:nth-child(n+7),.sheet-labels.compact .swatch-label:nth-child(n+7){display:none}.theme-more-btn{margin:12px 16px 4px;width:calc(100% - 32px);border:1px solid var(--border2);border-radius:14px;background:var(--s2);color:var(--text);font-family:inherit;font-weight:800;padding:11px;cursor:pointer}
 @keyframes uxCardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
+
+
+/* ═══ FINAL WEB APP INTRO: Splash + One-time Onboarding ═══ */
+.splash{background:#050719 url('splash-screen.png') center/cover no-repeat!important;color:white!important;z-index:9999!important;padding:0!important;display:flex!important;align-items:stretch!important;justify-content:center!important;min-height:100dvh!important;overflow:hidden!important}
+.splash.hide{opacity:0!important;transform:scale(1.02)!important;transition:.45s ease!important;pointer-events:none!important}
+.splash .splash-top,.splash .splash-icon-wrap,.splash .splash-tagline,.splash .splash-lang-box,.splash .splash-creator,.splash .splash-ver,.splash label{display:none!important}
+.splash-brand-glass{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,4,18,.05),rgba(3,4,18,.18) 55%,rgba(3,4,18,.58));pointer-events:none}
+.splash-actions-final{position:absolute;left:14px;right:14px;bottom:34px;display:flex;flex-direction:column;gap:14px;align-items:center;z-index:2}
+.splash-final-btn{width:min(340px,100%);height:58px;border:0;border-radius:17px;background:linear-gradient(100deg,#a72cff,#29c7ff);color:white;font-family:inherit;font-size:17px;font-weight:900;box-shadow:0 18px 42px rgba(83,91,255,.38);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px}
+.splash-final-note{font-size:13px;color:rgba(255,255,255,.78);font-weight:700;text-shadow:0 0 18px rgba(255,255,255,.25)}
+.onboarding{position:fixed;inset:0;z-index:9998;background:#f8f9ff;color:#101225;display:none;flex-direction:column;min-height:100dvh;overflow:hidden;font-family:inherit}
+.onboarding.show{display:flex}
+.onb-skip{position:absolute;top:calc(env(safe-area-inset-top) + 18px);left:20px;z-index:3;border:0;background:transparent;color:#6d46ff;font-weight:900;font-family:inherit;font-size:14px;cursor:pointer}.onb-back{position:absolute;top:calc(env(safe-area-inset-top) + 18px);right:20px;z-index:3;border:0;background:transparent;color:#a9acc8;font-size:24px;cursor:pointer}
+.onb-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:82px 24px 26px;text-align:center}.onb-slide{display:none;max-width:420px;width:100%;animation:onbIn .28s ease both}.onb-slide.active{display:block}.onb-illustration{width:min(255px,78vw);height:min(255px,78vw);margin:0 auto 28px;border-radius:36px;display:grid;place-items:center;background:radial-gradient(circle at 45% 38%,rgba(151,128,255,.28),transparent 50%),linear-gradient(180deg,#f1f0ff,#ffffff);box-shadow:0 24px 70px rgba(102,82,255,.15);position:relative;overflow:hidden}.onb-illustration::after{content:'';position:absolute;inset:24px;border-radius:30px;border:1px solid rgba(115,86,255,.12)}.onb-emoji{font-size:94px;filter:drop-shadow(0 18px 24px rgba(96,76,255,.25))}.onb-title{font-family:'Noto Kufi Arabic','IBM Plex Sans Arabic',sans-serif;font-size:25px;font-weight:900;margin-bottom:12px;color:#101225}.onb-text{font-size:15.5px;line-height:1.9;color:#4d526f;margin:0 auto;max-width:320px}.onb-footer{padding:0 24px calc(env(safe-area-inset-bottom) + 24px);display:flex;flex-direction:column;gap:18px;align-items:center}.onb-dots{display:flex;gap:8px;direction:ltr}.onb-dot{width:8px;height:8px;border-radius:999px;background:#d8dbec;transition:.2s}.onb-dot.active{width:24px;background:#6d46ff}.onb-next{width:min(340px,100%);height:56px;border:0;border-radius:16px;background:linear-gradient(100deg,#6e35ff,#2fc7ff);color:#fff;font-family:inherit;font-size:16px;font-weight:900;box-shadow:0 14px 34px rgba(86,96,255,.28);cursor:pointer}@keyframes onbIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+html[dir="ltr"] .onb-skip{right:20px;left:auto}html[dir="ltr"] .onb-back{left:20px;right:auto}
+
 </style>
 </head>
 <body>
@@ -638,25 +654,38 @@ html[lang="en"] .detail-summary-text:empty:before{content:attr(data-en-placehold
 
 <!-- Splash Screen -->
 <div class="splash" id="splash">
-  <div class="splash-top">
-    <div class="splash-icon-wrap">
-      <div class="splash-glow"></div>
-      <div class="splash-icon">💡</div>
-    </div>
-    <div class="splash-name">IdeaSpark</div>
-    <div class="splash-tagline" id="splash-tagline">Your idea deserves to become a real project<br><span style="font-size:13px;opacity:.78">فكرتك تستحق أن تصبح مشروعاً حقيقياً</span><br><b>Powered by AI</b><br><span style="font-size:13px;opacity:.78">مدعوم بالذكاء الاصطناعي</span></div>
-    <div class="splash-lang-box">
-      <div class="splash-lang-title" id="splash-lang-title">اختر لغة التطبيق · Choose app language</div>
-      <select id="splash-lang-select" class="splash-lang-select" onchange="setLang(this.value)"></select>
-    </div>
-    <div class="splash-creator">CREATED BY <b>M. ALQATTAN</b></div>
+  <div class="splash-brand-glass"></div>
+  <div class="splash-actions-final">
+    <button class="splash-final-btn" id="splash-start-btn" onclick="dismissSplash()"><span>ابدأ الآن</span><span>→</span></button>
+    <div class="splash-final-note">✨ مدعوم بالذكاء الاصطناعي</div>
   </div>
-  <label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-top:16px;">
-    <input type="checkbox" id="splash-skip-cb" style="width:18px;height:18px;accent-color:#7b6cf0;cursor:pointer">
-    <span id="splash-skip-text" style="font-size:15px;color:#fff;text-shadow:0 0 10px rgba(255,255,255,.5)">تخطي هذه الشاشة في المرة القادمة · Skip this screen next time</span>
-  </label>
-  <button class="splash-start" id="splash-start-btn" onclick="dismissSplash()">ابدأ الآن · Start now ←</button>
-  <div class="splash-ver">v3.1 · Powered by OpenRouter</div>
+</div>
+
+<!-- One-time Onboarding -->
+<div class="onboarding" id="onboarding" aria-hidden="true">
+  <button class="onb-skip" onclick="finishOnboarding()">تخطي</button>
+  <button class="onb-back" onclick="prevOnboarding()">‹</button>
+  <div class="onb-stage">
+    <section class="onb-slide active" data-onb="0">
+      <div class="onb-illustration"><div class="onb-emoji">💡</div></div>
+      <h2 class="onb-title">خزّن أفكارك</h2>
+      <p class="onb-text">سجّل أفكارك بسرعة قبل أن تنساها، ونظّمها في مكان واحد واضح وسهل.</p>
+    </section>
+    <section class="onb-slide" data-onb="1">
+      <div class="onb-illustration"><div class="onb-emoji">🚀</div></div>
+      <h2 class="onb-title">طوّر الفكرة</h2>
+      <p class="onb-text">حوّل أي فكرة إلى خطوات عملية، وحدد القوة والفرص قبل أن تبدأ التنفيذ.</p>
+    </section>
+    <section class="onb-slide" data-onb="2">
+      <div class="onb-illustration"><div class="onb-emoji">🤖</div></div>
+      <h2 class="onb-title">ذكاء اصطناعي</h2>
+      <p class="onb-text">احصل على اقتراحات وتحليلات تساعدك على تطوير مشاريعك بشكل أسرع.</p>
+    </section>
+  </div>
+  <div class="onb-footer">
+    <div class="onb-dots"><span class="onb-dot active"></span><span class="onb-dot"></span><span class="onb-dot"></span></div>
+    <button class="onb-next" id="onb-next" onclick="nextOnboarding()">التالي</button>
+  </div>
 </div>
 
 
@@ -3069,25 +3098,35 @@ startTranslateObserver();
 
 // splash — auto-skip or show
 (function(){
-  if(state.settings.skipSplash){
+  if(state.settings.skipSplash || localStorage.getItem('ideaspark_onboarding_done')==='1'){
     const s=$('splash');
     if(s) s.style.display='none';
+    const onb=$('onboarding');
+    if(onb) onb.classList.remove('show');
   }
 })();
 
 function dismissSplash() { try{
-  if(typeof renderLanguageSelect==='function') renderLanguageSelect();
-  if($('splash-lang-select')) setLang($('splash-lang-select').value);
-  const skipNext = $('splash-skip-cb')?.checked || false;
-  if(skipNext) {
-    state.settings.skipSplash = true;
-    persist(KEYS.settings, state.settings);
-    if($('skip-splash-toggle')) $('skip-splash-toggle').checked = true;
-  }
   const splash = $('splash');
-  splash.classList.add('hide');
-  setTimeout(() => { splash.style.display = 'none'; }, 520);
-  nav('list'); }catch(e){ const splash=document.getElementById('splash'); if(splash) splash.style.display='none'; } }
+  const firstRun = localStorage.getItem('ideaspark_onboarding_done') !== '1';
+  if(splash) splash.classList.add('hide');
+  setTimeout(() => {
+    if(splash) splash.style.display = 'none';
+    if(firstRun){ showOnboarding(); }
+    else { nav('list'); }
+  }, 450);
+} catch(e){ const splash=document.getElementById('splash'); if(splash) splash.style.display='none'; showOnboarding(); } }
+
+let onboardingIndex = 0;
+function renderOnboarding(){
+  document.querySelectorAll('.onb-slide').forEach((el,i)=>el.classList.toggle('active', i===onboardingIndex));
+  document.querySelectorAll('.onb-dot').forEach((el,i)=>el.classList.toggle('active', i===onboardingIndex));
+  const btn=$('onb-next'); if(btn) btn.textContent = onboardingIndex===2 ? 'ابدأ الآن' : 'التالي';
+}
+function showOnboarding(){ const onb=$('onboarding'); if(onb){ onb.classList.add('show'); onb.setAttribute('aria-hidden','false'); onboardingIndex=0; renderOnboarding(); } }
+function nextOnboarding(){ if(onboardingIndex<2){ onboardingIndex++; renderOnboarding(); } else finishOnboarding(); }
+function prevOnboarding(){ if(onboardingIndex>0){ onboardingIndex--; renderOnboarding(); } }
+function finishOnboarding(){ localStorage.setItem('ideaspark_onboarding_done','1'); state.settings.skipSplash=true; persist(KEYS.settings,state.settings); const onb=$('onboarding'); if(onb){ onb.classList.remove('show'); onb.setAttribute('aria-hidden','true'); } nav('list'); }
 
 
 const STATUS_MAP = {
