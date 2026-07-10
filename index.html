@@ -7651,5 +7651,173 @@ html.ideaspark-compose-toolbar-floating #screen-new.active .compose-body{
 }
 </style>
 
+
+
+<style id="ideaspark-custom-type-keyboard-visibility-v1">
+/* Keep the custom type editor inside the visible viewport while the mobile keyboard is open. */
+#screen-new #compose-type-menu.compose-type-menu--keyboard{
+  position:fixed!important;
+  top:var(--compose-type-menu-top,10px)!important;
+  left:var(--compose-type-menu-left,10px)!important;
+  right:auto!important;
+  bottom:auto!important;
+  inset-inline-start:auto!important;
+  inset-inline-end:auto!important;
+  width:var(--compose-type-menu-width,min(270px,calc(100vw - 20px)))!important;
+  max-height:var(--compose-type-menu-max-height,calc(100dvh - 20px))!important;
+  overflow:hidden!important;
+  display:flex!important;
+  flex-direction:column!important;
+  overscroll-behavior:contain!important;
+  transform:translateZ(0)!important;
+  z-index:1200!important;
+}
+#screen-new #compose-type-menu.compose-type-menu--keyboard #compose-type-options{
+  min-height:0!important;
+  max-height:var(--compose-type-options-max-height,180px)!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+  touch-action:pan-y!important;
+}
+#screen-new #compose-type-menu.compose-type-menu--keyboard #compose-custom-type-row{
+  display:grid!important;
+  flex:0 0 auto!important;
+  background:var(--s1)!important;
+}
+#screen-new #compose-type-menu.compose-type-menu--keyboard #compose-custom-type-input{
+  scroll-margin:12px!important;
+}
+</style>
+<script id="ideaspark-custom-type-keyboard-visibility-v1-js">
+(function(){
+  'use strict';
+  const menu=()=>document.getElementById('compose-type-menu');
+  const trigger=()=>document.getElementById('compose-type-trigger');
+  const row=()=>document.getElementById('compose-custom-type-row');
+  const input=()=>document.getElementById('compose-custom-type-input');
+  const options=()=>document.getElementById('compose-type-options');
+  let timers=[];
+
+  function clearTimers(){
+    timers.forEach(clearTimeout);
+    timers=[];
+  }
+  function menuIsOpen(){
+    const m=menu(),t=trigger();
+    return !!(m&&t&&!m.classList.contains('hidden')&&t.getAttribute('aria-expanded')==='true');
+  }
+  function customEditorVisible(){
+    const r=row();
+    return !!(r&&!r.classList.contains('hidden'));
+  }
+  function keyboardLikelyOpen(){
+    const vv=window.visualViewport;
+    if(!vv) return false;
+    const layoutHeight=Math.max(window.innerHeight||0,document.documentElement.clientHeight||0);
+    return layoutHeight-vv.height>100;
+  }
+  function resetMenuPosition(){
+    const m=menu();
+    if(!m) return;
+    m.classList.remove('compose-type-menu--keyboard');
+    ['--compose-type-menu-top','--compose-type-menu-left','--compose-type-menu-width','--compose-type-menu-max-height','--compose-type-options-max-height'].forEach(name=>m.style.removeProperty(name));
+  }
+  function clamp(value,min,max){
+    return Math.min(Math.max(value,min),Math.max(min,max));
+  }
+  function positionMenu(force){
+    const m=menu(),t=trigger(),r=row(),inp=input(),opts=options();
+    if(!m||!t||!r||!opts||!menuIsOpen()||!customEditorVisible()){
+      resetMenuPosition();
+      return;
+    }
+    const inputFocused=document.activeElement===inp;
+    if(!force&&!inputFocused&&!keyboardLikelyOpen()){
+      resetMenuPosition();
+      return;
+    }
+
+    const vv=window.visualViewport;
+    const viewportLeft=Math.round(vv?.offsetLeft||0);
+    const viewportTop=Math.round(vv?.offsetTop||0);
+    const viewportWidth=Math.max(240,Math.round(vv?.width||document.documentElement.clientWidth||window.innerWidth||320));
+    const viewportHeight=Math.max(220,Math.round(vv?.height||window.innerHeight||document.documentElement.clientHeight||480));
+    const viewportRight=viewportLeft+viewportWidth;
+    const viewportBottom=viewportTop+viewportHeight;
+    const margin=10;
+    const width=Math.max(220,Math.min(270,viewportWidth-(margin*2)));
+    const triggerRect=t.getBoundingClientRect();
+    let left=triggerRect.right-width;
+    left=clamp(left,viewportLeft+margin,viewportRight-width-margin);
+
+    m.style.setProperty('--compose-type-menu-left',`${Math.round(left)}px`);
+    m.style.setProperty('--compose-type-menu-width',`${Math.round(width)}px`);
+    m.style.setProperty('--compose-type-menu-max-height',`${Math.max(150,viewportHeight-(margin*2))}px`);
+    m.classList.add('compose-type-menu--keyboard');
+
+    requestAnimationFrame(()=>{
+      if(!menuIsOpen()||!customEditorVisible()) return;
+      const rowHeight=Math.ceil(r.getBoundingClientRect().height||54);
+      const availableHeight=Math.max(150,viewportHeight-(margin*2));
+      const optionsMax=Math.max(78,availableHeight-rowHeight-24);
+      m.style.setProperty('--compose-type-options-max-height',`${optionsMax}px`);
+
+      const naturalHeight=Math.min(Math.ceil(m.scrollHeight||availableHeight),availableHeight);
+      const belowTop=Math.round(triggerRect.bottom+7);
+      const highestTop=viewportBottom-margin-naturalHeight;
+      const top=clamp(Math.min(belowTop,highestTop),viewportTop+margin,highestTop);
+      m.style.setProperty('--compose-type-menu-top',`${Math.round(top)}px`);
+
+      requestAnimationFrame(()=>{
+        if(!menuIsOpen()) return;
+        const inputRect=inp?.getBoundingClientRect();
+        const visibleBottom=viewportBottom-margin;
+        if(inputRect&&inputRect.bottom>visibleBottom){
+          const currentTop=parseFloat(m.style.getPropertyValue('--compose-type-menu-top'))||top;
+          const shifted=Math.max(viewportTop+margin,currentTop-(inputRect.bottom-visibleBottom)-8);
+          m.style.setProperty('--compose-type-menu-top',`${Math.round(shifted)}px`);
+        }
+      });
+    });
+  }
+  function schedulePosition(force){
+    clearTimers();
+    [0,80,180,320,520].forEach(delay=>timers.push(setTimeout(()=>positionMenu(force),delay)));
+  }
+
+  document.addEventListener('focusin',event=>{
+    if(event.target?.id==='compose-custom-type-input') schedulePosition(true);
+  },true);
+  document.addEventListener('focusout',event=>{
+    if(event.target?.id==='compose-custom-type-input') timers.push(setTimeout(()=>positionMenu(false),0));
+  },true);
+  document.addEventListener('pointerdown',event=>{
+    if(event.target?.id==='compose-custom-type-input') schedulePosition(true);
+  },true);
+
+  const viewportHandler=()=>positionMenu(false);
+  window.visualViewport?.addEventListener('resize',viewportHandler,{passive:true});
+  window.visualViewport?.addEventListener('scroll',viewportHandler,{passive:true});
+  window.addEventListener('resize',viewportHandler,{passive:true});
+  window.addEventListener('orientationchange',()=>schedulePosition(false),{passive:true});
+
+  function observe(){
+    const m=menu(),t=trigger(),r=row();
+    if(!m||!t||!r) return;
+    const observer=new MutationObserver(()=>{
+      if(menuIsOpen()&&customEditorVisible()) schedulePosition(document.activeElement===input());
+      else resetMenuPosition();
+    });
+    observer.observe(m,{attributes:true,attributeFilter:['class']});
+    observer.observe(t,{attributes:true,attributeFilter:['aria-expanded']});
+    observer.observe(r,{attributes:true,attributeFilter:['class']});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',observe,{once:true});
+  else observe();
+})();
+</script>
+
 </body>
 </html>

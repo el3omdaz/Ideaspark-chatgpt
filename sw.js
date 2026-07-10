@@ -1,4 +1,4 @@
-const CACHE = "ideaspark-v158-inline-type-dropdown-fixed";
+const CACHE = "ideaspark-v159-custom-type-keyboard-visible";
 const ASSETS = [
   "./",
   "./index.html",
