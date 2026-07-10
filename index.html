@@ -874,56 +874,6 @@ html,body{background:#010115!important;min-height:100%;}
 </style>
   <link rel="preload" as="image" href="splash.png" fetchpriority="high">
 <script defer src="vendor/mammoth.browser.min.js"></script>
-
-<style id="ideaspark-title-inline-type-picker-v2">
-/* Idea type: compact dropdown on the same line as the title. */
-.compose-title-row{
-  display:flex;align-items:center;gap:10px;flex:0 0 auto;position:relative;z-index:26;min-width:0
-}
-.compose-title-row .compose-title{
-  flex:1 1 auto;min-width:0;width:auto;margin-bottom:4px
-}
-.compose-title-row .compose-type-picker{
-  position:relative;flex:0 0 auto;margin:0 0 4px;padding:0;border:0;border-radius:0;background:transparent;max-width:min(43%,190px)
-}
-.compose-type-trigger{
-  width:100%;min-width:92px;max-width:190px;height:38px;padding:0 10px;border:1px solid var(--border2);border-radius:999px;
-  background:var(--s2);color:var(--text2);font-family:inherit;font-size:11px;font-weight:850;cursor:pointer;
-  display:flex;align-items:center;justify-content:space-between;gap:7px;box-shadow:0 3px 12px rgba(0,0,0,.06)
-}
-.compose-type-trigger:active{transform:scale(.97)}
-.compose-type-trigger[aria-expanded="true"]{border-color:color-mix(in srgb,var(--accent) 68%,var(--border2));box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent)}
-.compose-type-current{max-width:none;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font-size:11px;font-weight:850}
-.compose-type-caret{flex:0 0 auto;color:var(--text3);font-size:16px;line-height:1;transition:transform .16s ease}
-.compose-type-trigger[aria-expanded="true"] .compose-type-caret{transform:rotate(180deg)}
-.compose-type-menu{
-  position:absolute;top:calc(100% + 8px);inset-inline-end:0;width:min(286px,82vw);padding:7px;z-index:180;
-  border:1px solid var(--border2);border-radius:16px;background:var(--s1);box-shadow:0 16px 38px rgba(0,0,0,.22)
-}
-.compose-type-menu.hidden{display:none!important}
-.compose-type-options{display:flex;flex-direction:column;align-items:stretch;gap:3px;overflow:visible;padding:0;touch-action:auto}
-.compose-type-chip{
-  width:100%;min-height:39px;padding:8px 10px;border:0;border-radius:10px;background:transparent;color:var(--text2);
-  justify-content:flex-start;font-size:12px;box-shadow:none;text-align:start
-}
-.compose-type-chip:hover,.compose-type-chip:focus-visible{background:var(--s2);outline:none}
-.compose-type-chip.active{color:var(--accent);background:color-mix(in srgb,var(--accent) 11%,var(--s2));border:0;box-shadow:none}
-.compose-type-check{margin-inline-start:auto;opacity:0;font-weight:900}
-.compose-type-chip.active .compose-type-check{opacity:1}
-.compose-custom-type-row{grid-template-columns:minmax(0,1fr) auto;gap:7px;margin:7px 2px 2px;padding-top:8px;border-top:1px solid var(--border)}
-.compose-custom-type-input{height:38px;font-size:12px}
-.compose-custom-type-save{height:38px}
-@media(max-width:390px){
-  .compose-title-row{gap:7px}
-  .compose-title-row .compose-type-picker{max-width:43%}
-  .compose-type-trigger{min-width:86px;padding-inline:9px}
-}
-@media(max-width:340px){
-  .compose-title-row{align-items:flex-start}
-  .compose-type-trigger{min-width:78px;max-width:120px}
-  .compose-type-current{font-size:10px}
-}
-</style>
 </head>
 <body>
 <div class="app">
@@ -1008,21 +958,17 @@ html,body{background:#010115!important;min-height:100%;}
           <div id="compose-related-list" class="compose-related-list"></div>
         </div>
         <div class="compose-body">
-          <div class="compose-title-row">
-            <input class="compose-title" id="compose-title" placeholder="بدون عنوان" data-ar-ph="بدون عنوان" data-en-ph="Untitled">
-            <div class="compose-type-picker" id="compose-type-picker">
-              <button class="compose-type-trigger" id="compose-type-trigger" type="button" onclick="toggleComposeTypeMenu(event)" aria-label="نوع الفكرة" aria-haspopup="listbox" aria-expanded="false">
-                <span class="compose-type-current" id="compose-type-current"></span>
-                <span class="compose-type-caret" aria-hidden="true">⌄</span>
-              </button>
-              <div class="compose-type-menu hidden" id="compose-type-menu" role="listbox" aria-label="نوع الفكرة">
-                <div class="compose-type-options" id="compose-type-options"></div>
-                <div class="compose-custom-type-row hidden" id="compose-custom-type-row">
-                  <input class="compose-custom-type-input" id="compose-custom-type-input" maxlength="40" list="compose-saved-types-list" placeholder="اكتب النوع المخصص" data-ar-ph="اكتب النوع المخصص" data-en-ph="Type a custom idea type" onkeydown="if(event.key==='Enter'){event.preventDefault();saveComposeCustomType()}">
-                  <button class="compose-custom-type-save" type="button" onclick="saveComposeCustomType()" data-ar="حفظ النوع" data-en="Save type">حفظ النوع</button>
-                  <datalist id="compose-saved-types-list"></datalist>
-                </div>
-              </div>
+          <input class="compose-title" id="compose-title" placeholder="بدون عنوان" data-ar-ph="بدون عنوان" data-en-ph="Untitled">
+          <div class="compose-type-picker" id="compose-type-picker" aria-label="نوع الفكرة">
+            <div class="compose-type-head">
+              <span class="compose-type-title" data-ar="نوع الفكرة" data-en="Idea type">نوع الفكرة</span>
+              <span class="compose-type-current" id="compose-type-current"></span>
+            </div>
+            <div class="compose-type-options" id="compose-type-options"></div>
+            <div class="compose-custom-type-row hidden" id="compose-custom-type-row">
+              <input class="compose-custom-type-input" id="compose-custom-type-input" maxlength="40" list="compose-saved-types-list" placeholder="اكتب النوع المخصص" data-ar-ph="اكتب النوع المخصص" data-en-ph="Type a custom idea type" onkeydown="if(event.key==='Enter'){event.preventDefault();saveComposeCustomType()}">
+              <button class="compose-custom-type-save" type="button" onclick="saveComposeCustomType()" data-ar="حفظ النوع" data-en="Save type">حفظ النوع</button>
+              <datalist id="compose-saved-types-list"></datalist>
             </div>
           </div>
           <div class="compose-text" id="compose-text" contenteditable="true" data-ph="ابدأ بكتابة فكرتك..."></div>
@@ -5426,19 +5372,7 @@ html,body{background:var(--bg)!important}
     persist(KEYS.types,state.customTypes);
     return clean;
   }
-  function setComposeTypeMenu(open){
-    const menu=$('compose-type-menu'), trigger=$('compose-type-trigger');
-    if(!menu||!trigger) return;
-    menu.classList.toggle('hidden',!open);
-    trigger.setAttribute('aria-expanded',open?'true':'false');
-  }
-  window.toggleComposeTypeMenu=function(event){
-    event?.stopPropagation?.();
-    const menu=$('compose-type-menu');
-    setComposeTypeMenu(Boolean(menu?.classList.contains('hidden')));
-  };
   function renderComposeTypePicker(){
-    setComposeTypeMenu(false);
     const wrap=$('compose-type-picker'), options=$('compose-type-options'), current=$('compose-type-current');
     if(!wrap||!options||!current) return;
     const ar=isArabic();
@@ -5447,11 +5381,11 @@ html,body{background:var(--bg)!important}
     const visibleCustom=currentCustom && !saved.some(t=>t.toLocaleLowerCase()===currentCustom.toLocaleLowerCase())?[currentCustom,...saved]:saved;
     const built=[
       {value:'commercial',icon:'💼',label:ar?'تجارية':'Commercial'},
-      {value:'invention',icon:'💡',label:ar?'اختراع':'Invention'}
+      {value:'invention',icon:'💡',label:ar?'اختراع':'Invention'},
+      {value:'other',icon:'➕',label:ar?'أخرى':'Other'}
     ];
-    const other={value:'other',icon:'➕',label:ar?'أخرى':'Other'};
-    const all=[...built,...visibleCustom.map(value=>({value,icon:'🏷️',label:value})),other];
-    options.innerHTML=all.map(item=>`<button type="button" role="option" aria-selected="${formCat===item.value?'true':'false'}" class="compose-type-chip${formCat===item.value?' active':''}" data-type-value="${escHtml(item.value)}" onclick="selectComposeType(this.dataset.typeValue)"><span aria-hidden="true">${item.icon}</span><span>${escHtml(item.label)}</span><span class="compose-type-check" aria-hidden="true">✓</span></button>`).join('');
+    const all=[...built,...visibleCustom.map(value=>({value,icon:'🏷️',label:value}))];
+    options.innerHTML=all.map(item=>`<button type="button" class="compose-type-chip${formCat===item.value?' active':''}" data-type-value="${escHtml(item.value)}" onclick="selectComposeType(this.dataset.typeValue)"><span aria-hidden="true">${item.icon}</span><span>${escHtml(item.label)}</span></button>`).join('');
     const meta=ideaTypeMeta(formCat);
     current.textContent=`${meta.icon} ${meta.label}`;
     const list=$('compose-saved-types-list');
@@ -5471,12 +5405,7 @@ html,body{background:var(--bg)!important}
     renderComposeTypePicker();
     writeLegacyDraft();
     if(activeSession()&&hasActualContent()) scheduleAutosave(30);
-    if(formCat==='other'){
-      setComposeTypeMenu(true);
-      setTimeout(()=>$('compose-custom-type-input')?.focus(),80);
-    }else{
-      setComposeTypeMenu(false);
-    }
+    if(formCat==='other') setTimeout(()=>$('compose-custom-type-input')?.focus(),80);
   };
   window.saveComposeCustomType=function(){
     const input=$('compose-custom-type-input');
@@ -5489,18 +5418,11 @@ html,body{background:var(--bg)!important}
     formCat=registerCustomIdeaType(clean)||'other';
     if(input) input.value='';
     renderComposeTypePicker();
-    setComposeTypeMenu(false);
     writeLegacyDraft();
     if(activeSession()&&hasActualContent()) scheduleAutosave(20);
     try{ renderSettings(); }catch(_e){}
     showToast(isArabic()?'✓ تم حفظ النوع للمرات القادمة':'✓ Type saved for future ideas');
   };
-  document.addEventListener('click',event=>{
-    if(!event.target?.closest?.('#compose-type-picker')) setComposeTypeMenu(false);
-  });
-  document.addEventListener('keydown',event=>{
-    if(event.key==='Escape') setComposeTypeMenu(false);
-  });
 
   function editorPayload(){
     const editor=$('compose-text');
