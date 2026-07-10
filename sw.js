@@ -1,4 +1,4 @@
-const CACHE = "ideaspark-v154-standard-batch-ui";
+const CACHE = "ideaspark-v155-type-order-other-last";
 const ASSETS = [
   "./",
   "./index.html",

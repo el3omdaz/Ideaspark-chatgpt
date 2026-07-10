@@ -5447,10 +5447,10 @@ html,body{background:var(--bg)!important}
     const visibleCustom=currentCustom && !saved.some(t=>t.toLocaleLowerCase()===currentCustom.toLocaleLowerCase())?[currentCustom,...saved]:saved;
     const built=[
       {value:'commercial',icon:'💼',label:ar?'تجارية':'Commercial'},
-      {value:'invention',icon:'💡',label:ar?'اختراع':'Invention'},
-      {value:'other',icon:'➕',label:ar?'أخرى':'Other'}
+      {value:'invention',icon:'💡',label:ar?'اختراع':'Invention'}
     ];
-    const all=[...built,...visibleCustom.map(value=>({value,icon:'🏷️',label:value}))];
+    const other={value:'other',icon:'➕',label:ar?'أخرى':'Other'};
+    const all=[...built,...visibleCustom.map(value=>({value,icon:'🏷️',label:value})),other];
     options.innerHTML=all.map(item=>`<button type="button" role="option" aria-selected="${formCat===item.value?'true':'false'}" class="compose-type-chip${formCat===item.value?' active':''}" data-type-value="${escHtml(item.value)}" onclick="selectComposeType(this.dataset.typeValue)"><span aria-hidden="true">${item.icon}</span><span>${escHtml(item.label)}</span><span class="compose-type-check" aria-hidden="true">✓</span></button>`).join('');
     const meta=ideaTypeMeta(formCat);
     current.textContent=`${meta.icon} ${meta.label}`;
