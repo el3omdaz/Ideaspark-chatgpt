@@ -1,20 +1,12 @@
 {
-  "name": "ideaspark",
+  "name": "ideaspark-webapp-open-full",
   "version": "1.0.0",
-  "description": "IdeaSpark — Your Smart Idea Notebook with AI",
   "private": true,
+  "description": "IdeaSpark full open web app / PWA",
   "scripts": {
-    "sync": "npx cap sync",
-    "ios": "npx cap open ios",
-    "android": "npx cap open android"
-  },
-  "dependencies": {
-    "@capacitor/core": "^6.1.2",
-    "@capacitor/ios": "^6.1.2",
-    "@capacitor/android": "^6.1.2",
-    "@revenuecat/purchases-capacitor": "^9.0.0"
+    "start": "npx http-server . -p 8080 -c-1"
   },
   "devDependencies": {
-    "@capacitor/cli": "^6.1.2"
+    "http-server": "^14.1.1"
   }
 }

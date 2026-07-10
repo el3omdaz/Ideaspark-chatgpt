@@ -1,5 +1,14 @@
-const CACHE = "ideaspark-v2";
-const ASSETS = ["/", "/index.html", "/manifest.json"];
+const CACHE = "ideaspark-v154-standard-batch-ui";
+const ASSETS = [
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./splash.png",
+  "./splash-new.png",
+  "./vendor/mammoth.browser.min.js",
+  "./vendor/pdf.min.mjs",
+  "./vendor/pdf.worker.min.mjs"
+];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
@@ -14,8 +23,7 @@ self.addEventListener("activate", e => {
 });
 
 self.addEventListener("fetch", e => {
-  if (e.request.url.includes("anthropic.com")) return;
-  // Network first for HTML — always get fresh version
+  if (e.request.url.includes("anthropic.com") || e.request.url.includes("openrouter.ai")) return;
   if (e.request.url.endsWith(".html") || e.request.url.endsWith("/")) {
     e.respondWith(
       fetch(e.request).then(res => {
@@ -26,7 +34,6 @@ self.addEventListener("fetch", e => {
     );
     return;
   }
-  // Cache first for other assets
   e.respondWith(
     caches.match(e.request).then(r => r || fetch(e.request).then(res => {
       const clone = res.clone();
