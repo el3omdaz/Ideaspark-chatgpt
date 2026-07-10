@@ -1,4 +1,4 @@
-const CACHE = "ideaspark-v159-custom-type-keyboard-visible";
+const CACHE = "ideaspark-v160-global-caret-visible-safe";
 const ASSETS = [
   "./",
   "./index.html",

@@ -7651,171 +7651,157 @@ html.ideaspark-compose-toolbar-floating #screen-new.active .compose-body{
 }
 </style>
 
-
-
-<style id="ideaspark-custom-type-keyboard-visibility-v1">
-/* Keep the custom type editor inside the visible viewport while the mobile keyboard is open. */
-#screen-new #compose-type-menu.compose-type-menu--keyboard{
-  position:fixed!important;
-  top:var(--compose-type-menu-top,10px)!important;
-  left:var(--compose-type-menu-left,10px)!important;
-  right:auto!important;
-  bottom:auto!important;
-  inset-inline-start:auto!important;
-  inset-inline-end:auto!important;
-  width:var(--compose-type-menu-width,min(270px,calc(100vw - 20px)))!important;
-  max-height:var(--compose-type-menu-max-height,calc(100dvh - 20px))!important;
-  overflow:hidden!important;
-  display:flex!important;
-  flex-direction:column!important;
-  overscroll-behavior:contain!important;
-  transform:translateZ(0)!important;
-  z-index:1200!important;
+<style id="ideaspark-global-writing-caret-visibility-v1">
+/* Give the focused writing control enough scroll room above the mobile keyboard. */
+:root{--ideaspark-focus-keyboard-space:0px}
+#screen-new.active .compose-body{
+  padding-bottom:calc(var(--ideaspark-compose-footer-height,76px) + var(--ideaspark-focus-keyboard-space,0px) + 42px)!important;
+  scroll-padding-bottom:calc(var(--ideaspark-compose-footer-height,76px) + var(--ideaspark-focus-keyboard-space,0px) + 58px)!important
 }
-#screen-new #compose-type-menu.compose-type-menu--keyboard #compose-type-options{
-  min-height:0!important;
-  max-height:var(--compose-type-options-max-height,180px)!important;
-  overflow-y:auto!important;
-  overflow-x:hidden!important;
-  overscroll-behavior:contain!important;
-  -webkit-overflow-scrolling:touch!important;
-  touch-action:pan-y!important;
-}
-#screen-new #compose-type-menu.compose-type-menu--keyboard #compose-custom-type-row{
-  display:grid!important;
-  flex:0 0 auto!important;
-  background:var(--s1)!important;
-}
-#screen-new #compose-type-menu.compose-type-menu--keyboard #compose-custom-type-input{
-  scroll-margin:12px!important;
-}
+input,textarea,[contenteditable="true"]{scroll-margin-top:18px;scroll-margin-bottom:26px}
 </style>
-<script id="ideaspark-custom-type-keyboard-visibility-v1-js">
+<script id="ideaspark-global-writing-caret-visibility-v1-js">
 (function(){
   'use strict';
-  const menu=()=>document.getElementById('compose-type-menu');
-  const trigger=()=>document.getElementById('compose-type-trigger');
-  const row=()=>document.getElementById('compose-custom-type-row');
-  const input=()=>document.getElementById('compose-custom-type-input');
-  const options=()=>document.getElementById('compose-type-options');
-  let timers=[];
+  const root=document.documentElement;
+  let timer=0;
 
-  function clearTimers(){
-    timers.forEach(clearTimeout);
-    timers=[];
+  function isWritingControl(el){
+    if(!el || el.nodeType!==1) return false;
+    if(el.isContentEditable) return true;
+    if(el.tagName==='TEXTAREA') return !el.disabled && !el.readOnly;
+    if(el.tagName!=='INPUT' || el.disabled || el.readOnly) return false;
+    const type=String(el.type||'text').toLowerCase();
+    return !['button','submit','reset','checkbox','radio','range','color','file','image','hidden'].includes(type);
   }
-  function menuIsOpen(){
-    const m=menu(),t=trigger();
-    return !!(m&&t&&!m.classList.contains('hidden')&&t.getAttribute('aria-expanded')==='true');
+  function activeWritingControl(){
+    const el=document.activeElement;
+    return isWritingControl(el)?el:null;
   }
-  function customEditorVisible(){
-    const r=row();
-    return !!(r&&!r.classList.contains('hidden'));
-  }
-  function keyboardLikelyOpen(){
+  function visualBounds(){
     const vv=window.visualViewport;
-    if(!vv) return false;
-    const layoutHeight=Math.max(window.innerHeight||0,document.documentElement.clientHeight||0);
-    return layoutHeight-vv.height>100;
+    const top=vv?vv.offsetTop:0;
+    const left=vv?vv.offsetLeft:0;
+    const width=vv?vv.width:window.innerWidth;
+    const height=vv?vv.height:window.innerHeight;
+    return {top,left,right:left+width,bottom:top+height,height};
   }
-  function resetMenuPosition(){
-    const m=menu();
-    if(!m) return;
-    m.classList.remove('compose-type-menu--keyboard');
-    ['--compose-type-menu-top','--compose-type-menu-left','--compose-type-menu-width','--compose-type-menu-max-height','--compose-type-options-max-height'].forEach(name=>m.style.removeProperty(name));
-  }
-  function clamp(value,min,max){
-    return Math.min(Math.max(value,min),Math.max(min,max));
-  }
-  function positionMenu(force){
-    const m=menu(),t=trigger(),r=row(),inp=input(),opts=options();
-    if(!m||!t||!r||!opts||!menuIsOpen()||!customEditorVisible()){
-      resetMenuPosition();
-      return;
-    }
-    const inputFocused=document.activeElement===inp;
-    if(!force&&!inputFocused&&!keyboardLikelyOpen()){
-      resetMenuPosition();
-      return;
-    }
-
+  function keyboardOverlap(){
     const vv=window.visualViewport;
-    const viewportLeft=Math.round(vv?.offsetLeft||0);
-    const viewportTop=Math.round(vv?.offsetTop||0);
-    const viewportWidth=Math.max(240,Math.round(vv?.width||document.documentElement.clientWidth||window.innerWidth||320));
-    const viewportHeight=Math.max(220,Math.round(vv?.height||window.innerHeight||document.documentElement.clientHeight||480));
-    const viewportRight=viewportLeft+viewportWidth;
-    const viewportBottom=viewportTop+viewportHeight;
-    const margin=10;
-    const width=Math.max(220,Math.min(270,viewportWidth-(margin*2)));
-    const triggerRect=t.getBoundingClientRect();
-    let left=triggerRect.right-width;
-    left=clamp(left,viewportLeft+margin,viewportRight-width-margin);
-
-    m.style.setProperty('--compose-type-menu-left',`${Math.round(left)}px`);
-    m.style.setProperty('--compose-type-menu-width',`${Math.round(width)}px`);
-    m.style.setProperty('--compose-type-menu-max-height',`${Math.max(150,viewportHeight-(margin*2))}px`);
-    m.classList.add('compose-type-menu--keyboard');
-
-    requestAnimationFrame(()=>{
-      if(!menuIsOpen()||!customEditorVisible()) return;
-      const rowHeight=Math.ceil(r.getBoundingClientRect().height||54);
-      const availableHeight=Math.max(150,viewportHeight-(margin*2));
-      const optionsMax=Math.max(78,availableHeight-rowHeight-24);
-      m.style.setProperty('--compose-type-options-max-height',`${optionsMax}px`);
-
-      const naturalHeight=Math.min(Math.ceil(m.scrollHeight||availableHeight),availableHeight);
-      const belowTop=Math.round(triggerRect.bottom+7);
-      const highestTop=viewportBottom-margin-naturalHeight;
-      const top=clamp(Math.min(belowTop,highestTop),viewportTop+margin,highestTop);
-      m.style.setProperty('--compose-type-menu-top',`${Math.round(top)}px`);
-
-      requestAnimationFrame(()=>{
-        if(!menuIsOpen()) return;
-        const inputRect=inp?.getBoundingClientRect();
-        const visibleBottom=viewportBottom-margin;
-        if(inputRect&&inputRect.bottom>visibleBottom){
-          const currentTop=parseFloat(m.style.getPropertyValue('--compose-type-menu-top'))||top;
-          const shifted=Math.max(viewportTop+margin,currentTop-(inputRect.bottom-visibleBottom)-8);
-          m.style.setProperty('--compose-type-menu-top',`${Math.round(shifted)}px`);
+    if(!vv) return 0;
+    const layout=Math.max(window.innerHeight||0,document.documentElement.clientHeight||0);
+    const overlap=Math.max(0,layout-(vv.offsetTop||0)-vv.height);
+    return overlap>70?Math.round(overlap):0;
+  }
+  function caretRect(el){
+    if(!el) return null;
+    if(el.isContentEditable){
+      const sel=window.getSelection?.();
+      if(sel && sel.rangeCount && el.contains(sel.anchorNode)){
+        try{
+          const range=sel.getRangeAt(0).cloneRange();
+          range.collapse(false);
+          const rects=range.getClientRects();
+          if(rects && rects.length){
+            const rect=rects[rects.length-1];
+            if(rect && (rect.width||rect.height)) return rect;
+          }
+        }catch(_e){}
+      }
+    }
+    return el.getBoundingClientRect();
+  }
+  function isScrollable(el){
+    if(!el || el===document.body || el===document.documentElement) return false;
+    const style=getComputedStyle(el);
+    const oy=style.overflowY;
+    return /(auto|scroll|overlay)/.test(oy) && el.scrollHeight>el.clientHeight+2;
+  }
+  function scrollParents(el){
+    const result=[];
+    let node=el?.parentElement;
+    while(node && node!==document.body){
+      if(isScrollable(node)) result.push(node);
+      node=node.parentElement;
+    }
+    return result;
+  }
+  function coveredBottom(bounds,el){
+    let bottom=bounds.bottom-16;
+    const screen=el?.closest?.('.screen');
+    if(screen){
+      screen.querySelectorAll('.compose-footer,.bottom-nav,.modal-actions,.sheet-actions').forEach(node=>{
+        const style=getComputedStyle(node);
+        if(style.display==='none' || style.visibility==='hidden') return;
+        const r=node.getBoundingClientRect();
+        if(r.height>8 && r.top<bounds.bottom && r.bottom>bounds.top && r.top>bounds.top+80){
+          bottom=Math.min(bottom,r.top-12);
         }
       });
-    });
+    }
+    return bottom;
   }
-  function schedulePosition(force){
-    clearTimers();
-    [0,80,180,320,520].forEach(delay=>timers.push(setTimeout(()=>positionMenu(force),delay)));
+  function adjustNow(){
+    const el=activeWritingControl();
+    if(!isWritingControl(el) || !document.contains(el)){
+      root.style.setProperty('--ideaspark-focus-keyboard-space','0px');
+      root.classList.remove('ideaspark-writing-focused');
+      return;
+    }
+    const overlap=keyboardOverlap();
+    root.style.setProperty('--ideaspark-focus-keyboard-space',`${overlap}px`);
+    root.classList.add('ideaspark-writing-focused');
+
+    const bounds=visualBounds();
+    let rect=caretRect(el);
+    if(!rect) return;
+    const safeTop=bounds.top+16;
+    const safeBottom=coveredBottom(bounds,el);
+    let delta=0;
+    if(rect.bottom>safeBottom) delta=rect.bottom-safeBottom+18;
+    else if(rect.top<safeTop) delta=rect.top-safeTop-18;
+    if(Math.abs(delta)<2) return;
+
+    const parents=scrollParents(el);
+    for(const parent of parents){
+      const before=parent.scrollTop;
+      parent.scrollTop+=delta;
+      if(Math.abs(parent.scrollTop-before)>1){
+        rect=caretRect(el)||rect;
+        const remaining=rect.bottom>safeBottom?rect.bottom-safeBottom+12:(rect.top<safeTop?rect.top-safeTop-12:0);
+        if(Math.abs(remaining)<2) return;
+        delta=remaining;
+      }
+    }
+    try{el.scrollIntoView({block:'center',inline:'nearest',behavior:'auto'});}catch(_e){}
+  }
+  function schedule(delay=45){
+    clearTimeout(timer);
+    timer=setTimeout(()=>requestAnimationFrame(adjustNow),delay);
+  }
+  function scheduleBurst(){
+    schedule(20);
+    setTimeout(adjustNow,120);
+    setTimeout(adjustNow,300);
   }
 
   document.addEventListener('focusin',event=>{
-    if(event.target?.id==='compose-custom-type-input') schedulePosition(true);
+    if(isWritingControl(event.target)) scheduleBurst();
   },true);
   document.addEventListener('focusout',event=>{
-    if(event.target?.id==='compose-custom-type-input') timers.push(setTimeout(()=>positionMenu(false),0));
+    if(isWritingControl(event.target)){
+      setTimeout(()=>{
+        if(!activeWritingControl()){root.style.setProperty('--ideaspark-focus-keyboard-space','0px');root.classList.remove('ideaspark-writing-focused');}
+      },180);
+    }
   },true);
-  document.addEventListener('pointerdown',event=>{
-    if(event.target?.id==='compose-custom-type-input') schedulePosition(true);
-  },true);
-
-  const viewportHandler=()=>positionMenu(false);
-  window.visualViewport?.addEventListener('resize',viewportHandler,{passive:true});
-  window.visualViewport?.addEventListener('scroll',viewportHandler,{passive:true});
-  window.addEventListener('resize',viewportHandler,{passive:true});
-  window.addEventListener('orientationchange',()=>schedulePosition(false),{passive:true});
-
-  function observe(){
-    const m=menu(),t=trigger(),r=row();
-    if(!m||!t||!r) return;
-    const observer=new MutationObserver(()=>{
-      if(menuIsOpen()&&customEditorVisible()) schedulePosition(document.activeElement===input());
-      else resetMenuPosition();
-    });
-    observer.observe(m,{attributes:true,attributeFilter:['class']});
-    observer.observe(t,{attributes:true,attributeFilter:['aria-expanded']});
-    observer.observe(r,{attributes:true,attributeFilter:['class']});
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',observe,{once:true});
-  else observe();
+  document.addEventListener('input',event=>{if(isWritingControl(event.target))schedule(25);},true);
+  document.addEventListener('keyup',event=>{if(isWritingControl(event.target))schedule(20);},true);
+  document.addEventListener('pointerup',event=>{if(isWritingControl(event.target))schedule(80);},true);
+  document.addEventListener('selectionchange',()=>{if(activeWritingControl())schedule(35);});
+  window.visualViewport?.addEventListener('resize',()=>scheduleBurst(),{passive:true});
+  window.addEventListener('resize',()=>schedule(80),{passive:true});
+  window.addEventListener('orientationchange',()=>scheduleBurst(),{passive:true});
 })();
 </script>
 
