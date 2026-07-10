@@ -7805,5 +7805,170 @@ input,textarea,[contenteditable="true"]{scroll-margin-top:18px;scroll-margin-bot
 })();
 </script>
 
+
+
+<!-- IdeaSpark targeted fix: keep the custom "Other" type row above the mobile keyboard. -->
+<style id="ideaspark-custom-type-keyboard-scroll-fix-v2">
+:root{--ideaspark-custom-type-flow-space:0px}
+#screen-new .compose-custom-type-flow-spacer{
+  display:block!important;flex:0 0 0;height:0;min-height:0;width:100%;pointer-events:none;overflow:hidden
+}
+#screen-new.active .compose-body.ideaspark-custom-type-editing .compose-custom-type-flow-spacer{
+  flex-basis:var(--ideaspark-custom-type-flow-space,240px)!important;
+  height:var(--ideaspark-custom-type-flow-space,240px)!important;
+  min-height:var(--ideaspark-custom-type-flow-space,240px)!important
+}
+#screen-new.active .compose-body.ideaspark-custom-type-editing{
+  scroll-padding-bottom:calc(var(--ideaspark-compose-footer-height,76px) + 34px)!important;
+  overscroll-behavior-y:contain!important
+}
+</style>
+<script id="ideaspark-custom-type-keyboard-scroll-fix-v2-js">
+(function(){
+  'use strict';
+  const root=document.documentElement;
+  let timer=0;
+  let baselineHeight=Math.max(window.innerHeight||0,window.visualViewport?.height||0,document.documentElement.clientHeight||0);
+
+  function getParts(){
+    const input=document.getElementById('compose-custom-type-input');
+    const row=document.getElementById('compose-custom-type-row');
+    const menu=document.getElementById('compose-type-menu');
+    const titleRow=document.querySelector('#screen-new .compose-title-row');
+    const body=document.querySelector('#screen-new .compose-body');
+    return {input,row,menu,titleRow,body};
+  }
+  function ensureSpacer(titleRow){
+    if(!titleRow) return null;
+    let spacer=document.getElementById('compose-custom-type-flow-spacer');
+    if(!spacer){
+      spacer=document.createElement('div');
+      spacer.id='compose-custom-type-flow-spacer';
+      spacer.className='compose-custom-type-flow-spacer';
+      spacer.setAttribute('aria-hidden','true');
+      titleRow.insertAdjacentElement('afterend',spacer);
+    }
+    return spacer;
+  }
+  function menuOpen(menu,row){
+    return !!(menu && row && !menu.classList.contains('hidden') && !row.classList.contains('hidden'));
+  }
+  function editingOther(){
+    const {input,row,menu}=getParts();
+    return !!(input && document.activeElement===input && menuOpen(menu,row));
+  }
+  function pxVar(name){
+    const n=parseFloat(getComputedStyle(root).getPropertyValue(name));
+    return Number.isFinite(n)?Math.max(0,n):0;
+  }
+  function visibleWindow(){
+    const vv=window.visualViewport;
+    const top=vv?.offsetTop||0;
+    let bottom=top+(vv?.height||window.innerHeight||document.documentElement.clientHeight||0);
+    const current=Math.max(window.innerHeight||0,vv?.height||0,document.documentElement.clientHeight||0);
+    if(!editingOther()) baselineHeight=Math.max(baselineHeight,current);
+    const cssKeyboard=Math.max(pxVar('--ideaspark-compose-toolbar-bottom'),pxVar('--ideaspark-keyboard-overlap'),pxVar('--ideaspark-focus-keyboard-space'));
+    const inferred=Math.max(0,baselineHeight-(vv?.height||window.innerHeight||0));
+    const overlay=Math.max(cssKeyboard,inferred>90?inferred:0);
+    if(overlay>70 && (!vv || Math.abs((vv.height||0)-(window.innerHeight||0))<8)){
+      bottom=Math.min(bottom,Math.max(top+160,baselineHeight-overlay));
+    }
+    return {top,bottom};
+  }
+  function safeBottom(body){
+    const visible=visibleWindow();
+    let bottom=visible.bottom-14;
+    const footer=document.querySelector('#screen-new.active .compose-footer');
+    if(footer){
+      const r=footer.getBoundingClientRect();
+      if(r.height>8 && r.top<bottom && r.bottom>visible.top+80 && r.top>visible.top+Math.max(120,(visible.bottom-visible.top)*0.42)) bottom=Math.min(bottom,r.top-12);
+    }
+    const bodyRect=body?.getBoundingClientRect();
+    if(bodyRect?.height) bottom=Math.min(bottom,bodyRect.bottom-10);
+    return Math.max(visible.top+110,bottom);
+  }
+  function updateFlowSpace(menu){
+    const h=Math.ceil(Math.max(menu?.scrollHeight||0,menu?.getBoundingClientRect().height||0));
+    const flow=Math.max(210,Math.min(420,h+42));
+    root.style.setProperty('--ideaspark-custom-type-flow-space',`${flow}px`);
+  }
+  function revealNow(){
+    const {input,row,menu,titleRow,body}=getParts();
+    if(!input||!row||!menu||!titleRow||!body||document.activeElement!==input||!menuOpen(menu,row)) return;
+    ensureSpacer(titleRow);
+    body.classList.add('ideaspark-custom-type-editing');
+    updateFlowSpace(menu);
+
+    const visible=visibleWindow();
+    const topLimit=Math.max(visible.top+12,body.getBoundingClientRect().top+8);
+    const bottomLimit=safeBottom(body);
+    const rowRect=row.getBoundingClientRect();
+    const menuRect=menu.getBoundingClientRect();
+    let delta=0;
+    if(rowRect.bottom>bottomLimit) delta=rowRect.bottom-bottomLimit+18;
+    else if(rowRect.top<topLimit) delta=rowRect.top-topLimit-14;
+    else if(menuRect.top<topLimit) delta=menuRect.top-topLimit-10;
+    if(Math.abs(delta)>1){
+      const max=Math.max(0,body.scrollHeight-body.clientHeight);
+      body.scrollTop=Math.max(0,Math.min(max,body.scrollTop+delta));
+    }
+  }
+  function schedule(delay=30){
+    clearTimeout(timer);
+    timer=setTimeout(()=>requestAnimationFrame(revealNow),delay);
+  }
+  function burst(){
+    schedule(0);
+    setTimeout(revealNow,90);
+    setTimeout(revealNow,220);
+    setTimeout(revealNow,420);
+  }
+  function cleanup(force=false){
+    const {input,row,menu,body}=getParts();
+    if(!body) return;
+    if(!force && input && document.activeElement===input && menuOpen(menu,row)) return;
+    body.classList.remove('ideaspark-custom-type-editing');
+    root.style.setProperty('--ideaspark-custom-type-flow-space','0px');
+  }
+
+  document.addEventListener('focusin',event=>{
+    if(event.target?.id==='compose-custom-type-input') burst();
+  },true);
+  document.addEventListener('input',event=>{
+    if(event.target?.id==='compose-custom-type-input') schedule(20);
+  },true);
+  document.addEventListener('keyup',event=>{
+    if(event.target?.id==='compose-custom-type-input') schedule(20);
+  },true);
+  document.addEventListener('pointerup',event=>{
+    if(event.target?.id==='compose-custom-type-input') schedule(60);
+  },true);
+  document.addEventListener('focusout',event=>{
+    if(event.target?.id==='compose-custom-type-input') setTimeout(()=>cleanup(false),320);
+  },true);
+  window.visualViewport?.addEventListener('resize',()=>{if(editingOther())burst();},{passive:true});
+  window.visualViewport?.addEventListener('scroll',()=>{if(editingOther())schedule(20);},{passive:true});
+  window.addEventListener('resize',()=>{
+    if(editingOther()) burst();
+    else baselineHeight=Math.max(baselineHeight,window.innerHeight||0,window.visualViewport?.height||0);
+  },{passive:true});
+  window.addEventListener('orientationchange',()=>{
+    setTimeout(()=>{baselineHeight=Math.max(window.innerHeight||0,window.visualViewport?.height||0,document.documentElement.clientHeight||0);if(editingOther())burst();},180);
+  },{passive:true});
+
+  const startObserver=()=>{
+    const {menu,titleRow}=getParts();
+    ensureSpacer(titleRow);
+    if(!menu||!window.MutationObserver) return;
+    new MutationObserver(()=>{
+      if(editingOther()) burst();
+      else if(menu.classList.contains('hidden')) setTimeout(()=>cleanup(true),60);
+    }).observe(menu,{attributes:true,attributeFilter:['class']});
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',startObserver,{once:true});
+  else startObserver();
+})();
+</script>
+
 </body>
 </html>
