@@ -1,4 +1,4 @@
-const CACHE = "ideaspark-v154-standard-batch-ui";
+const CACHE = "ideaspark-v158-inline-type-dropdown-fixed";
 const ASSETS = [
   "./",
   "./index.html",

@@ -874,6 +874,56 @@ html,body{background:#010115!important;min-height:100%;}
 </style>
   <link rel="preload" as="image" href="splash.png" fetchpriority="high">
 <script defer src="vendor/mammoth.browser.min.js"></script>
+
+<style id="ideaspark-title-inline-type-picker-v2">
+/* Idea type: compact dropdown on the same line as the title. */
+.compose-title-row{
+  display:flex;align-items:center;gap:10px;flex:0 0 auto;position:relative;z-index:26;min-width:0
+}
+.compose-title-row .compose-title{
+  flex:1 1 auto;min-width:0;width:auto;margin-bottom:4px
+}
+.compose-title-row .compose-type-picker{
+  position:relative;flex:0 0 auto;margin:0 0 4px;padding:0;border:0;border-radius:0;background:transparent;max-width:min(43%,190px)
+}
+.compose-type-trigger{
+  width:100%;min-width:92px;max-width:190px;height:38px;padding:0 10px;border:1px solid var(--border2);border-radius:999px;
+  background:var(--s2);color:var(--text2);font-family:inherit;font-size:11px;font-weight:850;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:7px;box-shadow:0 3px 12px rgba(0,0,0,.06)
+}
+.compose-type-trigger:active{transform:scale(.97)}
+.compose-type-trigger[aria-expanded="true"]{border-color:color-mix(in srgb,var(--accent) 68%,var(--border2));box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent)}
+.compose-type-current{max-width:none;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font-size:11px;font-weight:850}
+.compose-type-caret{flex:0 0 auto;color:var(--text3);font-size:16px;line-height:1;transition:transform .16s ease}
+.compose-type-trigger[aria-expanded="true"] .compose-type-caret{transform:rotate(180deg)}
+.compose-type-menu{
+  position:absolute;top:calc(100% + 8px);inset-inline-end:0;width:min(286px,82vw);padding:7px;z-index:180;
+  border:1px solid var(--border2);border-radius:16px;background:var(--s1);box-shadow:0 16px 38px rgba(0,0,0,.22)
+}
+.compose-type-menu.hidden{display:none!important}
+.compose-type-options{display:flex;flex-direction:column;align-items:stretch;gap:3px;overflow:visible;padding:0;touch-action:auto}
+.compose-type-chip{
+  width:100%;min-height:39px;padding:8px 10px;border:0;border-radius:10px;background:transparent;color:var(--text2);
+  justify-content:flex-start;font-size:12px;box-shadow:none;text-align:start
+}
+.compose-type-chip:hover,.compose-type-chip:focus-visible{background:var(--s2);outline:none}
+.compose-type-chip.active{color:var(--accent);background:color-mix(in srgb,var(--accent) 11%,var(--s2));border:0;box-shadow:none}
+.compose-type-check{margin-inline-start:auto;opacity:0;font-weight:900}
+.compose-type-chip.active .compose-type-check{opacity:1}
+.compose-custom-type-row{grid-template-columns:minmax(0,1fr) auto;gap:7px;margin:7px 2px 2px;padding-top:8px;border-top:1px solid var(--border)}
+.compose-custom-type-input{height:38px;font-size:12px}
+.compose-custom-type-save{height:38px}
+@media(max-width:390px){
+  .compose-title-row{gap:7px}
+  .compose-title-row .compose-type-picker{max-width:43%}
+  .compose-type-trigger{min-width:86px;padding-inline:9px}
+}
+@media(max-width:340px){
+  .compose-title-row{align-items:flex-start}
+  .compose-type-trigger{min-width:78px;max-width:120px}
+  .compose-type-current{font-size:10px}
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -958,17 +1008,21 @@ html,body{background:#010115!important;min-height:100%;}
           <div id="compose-related-list" class="compose-related-list"></div>
         </div>
         <div class="compose-body">
-          <input class="compose-title" id="compose-title" placeholder="بدون عنوان" data-ar-ph="بدون عنوان" data-en-ph="Untitled">
-          <div class="compose-type-picker" id="compose-type-picker" aria-label="نوع الفكرة">
-            <div class="compose-type-head">
-              <span class="compose-type-title" data-ar="نوع الفكرة" data-en="Idea type">نوع الفكرة</span>
-              <span class="compose-type-current" id="compose-type-current"></span>
-            </div>
-            <div class="compose-type-options" id="compose-type-options"></div>
-            <div class="compose-custom-type-row hidden" id="compose-custom-type-row">
-              <input class="compose-custom-type-input" id="compose-custom-type-input" maxlength="40" list="compose-saved-types-list" placeholder="اكتب النوع المخصص" data-ar-ph="اكتب النوع المخصص" data-en-ph="Type a custom idea type" onkeydown="if(event.key==='Enter'){event.preventDefault();saveComposeCustomType()}">
-              <button class="compose-custom-type-save" type="button" onclick="saveComposeCustomType()" data-ar="حفظ النوع" data-en="Save type">حفظ النوع</button>
-              <datalist id="compose-saved-types-list"></datalist>
+          <div class="compose-title-row">
+            <input class="compose-title" id="compose-title" placeholder="بدون عنوان" data-ar-ph="بدون عنوان" data-en-ph="Untitled">
+            <div class="compose-type-picker" id="compose-type-picker">
+              <button class="compose-type-trigger" id="compose-type-trigger" type="button" onclick="toggleComposeTypeMenu(event)" aria-label="نوع الفكرة" aria-haspopup="listbox" aria-expanded="false">
+                <span class="compose-type-current" id="compose-type-current"></span>
+                <span class="compose-type-caret" aria-hidden="true">⌄</span>
+              </button>
+              <div class="compose-type-menu hidden" id="compose-type-menu" role="listbox" aria-label="نوع الفكرة">
+                <div class="compose-type-options" id="compose-type-options"></div>
+                <div class="compose-custom-type-row hidden" id="compose-custom-type-row">
+                  <input class="compose-custom-type-input" id="compose-custom-type-input" maxlength="40" list="compose-saved-types-list" placeholder="اكتب النوع المخصص" data-ar-ph="اكتب النوع المخصص" data-en-ph="Type a custom idea type" onkeydown="if(event.key==='Enter'){event.preventDefault();saveComposeCustomType()}">
+                  <button class="compose-custom-type-save" type="button" onclick="saveComposeCustomType()" data-ar="حفظ النوع" data-en="Save type">حفظ النوع</button>
+                  <datalist id="compose-saved-types-list"></datalist>
+                </div>
+              </div>
             </div>
           </div>
           <div class="compose-text" id="compose-text" contenteditable="true" data-ph="ابدأ بكتابة فكرتك..."></div>
@@ -5093,22 +5147,6 @@ document.addEventListener('DOMContentLoaded', () => {
 .image-resize-handle[data-dir="se"]{right:-9px;bottom:-9px;cursor:nwse-resize}
 @media(max-width:359px){.home-hdr-btn span:last-child{display:none}.home-hdr-btn{width:36px;padding:0}.compose-savebar{gap:6px}.compose-cancel-btn{padding:9px 12px}.detail-home-btn,.detail-edit-btn{padding:0 13px}}
 
-/* Compact idea-type selector in the main composer */
-.compose-type-picker{margin:1px 0 13px;padding:10px;border:1px solid var(--border);border-radius:15px;background:color-mix(in srgb,var(--s2) 74%,transparent);flex:0 0 auto}
-.compose-type-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
-.compose-type-title{font-size:12px;font-weight:850;color:var(--text2)}
-.compose-type-current{min-width:0;max-width:60%;font-size:11px;font-weight:800;color:var(--accent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.compose-type-options{display:flex;align-items:center;gap:7px;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:none;padding:1px 1px 3px;touch-action:pan-x}
-.compose-type-options::-webkit-scrollbar{display:none}
-.compose-type-chip{flex:0 0 auto;min-height:34px;padding:7px 11px;border-radius:999px;border:1px solid var(--border2);background:var(--s1);color:var(--text2);font-family:inherit;font-size:11px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap}
-.compose-type-chip.active{color:var(--on-accent);background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 72%,var(--bg)));border-color:transparent;box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 28%,transparent)}
-.compose-type-chip:active{transform:scale(.97)}
-.compose-custom-type-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;margin-top:9px}
-.compose-custom-type-row.hidden{display:none!important}
-.compose-custom-type-input{min-width:0;height:39px;border:1px solid var(--border2);border-radius:11px;background:var(--s1);color:var(--text);font-family:inherit;font-size:13px;font-weight:650;outline:none;padding:0 11px}
-.compose-custom-type-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 15%,transparent)}
-.compose-custom-type-save{height:39px;padding:0 12px;border:none;border-radius:11px;background:var(--accent);color:var(--on-accent);font-family:inherit;font-size:11px;font-weight:850;cursor:pointer;white-space:nowrap}
-@media(max-width:359px){.compose-type-picker{padding:8px}.compose-type-chip{padding-inline:9px}.compose-custom-type-save{padding-inline:9px}}
 
 /* ===== iPhone editor layout + keyboard + bounded media patch v2 ===== */
 :root{
@@ -5372,7 +5410,29 @@ html,body{background:var(--bg)!important}
     persist(KEYS.types,state.customTypes);
     return clean;
   }
+  let composeCustomTypeEntryPending=false;
+  function setComposeTypeMenu(open,{force=false}={}){
+    const menu=$('compose-type-menu'), trigger=$('compose-type-trigger');
+    if(!menu||!trigger) return;
+    if(!open && composeCustomTypeEntryPending && !force){
+      menu.classList.remove('hidden');
+      trigger.setAttribute('aria-expanded','true');
+      return;
+    }
+    menu.classList.toggle('hidden',!open);
+    trigger.setAttribute('aria-expanded',open?'true':'false');
+  }
+  window.toggleComposeTypeMenu=function(event){
+    event?.stopPropagation?.();
+    const menu=$('compose-type-menu');
+    const shouldOpen=Boolean(menu?.classList.contains('hidden'));
+    setComposeTypeMenu(shouldOpen);
+    if(composeCustomTypeEntryPending && !shouldOpen){
+      setTimeout(()=>$('compose-custom-type-input')?.focus(),0);
+    }
+  };
   function renderComposeTypePicker(){
+    const wasOpen=$('compose-type-trigger')?.getAttribute('aria-expanded')==='true';
     const wrap=$('compose-type-picker'), options=$('compose-type-options'), current=$('compose-type-current');
     if(!wrap||!options||!current) return;
     const ar=isArabic();
@@ -5381,11 +5441,11 @@ html,body{background:var(--bg)!important}
     const visibleCustom=currentCustom && !saved.some(t=>t.toLocaleLowerCase()===currentCustom.toLocaleLowerCase())?[currentCustom,...saved]:saved;
     const built=[
       {value:'commercial',icon:'💼',label:ar?'تجارية':'Commercial'},
-      {value:'invention',icon:'💡',label:ar?'اختراع':'Invention'},
-      {value:'other',icon:'➕',label:ar?'أخرى':'Other'}
+      {value:'invention',icon:'💡',label:ar?'اختراع':'Invention'}
     ];
-    const all=[...built,...visibleCustom.map(value=>({value,icon:'🏷️',label:value}))];
-    options.innerHTML=all.map(item=>`<button type="button" class="compose-type-chip${formCat===item.value?' active':''}" data-type-value="${escHtml(item.value)}" onclick="selectComposeType(this.dataset.typeValue)"><span aria-hidden="true">${item.icon}</span><span>${escHtml(item.label)}</span></button>`).join('');
+    const other={value:'other',icon:'➕',label:ar?'أخرى':'Other'};
+    const all=[...built,...visibleCustom.map(value=>({value,icon:'🏷️',label:value})),other];
+    options.innerHTML=all.map(item=>`<button type="button" role="option" aria-selected="${formCat===item.value?'true':'false'}" class="compose-type-chip${formCat===item.value?' active':''}" data-type-value="${escHtml(item.value)}" onclick="selectComposeType(this.dataset.typeValue)"><span aria-hidden="true">${item.icon}</span><span>${escHtml(item.label)}</span><span class="compose-type-check" aria-hidden="true">✓</span></button>`).join('');
     const meta=ideaTypeMeta(formCat);
     current.textContent=`${meta.icon} ${meta.label}`;
     const list=$('compose-saved-types-list');
@@ -5397,15 +5457,23 @@ html,body{background:var(--bg)!important}
       input.placeholder=ar?'اكتب النوع المخصص':'Type a custom idea type';
       input.dir=ar?'rtl':'ltr';
     }
+    setComposeTypeMenu(composeCustomTypeEntryPending||wasOpen);
   }
   window.renderComposeTypePicker=renderComposeTypePicker;
   window.selectComposeType=function(value){
-    formCat=String(value||'commercial');
+    const selected=String(value||'commercial');
+    composeCustomTypeEntryPending=selected==='other';
+    formCat=selected;
     if(!isBuiltInIdeaType(formCat)) formCat=registerCustomIdeaType(formCat)||'other';
     renderComposeTypePicker();
     writeLegacyDraft();
     if(activeSession()&&hasActualContent()) scheduleAutosave(30);
-    if(formCat==='other') setTimeout(()=>$('compose-custom-type-input')?.focus(),80);
+    if(composeCustomTypeEntryPending){
+      setComposeTypeMenu(true);
+      setTimeout(()=>$('compose-custom-type-input')?.focus(),80);
+    }else{
+      setComposeTypeMenu(false,{force:true});
+    }
   };
   window.saveComposeCustomType=function(){
     const input=$('compose-custom-type-input');
@@ -5416,13 +5484,21 @@ html,body{background:var(--bg)!important}
       return;
     }
     formCat=registerCustomIdeaType(clean)||'other';
+    composeCustomTypeEntryPending=false;
     if(input) input.value='';
     renderComposeTypePicker();
+    setComposeTypeMenu(false,{force:true});
     writeLegacyDraft();
     if(activeSession()&&hasActualContent()) scheduleAutosave(20);
     try{ renderSettings(); }catch(_e){}
     showToast(isArabic()?'✓ تم حفظ النوع للمرات القادمة':'✓ Type saved for future ideas');
   };
+  document.addEventListener('click',event=>{
+    if(!event.target?.closest?.('#compose-type-picker')) setComposeTypeMenu(false);
+  });
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape') setComposeTypeMenu(false);
+  });
 
   function editorPayload(){
     const editor=$('compose-text');
@@ -5643,6 +5719,8 @@ html,body{background:var(--bg)!important}
   }
   function flushAutosave(){ return autosaveCompose(); }
   function resetComposerFields(){
+    composeCustomTypeEntryPending=false;
+    setComposeTypeMenu(false,{force:true});
     formCat='commercial';
     if($('compose-title')) $('compose-title').value='';
     if($('compose-text')) $('compose-text').innerHTML='';
@@ -5681,6 +5759,8 @@ html,body{background:var(--bg)!important}
   }
   function prepareComposer(mode,idea){
     clearTimeout(autosaveTimer); autosaveTimer=null;
+    composeCustomTypeEntryPending=false;
+    setComposeTypeMenu(false,{force:true});
     deselectImage();
     resetComposeAI();
     state.composeMode=mode;
@@ -7513,6 +7593,63 @@ html.ideaspark-compose-toolbar-floating #screen-new.active .compose-body{
   }
 })();
 </script>
+
+<style id="ideaspark-inline-type-picker-final-v3">
+/* Keep the idea type as a compact pill beside the title; the choices open only as a dropdown. */
+#screen-new .compose-title-row{
+  display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;
+  column-gap:8px!important;width:100%!important;min-width:0!important;position:relative!important;z-index:60!important
+}
+#screen-new .compose-title-row #compose-title{
+  grid-column:1!important;min-width:0!important;width:100%!important;margin:0!important
+}
+#screen-new .compose-title-row #compose-type-picker{
+  grid-column:2!important;position:relative!important;display:block!important;flex:none!important;
+  width:auto!important;min-width:0!important;max-width:140px!important;margin:0!important;padding:0!important;
+  border:0!important;border-radius:0!important;background:transparent!important;overflow:visible!important
+}
+#screen-new #compose-type-trigger{
+  display:inline-flex!important;align-items:center!important;justify-content:space-between!important;gap:6px!important;
+  width:auto!important;min-width:84px!important;max-width:140px!important;height:36px!important;padding:0 10px!important;
+  border:1px solid var(--border2)!important;border-radius:999px!important;background:var(--s2)!important;
+  color:var(--text2)!important;box-shadow:0 3px 12px rgba(0,0,0,.06)!important;white-space:nowrap!important
+}
+#screen-new #compose-type-current{
+  min-width:0!important;max-width:104px!important;overflow:hidden!important;text-overflow:ellipsis!important;
+  white-space:nowrap!important;font-size:11px!important;font-weight:850!important;color:var(--text)!important
+}
+#screen-new #compose-type-menu{
+  position:absolute!important;top:calc(100% + 7px)!important;inset-inline-end:0!important;inset-inline-start:auto!important;
+  width:min(270px,calc(100vw - 32px))!important;margin:0!important;padding:7px!important;z-index:500!important;
+  border:1px solid var(--border2)!important;border-radius:16px!important;background:var(--s1)!important;
+  box-shadow:0 16px 38px rgba(0,0,0,.24)!important;overflow:visible!important
+}
+#screen-new #compose-type-menu.hidden{display:none!important}
+#screen-new #compose-type-options{
+  display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important;
+  gap:3px!important;overflow:visible!important;padding:0!important;touch-action:auto!important
+}
+#screen-new #compose-type-options .compose-type-chip{
+  display:flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:flex-start!important;
+  width:100%!important;min-height:39px!important;padding:8px 10px!important;border:0!important;border-radius:10px!important;
+  background:transparent!important;color:var(--text2)!important;box-shadow:none!important;text-align:start!important;white-space:nowrap!important
+}
+#screen-new #compose-type-options .compose-type-chip.active{
+  color:var(--accent)!important;background:color-mix(in srgb,var(--accent) 11%,var(--s2))!important
+}
+#screen-new #compose-type-options .compose-type-check{margin-inline-start:auto!important}
+#screen-new #compose-custom-type-row{
+  grid-template-columns:minmax(0,1fr) auto!important;gap:7px!important;margin:7px 2px 2px!important;
+  padding-top:8px!important;border-top:1px solid var(--border)!important
+}
+#screen-new #compose-custom-type-row.hidden{display:none!important}
+@media(max-width:359px){
+  #screen-new .compose-title-row{column-gap:6px!important}
+  #screen-new .compose-title-row #compose-type-picker{max-width:118px!important}
+  #screen-new #compose-type-trigger{min-width:78px!important;max-width:118px!important;padding-inline:8px!important}
+  #screen-new #compose-type-current{max-width:84px!important;font-size:10px!important}
+}
+</style>
 
 </body>
 </html>
